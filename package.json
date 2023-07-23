@@ -1,0 +1,9 @@
+{
+  "name": "modsen-cinema",
+  "version": "1.0.0",
+  "author": "Denis-Zhukov <DenisZhukov.Hachiko@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "husky": "^8.0.3"
+  }
+}

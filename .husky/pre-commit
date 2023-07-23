@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+yarn --cwd ./frontend run lint:fix && yarn --cwd ./backend run lint
