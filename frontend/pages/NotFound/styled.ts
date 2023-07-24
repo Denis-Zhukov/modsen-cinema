@@ -1,6 +1,8 @@
-@import "shared/styles/variables";
+'use client';
 
-.notFound {
+import styled from 'styled-components';
+
+export const StyledNotFound = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -11,7 +13,7 @@
   h1 {
     font-size: 6rem;
     margin-bottom: 1rem;
-    color: $blue;
+    color: #1187db;
   }
 
   p {
@@ -19,4 +21,4 @@
     color: #555;
     text-align: center;
   }
-}
+`;
