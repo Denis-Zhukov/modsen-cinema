@@ -1,8 +1,6 @@
-'use client';
-
-import { useRouter } from 'next/navigation';
-import { Button } from 'shared/components/Button';
-import type { TVariantButton } from 'shared/components/Button/types';
+import Link from 'next/link';
+import { Button } from 'shared/ui/Button';
+import type { TVariantButton } from 'shared/ui/Button/types';
 
 export const NavButton = ({
     path,
@@ -12,12 +10,7 @@ export const NavButton = ({
     path: string,
     variant?: TVariantButton
     children: string
-}) => {
-    const router = useRouter();
-
-    const handleButtonClick = () => router.push(path);
-    return <Button onClick={handleButtonClick} variant={variant}>{children}</Button>;
-};
+}) => <Link href={path}><Button variant={variant}>{children}</Button></Link>;
 
 NavButton.defaultProps = {
     variant: 'primary',

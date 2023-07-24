@@ -1,4 +1,4 @@
-import { NavButton } from '@/features/NavButton';
+import { NavItem } from 'features/NavItem';
 
-const Home = () => <NavButton path="FUUC" variant="secondary">Fuck yeah</NavButton>;
+const Home = () => <NavItem path="fck">Hello</NavItem>;
 export default Home;
