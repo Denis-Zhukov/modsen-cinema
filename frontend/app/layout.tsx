@@ -1,10 +1,5 @@
-import React from 'react';
 import 'normalize.css';
 
-const RootLayout = ({ children }: { children: React.ReactNode }) => (
-    <html lang="en">
-        <body>{children}</body>
-    </html>
-);
+import { Layout } from 'widgets/layout';
 
-export default RootLayout;
+export default Layout;
