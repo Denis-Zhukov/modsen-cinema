@@ -1,11 +1,16 @@
+'use client';
+
+import { usePathname } from 'next/navigation';
+
 import { StyledNavItem } from './styled';
 
-export const NavItem = ({ path, active, children }: {
+export const NavItem = ({
+    path,
+    children,
+}: {
     path: string,
-    active?: boolean
     children: string,
-}) => <StyledNavItem href={path} active={active}>{children}</StyledNavItem>;
-
-NavItem.defaultProps = {
-    active: false,
+}) => {
+    const pathname = usePathname();
+    return <StyledNavItem href={path} active={pathname === path}>{children}</StyledNavItem>;
 };
