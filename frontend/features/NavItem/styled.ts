@@ -8,9 +8,9 @@ export const StyledNavItem = styled(Link)<{ active?: boolean }>`
   font-size: 24px;
   text-decoration: none;
   color: #FFFFFF;
+  border-bottom: 2px solid transparent;
 
   ${({ active }) => active && css`
-    color: #D98639;
-    text-decoration: underline;
+    border-bottom-color: #D98639;
   `}
 `;

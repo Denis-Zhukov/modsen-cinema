@@ -1,6 +1,7 @@
 import { NavButton } from 'features/NavButton';
 import { NavItem } from 'features/NavItem';
 import Link from 'next/link';
+import { RoutePaths } from 'shared/RoutePaths';
 import {
     SettingsBlock,
     StyledAuthBlock,
@@ -17,8 +18,8 @@ export const Header = () => (
         <StyledHeader>
             <Link href="/"><StyledLogo src={Logo} alt="modsen-logo" width={245} height={55} /></Link>
             <StyledNav>
-                <NavItem path="/">Home</NavItem>
-                <NavItem path="/booking">Booking</NavItem>
+                <NavItem path={RoutePaths.Home}>Home</NavItem>
+                <NavItem path={RoutePaths.Booking}>Booking</NavItem>
             </StyledNav>
             <StyledAuthBlock>
                 <NavButton path="#" variant="primary">Sign up</NavButton>
