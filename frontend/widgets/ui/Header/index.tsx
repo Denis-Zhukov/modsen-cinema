@@ -1,14 +1,15 @@
-import { NavButton } from 'features/NavButton';
-import { NavItem } from 'features/NavItem';
 import Link from 'next/link';
-import { RoutePaths } from 'shared/RoutePaths';
+
+import { NavButton } from '@/features/NavButton';
+import { NavItem } from '@/features/NavItem';
+import { RoutePaths } from '@/shared/RoutePaths';
 import {
     SettingsBlock,
     StyledAuthBlock,
     StyledHeader, StyledHeaderWrapper,
     StyledLogo,
     StyledNav,
-} from 'widgets/ui/Header/styled';
+} from '@/widgets/ui/Header/styled';
 
 import Logo from './images/logo.png';
 import Settings from './images/settings.png';
