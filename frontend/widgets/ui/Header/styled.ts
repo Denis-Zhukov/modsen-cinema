@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import styled from 'styled-components';
 
-export const StyledHeaderWrapper = styled.header`
+export const StyledHeaderWrapper = styled.div`
   background: #1E1F27;
 `;
 

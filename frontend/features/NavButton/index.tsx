@@ -11,7 +11,7 @@ export const NavButton = ({
     path: string,
     variant?: TVariantButton
     children: string
-}) => <Link href={path}><Button variant={variant}>{children}</Button></Link>;
+}) => <Link href={path}><Button variant={variant || 'primary'}>{children}</Button></Link>;
 
 NavButton.defaultProps = {
     variant: 'primary',

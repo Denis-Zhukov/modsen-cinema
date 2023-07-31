@@ -5,7 +5,7 @@ export const Button = ({ children, variant }: {
     children: string,
     variant?: TVariantButton
 }) => (
-    <StyledButton type="button" variant={variant}>{children}</StyledButton>
+    <StyledButton type="button" variant={variant || 'primary'}>{children}</StyledButton>
 );
 
 Button.defaultProps = {

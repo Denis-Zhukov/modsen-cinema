@@ -1,9 +1,9 @@
-import { NavItem } from 'features/NavItem';
+import { Main } from '@/pages/Main';
 
-const Home = () => <NavItem path="fck">Hello</NavItem>;
-export default Home;
+const MainPage = () => <Main />;
+export default MainPage;
 
 export const metadata = {
-    title: 'Cinema | Home',
+    title: 'Monema',
     description: '...',
 };
