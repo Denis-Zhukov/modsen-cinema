@@ -1,0 +1,6 @@
+:root {
+    --plyr-color-main: #D98639;
+    --plyr-video-backbround: #1E1F27;
+    --plyr-control-icon-size: 18px;
+    /*--plyr-video-controls-background: linear-gradient(0, rgba(30, 31, 39, 0.75) 35%, rgba(30, 31, 39, 0));*/
+}

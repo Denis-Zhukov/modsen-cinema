@@ -37,6 +37,8 @@
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
     "react/jsx-props-no-spreading": "off",
-    "linebreak-style": "off"
+    "linebreak-style": "off",
+    "max-len": "off",
+    "react/jsx-tag-spacing": "off"
   }
 }
