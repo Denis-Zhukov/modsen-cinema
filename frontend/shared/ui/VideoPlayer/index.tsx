@@ -32,7 +32,7 @@ const previewOptions = {
     },
 };
 
-export const VideoPlayer = ({ src, provider, preview }: Props) => (
+export const VideoPlayer = ({ src, provider = 'html5', preview = false }: Props) => (
     <StyledVideoWrapper>
         <Plyr
             source={{
@@ -43,8 +43,3 @@ export const VideoPlayer = ({ src, provider, preview }: Props) => (
         />
     </StyledVideoWrapper>
 );
-
-VideoPlayer.defaultProps = {
-    provider: 'html5',
-    preview: false
-};

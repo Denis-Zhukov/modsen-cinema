@@ -23,5 +23,5 @@ export const StyledButton = styled.button<{ variant?: TVariantButton }>`
   border-radius: 10px;
   font-size: 24px;
   font-weight: 300;
-  ${({ variant }) => css`${variant ? styles[variant] : styles.primary}`}
+  ${({ variant }) => css`${styles[variant!] ?? styles.primary}`}
 `;

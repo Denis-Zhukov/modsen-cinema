@@ -8,10 +8,11 @@ export const StyledTrailer = styled.div`
   color: #FFFFFF;
   background: #1E1F27;
   margin: 0 auto;
+  overflow-y: hidden;
 `;
 
 export const StyledTextBlock = styled.div`
-  box-shadow: 150px 30px 50px 75px #1E1F27;
+  box-shadow: 50px 0 50px 75px #1E1F27;
   position: relative;
   z-index: 999;
   font-weight: 300;
@@ -24,5 +25,6 @@ export const StyledTextBlock = styled.div`
 
   p {
     font-size: 32px;
+    text-align: justify;
   }
 `;

@@ -2,7 +2,8 @@ import React from 'react';
 
 import { nunitoSansFont } from '@/shared/fonts';
 import { VideoPlayer } from '@/shared/ui/VideoPlayer';
-import { StyledTextBlock, StyledTrailer } from '@/widgets/ui/Trailer/styled';
+
+import { StyledTextBlock, StyledTrailer } from './styled';
 
 export const Trailer = () => (
     <StyledTrailer className={nunitoSansFont.className}>

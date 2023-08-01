@@ -12,5 +12,12 @@ export const NavItem = ({
     children: string,
 }) => {
     const pathname = usePathname();
-    return <StyledNavItem href={path} active={pathname === path}>{children}</StyledNavItem>;
+    return (
+        <StyledNavItem
+            href={path}
+            active={pathname === path ? 'true' : 'false'}
+        >
+            {children}
+        </StyledNavItem>
+    );
 };
