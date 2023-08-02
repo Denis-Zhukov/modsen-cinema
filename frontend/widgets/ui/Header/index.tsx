@@ -21,7 +21,7 @@ export const Header = () => (
             <Link href="/"><StyledLogo src={Logo} alt="modsen-logo" width={245} height={55}/></Link>
             <StyledNav>
                 <NavItem path={RoutePaths.Home}>Home</NavItem>
-                <NavItem path={RoutePaths.Booking}>Booking</NavItem>
+                <NavItem path={RoutePaths.Bookings}>Bookings</NavItem>
             </StyledNav>
             <StyledAuthBlock>
                 <NavButton path="#" variant="primary">Sign up</NavButton>
