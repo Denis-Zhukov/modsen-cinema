@@ -10,7 +10,6 @@ import {
 } from 'typeorm';
 import { CountriesEntity } from '../countries/countries.entity';
 import { AuthorsEntity } from '../authors/authors.entity';
-import { UsersEntity } from '../users/users.entity';
 import { UserRatingsEntity } from '../user-ratings/user-ratings.entity';
 import { UserReviewsEntity } from '../user-reviews/user-reviews.entity';
 import { ScheduleEntity } from '../schedule/schedule.entity';

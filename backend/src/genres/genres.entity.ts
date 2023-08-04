@@ -5,7 +5,6 @@ import {
     ManyToMany,
     PrimaryGeneratedColumn,
 } from 'typeorm';
-import { ActorsEntity } from '../actors/actors.entity';
 import { FilmsEntity } from '../films/films.entity';
 
 @Entity({ name: 'genres' })

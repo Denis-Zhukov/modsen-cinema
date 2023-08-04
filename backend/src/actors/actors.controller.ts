@@ -6,7 +6,6 @@ import {
     ParseIntPipe,
 } from '@nestjs/common';
 import { ActorsService } from './actors.service';
-import { Unique } from 'typeorm';
 
 @Controller('actors')
 export class ActorsController {

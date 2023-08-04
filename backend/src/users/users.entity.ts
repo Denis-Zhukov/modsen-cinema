@@ -1,13 +1,4 @@
-import {
-    Column,
-    Entity,
-    JoinTable,
-    ManyToMany,
-    ManyToOne,
-    OneToMany,
-    PrimaryGeneratedColumn,
-} from 'typeorm';
-import { FilmsEntity } from '../films/films.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { UserRatingsEntity } from '../user-ratings/user-ratings.entity';
 import { UserReviewsEntity } from '../user-reviews/user-reviews.entity';
 import { BookingsEntity } from '../bookings/bookings.entity';
