@@ -1,4 +1,3 @@
-import { RegisterForm } from '@/features/RegisterForm';
 import { ReviewCard } from '@/features/ReviewCard';
 import { StyledBackground, StyledReviews, StyledTrailerBlock } from '@/pages/Film/styled';
 import { poppinsFont } from '@/shared/fonts';
@@ -30,7 +29,6 @@ export const Film = async ({ params: { id } }: Props) => {
                 <h2 className={poppinsFont.className}>Watch trailer online!</h2>
                 <VideoPlayer
                     src="https://www.youtube.com/watch?v=zlCWHebx0oc"
-                    provider="youtube"
                 />
             </StyledTrailerBlock>
             <StyledReviews>
