@@ -5,6 +5,7 @@ export const DefaultLayout = ({ children }: { children: React.ReactNode }) => (
         <body style={{ background: '#1E1F27' }}>
             <StyledComponentsRegistry>
                 {children}
+                <div id="#modal" />
             </StyledComponentsRegistry>
         </body>
     </html>

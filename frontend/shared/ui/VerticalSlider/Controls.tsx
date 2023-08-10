@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Arrow from '@/shared/ui/VerticalSlider/images/arrow.png';
-import { StyledArrow, StyledControls } from '@/shared/ui/VerticalSlider/styled';
+import ArrowIcon from './images/arrow.png';
+import { StyledArrow, StyledControls } from './styled';
 
 type Props = {
     onPrev: () => void,
@@ -15,12 +15,12 @@ export const Controls = React.memo(({
     <StyledControls>
         <StyledArrow
             onClick={onPrev}
-            src={Arrow}
-            alt=""
+            src={ArrowIcon}
+            alt="prev-arrow"
             width={30}
             height={20}
             degree={180}
         />
-        <StyledArrow onClick={onNext} src={Arrow} alt="" width={30} height={20}/>
+        <StyledArrow onClick={onNext} src={ArrowIcon} alt="next-arrow" width={30} height={20}/>
     </StyledControls>
 ));

@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import React from 'react';
 
+import { NavButton } from '@/features/NavButton';
 import { nunitoSansFont, poppinsFont } from '@/shared/fonts';
-import { Button } from '@/shared/ui/Button';
 import {
     StyledBookingBlock,
     StyledDescription,
@@ -26,7 +26,13 @@ type Props = {
 };
 
 export const FilmInfo = ({
-    name, year, country, genre, author, actors, image,
+    name,
+    year,
+    country,
+    genre,
+    author,
+    actors,
+    image,
 }: Props) => (
     <StyledFilmInfo className={nunitoSansFont.className}>
         <StyledTopBlock>
@@ -65,10 +71,10 @@ export const FilmInfo = ({
                     {actors.join(', ')}
                 </div>
                 <StyledBookingBlock>
-                    <Button variant="primary">Book Now!</Button>
+                    <NavButton path="/" variant="primary">Book Now!</NavButton>
                     <div>
                         <span className={poppinsFont.className}>8,1 </span>
-                        <Image src={Star} alt="Star" width={39} height={38} objectFit="cover"/>
+                        <Image src={Star} alt="Star" width={39} height={38}/>
                     </div>
                 </StyledBookingBlock>
             </StyledInfo>

@@ -1,12 +1,18 @@
-'use client';
-
+import Image from 'next/image';
 import styled from 'styled-components';
 
 export const StyledVideoWrapper = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   position: relative;
-  background: gray;
-  height: 500px;
   overflow: hidden;
+`;
+
+export const StyledPreview = styled(Image)`
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 5;
+  object-fit: cover;
 `;

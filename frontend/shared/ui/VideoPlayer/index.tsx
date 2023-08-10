@@ -1,45 +1,88 @@
 'use client';
 
-import 'plyr-react/plyr.css';
-import './video-player-styles.css';
+import {
+    MutableRefObject, useEffect, useReducer, useRef,
+} from 'react';
 
-import Plyr from 'plyr-react';
+import { CentralPlayButton } from '@/shared/ui/VideoPlayer/components/CentralPlayButton';
+import { ControlBar } from '@/shared/ui/VideoPlayer/components/ControlBar';
+import { Video } from '@/shared/ui/VideoPlayer/components/Video';
+import {
+    reducer, SET_LAUNCHED,
+    useVideoPlayerContext,
+    VideoPlayerContext,
+} from '@/shared/ui/VideoPlayer/context';
+import { useBindHotKeys } from '@/shared/ui/VideoPlayer/hooks/useBindHotKeys';
 
-import { StyledVideoWrapper } from './styled';
+import { StyledPreview, StyledVideoWrapper } from './styled';
 
 type Props = {
+    videoContainerRef: MutableRefObject<HTMLDivElement | null>
+    videoRef: MutableRefObject<HTMLVideoElement | null>
     src: string
-    provider?: 'html5' | 'youtube'
-    preview?: boolean,
+    preview?: string
+    className?: string
+    controls?: boolean
+    muted?: boolean,
 };
 
-const defaultOptions = {
-    controls: ['play-large', 'play', 'progress', 'current-time', 'volume', 'mute', 'captions', 'settings', 'fullscreen'],
-    settings: ['quality', 'speed', 'loop'],
-    keyboard: {
-        global: false,
-        focused: true,
-    },
-    storage: { enabled: true, key: 'player' },
+const VideoPlayerInner = ({
+    videoRef, className, src, videoContainerRef, preview, controls,
+}: Props) => {
+    const { state: { isPlaying, wasLaunched }, dispatch } = useVideoPlayerContext();
+
+    useEffect(() => {
+        const setWasLaunched = () => dispatch({ type: SET_LAUNCHED, payload: true });
+        videoRef.current?.addEventListener('play', setWasLaunched);
+        return () => videoRef.current?.removeEventListener('play', setWasLaunched);
+    }, [dispatch, videoRef]);
+
+    useBindHotKeys();
+
+    return (
+        <StyledVideoWrapper
+            className={className}
+            ref={videoContainerRef}
+        >
+            <Video
+                src={src}
+                ref={videoRef}
+            />
+
+            {!isPlaying && <CentralPlayButton/>}
+
+            {controls && <ControlBar/>}
+
+            {!wasLaunched && preview && <StyledPreview src={preview} fill alt="preview"/>}
+        </StyledVideoWrapper>
+    );
 };
 
-const previewOptions = {
-    controls: ['play-large'],
-    settings: [],
-    keyboard: {
-        global: false,
-        focused: false,
-    },
-};
+export const VideoPlayer = ({
+    src, preview, className = '', controls = true, muted = false,
+}: Omit<Props, 'videoContainerRef' | 'videoRef'>) => {
+    const videoContainerRef = useRef<HTMLDivElement | null>(null);
+    const videoRef = useRef<HTMLVideoElement | null>(null);
 
-export const VideoPlayer = ({ src, provider = 'html5', preview = false }: Props) => (
-    <StyledVideoWrapper>
-        <Plyr
-            source={{
-                type: 'video',
-                sources: [{ src, provider }],
-            }}
-            options={preview ? previewOptions : defaultOptions}
-        />
-    </StyledVideoWrapper>
-);
+    const [state, dispatch] = useReducer(reducer, {
+        videoContainerRef,
+        videoRef,
+        isPlaying: false,
+        isFullscreen: false,
+        wasLaunched: false,
+        volume: muted ? 0 : 1,
+    });
+
+    return (
+        <VideoPlayerContext.Provider value={{ state, dispatch }}>
+            <VideoPlayerInner
+                src={src}
+                preview={preview}
+                className={className}
+                controls={controls}
+                videoRef={videoRef}
+                videoContainerRef={videoContainerRef}
+            />
+        </VideoPlayerContext.Provider>
+    );
+};

@@ -21,21 +21,21 @@ export const ShowNow = () => (
                 src: '/film.png',
                 title: 'Black Panther 3',
                 badges: ['13+', 'IMAX', 'Action'],
-                link: '/pantera',
+                link: '/film/pantera',
             },
             {
                 id: 2,
                 src: '/morbius.png',
                 title: 'Morbius',
                 badges: ['16+', 'IMAX'],
-                link: '/morbius',
+                link: '/film/morbius',
             },
             {
                 id: 3,
                 src: '/sonic.png',
                 title: 'Sonic',
                 badges: ['Action', 'Cartoon'],
-                link: '/sonic',
+                link: '/film/sonic',
             },
         ]}
         />

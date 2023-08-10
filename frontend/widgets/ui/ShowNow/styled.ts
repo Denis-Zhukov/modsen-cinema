@@ -6,6 +6,7 @@ export const StyledShowNow = styled.div`
   display: flex;
   max-width: 1340px;
   margin: 0 auto;
+  gap: 75px;
 `;
 
 export const StyledTextBlock = styled.div`
@@ -17,10 +18,15 @@ export const StyledTextBlock = styled.div`
   h2 {
     font-size: 48px;
     text-transform: uppercase;
+    color: #FFF;
+    font-weight: 300;
   }
 
   p {
     font-size: 40px;
+    text-shadow: 10px 4px 4px rgba(0, 0, 0, 0.25);
+    font-style: italic;
+    font-weight: 300;
   }
 
   p, h2 {

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { StyledBadge } from '@/shared/ui/Badge/styled';
+import { StyledBadge } from './styled';
 
 type Props = {
     children: string

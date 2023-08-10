@@ -1,5 +1,5 @@
 import 'normalize.css';
 
-import { Layout } from '@/widgets/ui/layout';
+import { DefaultLayout } from '@/widgets/ui/Layouts/DefaultLayout';
 
-export default Layout;
+export default DefaultLayout;

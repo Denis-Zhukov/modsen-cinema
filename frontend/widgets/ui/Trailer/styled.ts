@@ -21,10 +21,12 @@ export const StyledTextBlock = styled.div`
   h2 {
     font-size: 48px;
     text-transform: uppercase;
+    font-weight: 300;
   }
 
   p {
     font-size: 32px;
     text-align: justify;
+    font-weight: 300;
   }
 `;

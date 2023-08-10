@@ -2,6 +2,8 @@
 
 import { usePathname } from 'next/navigation';
 
+import { poppinsFont } from '@/shared/fonts';
+
 import { StyledNavItem } from './styled';
 
 export const NavItem = ({
@@ -15,7 +17,8 @@ export const NavItem = ({
     return (
         <StyledNavItem
             href={path}
-            active={pathname === path ? 'true' : 'false'}
+            $active={pathname === path}
+            className={poppinsFont.className}
         >
             {children}
         </StyledNavItem>

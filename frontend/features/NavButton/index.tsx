@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 
 import { Button } from '@/shared/ui/Button';
@@ -7,8 +9,10 @@ export const NavButton = ({
     path,
     variant = 'primary',
     children,
+    onClick,
 }: {
     path: string,
     variant?: TVariantButton
-    children: string
-}) => <Link href={path}><Button variant={variant}>{children}</Button></Link>;
+    children: string,
+    onClick?: () => void
+}) => <Link href={path}><Button variant={variant} onClick={onClick}>{children}</Button></Link>;

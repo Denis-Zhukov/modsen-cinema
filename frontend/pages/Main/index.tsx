@@ -1,8 +1,9 @@
 'use client';
 
+import { Studios } from 'features/Studios';
+
 import { StyledMain, StyledYearText } from '@/pages/Main/styled';
 import { poppinsFont } from '@/shared/fonts';
-import { Studios } from '@/shared/ui/Studios';
 import { ShowNow } from '@/widgets/ui/ShowNow';
 import { Trailer } from '@/widgets/ui/Trailer';
 

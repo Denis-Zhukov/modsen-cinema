@@ -18,6 +18,6 @@ export const Studios = () => (
         <Image src={Warner} alt="Warner Bros" height={64} width={64}/>
         <Image src={Netflix} alt="Netflix" height={64} width={64}/>
         <Image src={Walt} alt="Walt Disney" height={64} width={64}/>
-        <Image src={Sony} alt="Sony ent" height={64} width={64  }/>
+        <Image src={Sony} alt="Sony ent" height={64} width={64}/>
     </StyledStudios>
 );

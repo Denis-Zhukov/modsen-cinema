@@ -1,18 +1,12 @@
-'use client';
-
 import Image from 'next/image';
-import Link from 'next/link';
 import React, { useCallback, useMemo, useState } from 'react';
 
-import { poppinsFont } from '@/shared/fonts';
-import { Badge } from '@/shared/ui/Badge';
-import { Controls } from '@/shared/ui/VerticalSlider/Controls';
+import { Controls } from './Controls';
+import { MainSlide } from './MainSlide';
 import {
-    StyledBadges,
-    StyledMainSlide,
     StyledSideSlides,
     StyledVerticalSlider,
-} from '@/shared/ui/VerticalSlider/styled';
+} from './styled';
 
 type Props = {
     slides: {
@@ -48,14 +42,13 @@ export const VerticalSlider = ({ slides }: Props) => {
     }, [activeSlide, slides]);
 
     return (
-        <StyledVerticalSlider >
-            <StyledMainSlide className={poppinsFont.className}>
-                <Link href={slides[activeSlide].link}><Image src={slides[activeSlide].src} alt="" width={260} height={350}/></Link>
-                <h3>{slides[activeSlide].title}</h3>
-                <StyledBadges>
-                    {slides[activeSlide].badges.map((text) => <Badge key={text}>{text}</Badge>)}
-                </StyledBadges>
-            </StyledMainSlide>
+        <StyledVerticalSlider>
+            <MainSlide
+                link={slides[activeSlide].link}
+                title={slides[activeSlide].title}
+                badges={slides[activeSlide].badges}
+                image={slides[activeSlide].src}
+            />
 
             <StyledSideSlides>
                 {visibleSideSlidesIndexes.map((index) => (
@@ -63,8 +56,8 @@ export const VerticalSlider = ({ slides }: Props) => {
                         key={slides[index].id}
                         src={slides[index].src}
                         alt=""
-                        width={85}
-                        height={125}
+                        width={index === activeSlide ? 137 : 84}
+                        height={index === activeSlide ? 182 : 124}
                         onClick={() => setActiveSlide(index)}
                     />
                 ))}
