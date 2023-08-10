@@ -14,12 +14,18 @@ import { CountriesModule } from './countries/countries.module';
 import { UserRatingsModule } from './user-ratings/user-ratings.module';
 import { UserReviewsModule } from './user-reviews/user-reviews.module';
 import * as path from 'path';
+import { ServeStaticModule } from '@nestjs/serve-static';
 
 @Module({
     imports: [
         ConfigModule.forRoot({
             envFilePath: '.env',
             isGlobal: true,
+        }),
+
+        ServeStaticModule.forRoot({
+            rootPath: path.resolve(path.resolve(), 'public'),
+            serveRoot: '/static',
         }),
 
         TypeOrmModule.forRootAsync({
