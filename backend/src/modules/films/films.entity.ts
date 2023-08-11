@@ -33,6 +33,9 @@ export class FilmsEntity {
     @Column()
     trailer: string;
 
+    @Column()
+    preview: string;
+
     @OneToOne(() => AuthorsEntity, { eager: true })
     @JoinColumn({ name: 'author_id' })
     author: AuthorsEntity;

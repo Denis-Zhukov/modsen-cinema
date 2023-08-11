@@ -4,6 +4,7 @@ import {
     NotFoundException,
     Param,
     ParseIntPipe,
+    Post,
 } from '@nestjs/common';
 import { FilmsService } from './films.service';
 
@@ -18,6 +19,13 @@ export class FilmsController {
 
     @Get(':id')
     async getFilmById(@Param('id', ParseIntPipe) id: number) {
+        const film = await this.service.getById(id);
+        if (!film) throw new NotFoundException(`Film with id ${id} not found`);
+        return film;
+    }
+
+    @Post('add')
+    async addFilm(@Param('id', ParseIntPipe) id: number) {
         const film = await this.service.getById(id);
         if (!film) throw new NotFoundException(`Film with id ${id} not found`);
         return film;

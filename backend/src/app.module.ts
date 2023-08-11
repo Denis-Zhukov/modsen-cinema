@@ -1,26 +1,31 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { EnvFields } from './typing/env-fields';
-import { ActorsModule } from './actors/actors.module';
-import { UsersModule } from './users/users.module';
-import { BookingsModule } from './bookings/bookings.module';
-import { FilmsModule } from './films/films.module';
-import { ScheduleModule } from './schedule/schedule.module';
-import { SeatsModule } from './seats/seats.module';
-import { GenresModule } from './genres/genres.module';
-import { AuthorsModule } from './authors/authors.module';
-import { CountriesModule } from './countries/countries.module';
-import { UserRatingsModule } from './user-ratings/user-ratings.module';
-import { UserReviewsModule } from './user-reviews/user-reviews.module';
+import { ActorsModule } from './modules/actors/actors.module';
+import { UsersModule } from './modules/users/users.module';
+import { BookingsModule } from './modules/bookings/bookings.module';
+import { FilmsModule } from './modules/films/films.module';
+import { ScheduleModule } from './modules/schedule/schedule.module';
+import { SeatsModule } from './modules/seats/seats.module';
+import { GenresModule } from './modules/genres/genres.module';
+import { AuthorsModule } from './modules/authors/authors.module';
+import { CountriesModule } from './modules/countries/countries.module';
+import { UserRatingsModule } from './modules/user-ratings/user-ratings.module';
+import { UserReviewsModule } from './modules/user-reviews/user-reviews.module';
 import * as path from 'path';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { RolesModule } from './modules/roles/roles.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { TokenModule } from './modules/token/token.module';
+import { EnvFields } from './typing/EnvFields';
+import configurations from './configurations';
+import { JwtStrategy } from './strategy/JwtStrategy';
 
 @Module({
     imports: [
         ConfigModule.forRoot({
-            envFilePath: '.env',
             isGlobal: true,
+            load: [configurations],
         }),
 
         ServeStaticModule.forRoot({
@@ -72,8 +77,14 @@ import { ServeStaticModule } from '@nestjs/serve-static';
         UserRatingsModule,
 
         UserReviewsModule,
+
+        RolesModule,
+
+        AuthModule,
+
+        TokenModule,
     ],
     controllers: [],
-    providers: [],
+    providers: [JwtStrategy],
 })
 export class AppModule {}

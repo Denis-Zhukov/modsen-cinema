@@ -1,7 +1,15 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+    Column,
+    Entity,
+    JoinTable,
+    ManyToMany,
+    OneToMany,
+    PrimaryGeneratedColumn,
+} from 'typeorm';
 import { UserRatingsEntity } from '../user-ratings/user-ratings.entity';
 import { UserReviewsEntity } from '../user-reviews/user-reviews.entity';
 import { BookingsEntity } from '../bookings/bookings.entity';
+import { RolesEntity } from '../roles/roles.entity';
 
 @Entity({ name: 'users' })
 export class UsersEntity {
@@ -20,6 +28,9 @@ export class UsersEntity {
     @Column({ name: 'hash_password' })
     hashPassword: string;
 
+    @Column({ name: 'refresh_token', nullable: true })
+    refreshToken: string;
+
     @OneToMany(() => UserRatingsEntity, (ratings) => ratings.user)
     ratings: UserRatingsEntity[];
 
@@ -28,4 +39,18 @@ export class UsersEntity {
 
     @OneToMany(() => BookingsEntity, (bookings) => bookings.user)
     bookings: BookingsEntity[];
+
+    @ManyToMany(() => RolesEntity, (roles) => roles.users)
+    @JoinTable({
+        name: 'user_roles',
+        inverseJoinColumn: {
+            name: 'role_id',
+            referencedColumnName: 'id',
+        },
+        joinColumn: {
+            name: 'user_id',
+            referencedColumnName: 'id',
+        },
+    })
+    roles: RolesEntity[];
 }

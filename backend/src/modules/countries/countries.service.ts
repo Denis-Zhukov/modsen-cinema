@@ -1,10 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, OnModuleInit } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CountriesEntity } from './countries.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()
-export class CountriesService {
+export class CountriesService implements OnModuleInit {
     public constructor(
         @InjectRepository(CountriesEntity)
         private readonly repository: Repository<CountriesEntity>,
@@ -16,5 +16,14 @@ export class CountriesService {
 
     getById(id: number) {
         return this.repository.findOne({ where: { id } });
+    }
+
+    async onModuleInit() {
+        const count = await this.repository.count();
+        if (count) return;
+        await this.repository.insert([
+            { name: 'Belarus' },
+            { name: 'Russian' },
+        ]);
     }
 }

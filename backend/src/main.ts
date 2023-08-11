@@ -1,11 +1,15 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
-import { EnvFields } from './typing/env-fields';
+import { ValidationPipe } from '@nestjs/common';
+import { EnvFields } from './typing/EnvFields';
+import * as cookieParser from 'cookie-parser';
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
 
+    app.use(cookieParser());
+    app.useGlobalPipes(new ValidationPipe());
     app.enableCors();
     app.setGlobalPrefix('api');
 
