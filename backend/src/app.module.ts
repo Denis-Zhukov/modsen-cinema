@@ -20,6 +20,8 @@ import { TokenModule } from './modules/token/token.module';
 import { EnvFields } from './typing/EnvFields';
 import configurations from './configurations';
 import { JwtStrategy } from './strategy/JwtStrategy';
+import { FilesModule } from './modules/files/files.module';
+import { paths } from './utils/constants';
 
 @Module({
     imports: [
@@ -29,7 +31,7 @@ import { JwtStrategy } from './strategy/JwtStrategy';
         }),
 
         ServeStaticModule.forRoot({
-            rootPath: path.resolve(path.resolve(), 'public'),
+            rootPath: paths.publicRoute,
             serveRoot: '/static',
         }),
 
@@ -83,6 +85,8 @@ import { JwtStrategy } from './strategy/JwtStrategy';
         AuthModule,
 
         TokenModule,
+
+        FilesModule,
     ],
     controllers: [],
     providers: [JwtStrategy],

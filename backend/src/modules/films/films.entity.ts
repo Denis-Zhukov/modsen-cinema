@@ -36,11 +36,14 @@ export class FilmsEntity {
     @Column()
     preview: string;
 
-    @OneToOne(() => AuthorsEntity, { eager: true })
+    @Column({ unique: true })
+    slug: string;
+
+    @OneToOne(() => AuthorsEntity)
     @JoinColumn({ name: 'author_id' })
     author: AuthorsEntity;
 
-    @OneToOne(() => CountriesEntity, { eager: true })
+    @OneToOne(() => CountriesEntity)
     @JoinColumn({ name: 'country_id' })
     country: CountriesEntity;
 
