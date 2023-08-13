@@ -3,9 +3,9 @@ import { CreateUserDto } from '../users/dto/create-user.dto';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
 import { Response } from 'express';
-import { CookieFields } from '../../typing/CookieFields';
+import { CookieFields } from '../../utils/cookie-fields';
 import { ConfigService } from '@nestjs/config';
-import { EnvFields } from '../../typing/EnvFields';
+import { EnvFields } from '../../utils/env-fields';
 
 @Controller('auth')
 export class AuthController {

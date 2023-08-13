@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
 import { ValidationPipe } from '@nestjs/common';
-import { EnvFields } from './typing/EnvFields';
+import { EnvFields } from './utils/env-fields';
 import * as cookieParser from 'cookie-parser';
 
 async function bootstrap() {

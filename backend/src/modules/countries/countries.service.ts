@@ -2,6 +2,7 @@ import { Injectable, OnModuleInit } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CountriesEntity } from './countries.entity';
 import { Repository } from 'typeorm';
+import { Countries } from '../../utils/init-values/countries';
 
 @Injectable()
 export class CountriesService implements OnModuleInit {
@@ -21,9 +22,8 @@ export class CountriesService implements OnModuleInit {
     async onModuleInit() {
         const count = await this.repository.count();
         if (count) return;
-        await this.repository.insert([
-            { name: 'Belarus' },
-            { name: 'Russian' },
-        ]);
+        await this.repository.insert(
+            Object.values(Countries).map((name) => ({ name })),
+        );
     }
 }

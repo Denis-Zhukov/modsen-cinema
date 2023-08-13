@@ -1,11 +1,11 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { CreateUserDto } from '../users/dto/create-user.dto';
-import { UserErrors } from '../../utils/UserErrors';
+import { UserErrors } from '../../utils/user-errors';
 import { LoginDto } from './dto/login.dto';
 import { TokenService } from '../token/token.service';
 import { ConfigService } from '@nestjs/config';
-import { EnvFields } from '../../typing/EnvFields';
+import { EnvFields } from '../../utils/env-fields';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()

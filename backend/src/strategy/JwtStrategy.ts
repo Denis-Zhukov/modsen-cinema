@@ -1,7 +1,7 @@
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { ConfigService } from '@nestjs/config';
-import { EnvFields } from '../typing/EnvFields';
+import { EnvFields } from '../utils/env-fields';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()

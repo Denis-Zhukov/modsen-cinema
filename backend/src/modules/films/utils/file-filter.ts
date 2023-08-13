@@ -1,6 +1,6 @@
-import { mimeTypesImages, mimeTypesVideos } from '../constants/mime-types';
+import { mimeTypesImages, mimeTypesVideos } from '../../../utils/mime-types';
 import { BadRequestException } from '@nestjs/common';
-import { UserErrors } from '../../../utils/UserErrors';
+import { UserErrors } from '../../../utils/user-errors';
 
 export const fileFilter = (
     _: unknown,

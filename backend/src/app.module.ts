@@ -17,7 +17,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { RolesModule } from './modules/roles/roles.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { TokenModule } from './modules/token/token.module';
-import { EnvFields } from './typing/EnvFields';
+import { EnvFields } from './utils/env-fields';
 import configurations from './configurations';
 import { JwtStrategy } from './strategy/JwtStrategy';
 import { FilesModule } from './modules/files/files.module';

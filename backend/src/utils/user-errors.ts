@@ -3,4 +3,5 @@ export enum UserErrors {
     USER_NOT_EXIST = "User with this email doesn't exist",
     WRONG_AUTH = 'Wrong email or password',
     WRONG_FILES_TYPE = 'Unexpected file type',
+    NO_REQUIRED_FILES = 'Missing files',
 }

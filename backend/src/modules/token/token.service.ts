@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
-import { EnvFields } from '../../typing/EnvFields';
+import { EnvFields } from '../../utils/env-fields';
 
 @Injectable()
 export class TokenService {

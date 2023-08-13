@@ -5,8 +5,8 @@ import { UsersEntity } from './users.entity';
 import * as bcrypt from 'bcrypt';
 import { CreateUserDto } from './dto/create-user.dto';
 import { RolesService } from '../roles/roles.service';
-import { Roles } from '../../typing/Roles';
-import { InternalErrors } from '../../utils/InternalErrors';
+import { Roles } from '../../utils/roles';
+import { InternalErrors } from '../../utils/internal-errors';
 
 @Injectable()
 export class UsersService {
