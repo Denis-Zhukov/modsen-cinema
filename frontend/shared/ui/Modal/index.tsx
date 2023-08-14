@@ -22,8 +22,8 @@ export const Modal = ({
     }, []);
 
     return (
-        <StyledWrapperModal onClick={onClose}>
-            <StyledModal onClick={handleStopPropagation}>
+        <StyledWrapperModal onMouseDown={onClose}>
+            <StyledModal onMouseDown={handleStopPropagation}>
                 <StyledTopBlock>
                     <div>{topElement}</div>
                     <StyledCloseButton

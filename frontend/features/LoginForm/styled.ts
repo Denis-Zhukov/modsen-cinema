@@ -18,7 +18,7 @@ export const StyledTitle = styled.div`
 export const StyledBody = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 45px;
+  gap: 5px;
   width: 100%;
 
   input {
@@ -35,5 +35,25 @@ export const StyledAuthBlock = styled.div`
 
   button {
     padding: 20px;
+  }
+`;
+
+export const StyledErrorText = styled.div`
+  display: block;
+  height: 20px;
+  color: red;
+  margin: 10px 0 0 90px;
+`;
+
+export const StyledBottomText = styled.div`
+  color: #FFF;
+  font-size: 18px;
+  font-style: italic;
+  font-weight: 300;
+  line-height: normal;
+
+  > a {
+    color: #FFF;
+    font-style: italic;
   }
 `;

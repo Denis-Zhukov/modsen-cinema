@@ -11,7 +11,7 @@ type Props = {
 
 export const Film = async ({ params: { id } }: Props) => {
     console.log(id);
-    const img = 'http://localhost:3000/sonic.png';
+    const img = 'http://localhost:3000/film.png';
     const [firstColor, secondColor] = await getMainColors(img, 2);
 
     return (

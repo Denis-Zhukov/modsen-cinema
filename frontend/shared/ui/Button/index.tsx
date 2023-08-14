@@ -7,13 +7,15 @@ export const Button = ({
     children,
     variant = 'primary',
     onClick,
+    type = 'button',
 }: {
     children: string,
-    variant?: TVariantButton
-    onClick?: () => void
+    variant?: TVariantButton,
+    onClick?: () => void,
+    type?: 'button' | 'submit',
 }) => (
     <StyledButton
-        type="button"
+        type={type}
         $variant={variant}
         className={poppinsFont.className}
         onClick={onClick}

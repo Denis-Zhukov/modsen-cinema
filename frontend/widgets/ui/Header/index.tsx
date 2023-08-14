@@ -1,13 +1,15 @@
 'use client';
 
 import Link from 'next/link';
-import { useCallback, useState } from 'react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useCallback } from 'react';
 
 import { LoginForm } from '@/features/LoginForm';
 import { NavButton } from '@/features/NavButton';
 import { NavItem } from '@/features/NavItem';
 import { RegisterForm } from '@/features/RegisterForm';
 import { poppinsFont } from '@/shared/fonts';
+import { useCreateQueryPath } from '@/shared/hooks/useCreateQueryPath';
 import { RoutePaths } from '@/shared/RoutePaths';
 import {
     SettingsBlock,
@@ -21,20 +23,25 @@ import Logo from './images/logo.png';
 import Settings from './images/settings.png';
 
 export const Header = () => {
-    const [showRegisterForm, setShowRegisterForm] = useState(false);
-    const handleToggleRegisterForm = useCallback(() => {
-        setShowRegisterForm((prev) => !prev);
-    }, []);
+    const router = useRouter();
+    const pathname = usePathname();
+    const searchParams = useSearchParams()!;
+    const form = searchParams.get('form');
+    const createQueryPath = useCreateQueryPath();
 
-    const [showLoginForm, setShowLoginForm] = useState(false);
-    const handleToggleLoginForm = useCallback(() => {
-        setShowLoginForm((prev) => !prev);
-    }, []);
+    const handleCloseForm = useCallback(
+        () => {
+            const params = new URLSearchParams(searchParams.toString());
+            params.delete('form');
+            router.push(`${pathname}?${params.toString()}`);
+        },
+        [pathname, router, searchParams],
+    );
 
     return (
         <StyledHeaderWrapper className={poppinsFont.className}>
-            {showRegisterForm && <RegisterForm onClose={handleToggleRegisterForm}/>}
-            {showLoginForm && <LoginForm onClose={handleToggleLoginForm}/>}
+            {form === 'register' && <RegisterForm onClose={handleCloseForm}/>}
+            {form === 'login' && <LoginForm onClose={handleCloseForm}/>}
             <StyledHeader>
                 <Link href="/">
                     <StyledLogo
@@ -49,10 +56,16 @@ export const Header = () => {
                     <NavItem path={RoutePaths.Bookings}>Bookings</NavItem>
                 </StyledNav>
                 <StyledAuthBlock>
-                    <NavButton path="#" variant="primary" onClick={handleToggleRegisterForm}>
+                    <NavButton
+                        path={createQueryPath('form', 'register')}
+                        variant="primary"
+                    >
                         Sign up
                     </NavButton>
-                    <NavButton path="#" variant="secondary" onClick={handleToggleLoginForm}>
+                    <NavButton
+                        path={createQueryPath('form', 'login')}
+                        variant="secondary"
+                    >
                         Sign in
                     </NavButton>
                 </StyledAuthBlock>

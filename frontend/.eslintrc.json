@@ -40,6 +40,7 @@
     "linebreak-style": "off",
     "max-len": "off",
     "react/jsx-tag-spacing": "off",
-    "react/require-default-props": "off"
+    "react/require-default-props": "off",
+    "no-param-reassign": "off"
   }
 }
