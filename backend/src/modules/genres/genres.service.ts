@@ -26,4 +26,11 @@ export class GenresService implements OnModuleInit {
     getById(id: number) {
         return this.repository.findOne({ where: { id } });
     }
+
+    getByIds(ids: [number, ...number[]]) {
+        return this.repository
+            .createQueryBuilder('genres')
+            .where('genres.id IN (:...ids)', { ids })
+            .getMany();
+    }
 }

@@ -16,12 +16,14 @@ import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { fileFilter } from './utils/file-filter';
 import { FilesService } from '../files/files.service';
 import { UserErrors } from '../../utils/user-errors';
+import { GenresService } from '../genres/genres.service';
 
 @Controller('films')
 export class FilmsController {
     public constructor(
         private readonly service: FilmsService,
         private readonly filesService: FilesService,
+        private readonly genresService: GenresService,
     ) {}
 
     @Get()
