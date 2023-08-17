@@ -1,7 +1,7 @@
 import { ReviewCard } from '@/features/ReviewCard';
 import { StyledBackground, StyledReviews, StyledTrailerBlock } from '@/pages/Film/styled';
 import { poppinsFont } from '@/shared/fonts';
-import { getMainColors } from '@/shared/lib/getMainColors';
+import { getMainColors } from '@/shared/lib/get-main-colors';
 import { VideoPlayer } from '@/shared/ui/VideoPlayer';
 import { FilmInfo } from '@/widgets/ui/FilmInfo';
 
@@ -28,7 +28,7 @@ export const Film = async ({ params: { id } }: Props) => {
             <StyledTrailerBlock>
                 <h2 className={poppinsFont.className}>Watch trailer online!</h2>
                 <VideoPlayer
-                    src="https://www.youtube.com/watch?v=zlCWHebx0oc"
+                    src="http://localhost:8000/static/films/moj-klassnyj-betmen/trailer.mp4"
                 />
             </StyledTrailerBlock>
             <StyledReviews>

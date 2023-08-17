@@ -41,6 +41,7 @@
     "max-len": "off",
     "react/jsx-tag-spacing": "off",
     "react/require-default-props": "off",
-    "no-param-reassign": "off"
+    "no-param-reassign": "off",
+    "no-restricted-exports": "off"
   }
 }

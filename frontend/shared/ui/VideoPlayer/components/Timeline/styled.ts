@@ -1,10 +1,11 @@
 import styled from 'styled-components';
+import { Colors } from "@/shared/constants/Colors";
 
 export const StyledTimeBarWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
-  
+
   width: 93.5%;
   height: 20px;
   border-radius: 50%;
@@ -13,7 +14,7 @@ export const StyledTimeBarWrapper = styled.div`
 export const StyledTimeBar = styled.div`
   border-radius: 10px;
   overflow-x: hidden;
-  
+
   flex: 1 1 auto;
   height: 100%;
 
@@ -23,21 +24,21 @@ export const StyledTimeBar = styled.div`
 
 export const StyledProgressTimeBar = styled.div`
   height: 100%;
-  
-  background: #D98639;
-  
+
+  background: ${Colors.ORANGE};
+
   position: absolute;
   left: 0;
   top: 0;
   z-index: 10;
-  
+
   transition: width .1s ease-in-out;
 `;
 
 export const StyledPreloadedTimeBar = styled.div`
   height: 100%;
 
-  background: #888;
+  background: ${Colors.GRAY};
 
   position: absolute;
   left: 0;
@@ -49,5 +50,5 @@ export const StyledTimer = styled.div`
   display: flex;
   justify-content: center;
   min-width: 125px;
-  color: #FFF;
+  color: ${Colors.WHITE};
 `;

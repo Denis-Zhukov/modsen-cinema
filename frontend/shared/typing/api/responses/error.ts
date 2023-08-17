@@ -5,3 +5,13 @@ export interface ErrorResponse {
         statusCode: number
     }
 }
+
+export interface ErrorResponseFromAxios {
+    response: {
+        data: {
+            message: string,
+            error: string,
+            statusCode: number
+        }
+    }
+}

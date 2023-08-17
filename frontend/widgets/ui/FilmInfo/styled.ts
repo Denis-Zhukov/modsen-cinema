@@ -3,12 +3,14 @@
 import Link from 'next/link';
 import styled from 'styled-components';
 
+import { Colors } from '@/shared/constants/Colors';
+
 export const StyledFilmInfo = styled.div`
   display: flex;
   flex-direction: column;
   max-width: 1530px;
   margin: 0 auto;
-  color: #FFFFFF;
+  color: ${Colors.WHITE};
   gap: 35px;
 `;
 
@@ -29,7 +31,7 @@ export const StyledNextFilm = styled(Link)`
   align-items: center;
   font-size: 36px;
   gap: 25px;
-  color: #FFFFFF;
+  color: ${Colors.WHITE};
 
   span {
     text-decoration: underline;

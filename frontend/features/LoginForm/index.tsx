@@ -1,13 +1,25 @@
 'use client';
 
-import { Formik } from 'formik';
+import { Form, Formik } from 'formik';
 import Link from 'next/link';
-import React from 'react';
+import { useRouter } from 'next/navigation';
+import React, { useCallback, useEffect, useMemo } from 'react';
 
+import { FacebookLoginButton } from '@/entities/ui/FacebookLoginButton';
+import { GithubLoginButton } from '@/entities/ui/GithubLoginButton';
+import { GoogleLoginButton } from '@/entities/ui/GoogleLoginButton';
 import { validationSchema } from '@/features/LoginForm/validations';
+import { Forms } from '@/shared/constants/Forms';
 import { inriaSansFont, poppinsFont } from '@/shared/fonts';
+import { useAppSelector } from '@/shared/hooks/redux-hooks';
+import { useActions } from '@/shared/hooks/useActions';
 import { useCreateQueryPath } from '@/shared/hooks/useCreateQueryPath';
+import { toastError, toastSuccess } from '@/shared/lib/toast';
+import { selectAuth } from '@/shared/store/selectors/auth.selectors';
+import { LoginRequest } from '@/shared/typing/api/requests/LoginRequest';
+import { Notice } from '@/shared/typing/constants/Notice';
 import { Button } from '@/shared/ui/Button';
+import { Loader } from '@/shared/ui/Loader';
 import { Modal } from '@/shared/ui/Modal';
 import { TextBox } from '@/shared/ui/TextBox';
 
@@ -17,7 +29,7 @@ import {
     StyledAuthBlock,
     StyledBody,
     StyledBottomText,
-    StyledErrorText,
+    StyledErrorText, StyledLoader,
     StyledTitle,
 } from './styled';
 
@@ -26,7 +38,31 @@ type Props = {
 };
 
 export const LoginForm = ({ onClose }: Props) => {
+    const {
+        error, isLoading, isAuth,
+    } = useAppSelector(selectAuth);
+    const { login, resetStatuses } = useActions();
+
     const createQueryPath = useCreateQueryPath();
+    const router = useRouter();
+
+    const controller = useMemo(() => new AbortController(), []);
+    const onSubmit = useCallback((values: LoginRequest) => {
+        login({ controller, ...values });
+    }, [controller, login]);
+
+    useEffect(() => {
+        if (isAuth) {
+            router.replace(createQueryPath('form', Forms.NONE));
+            toastSuccess(Notice.AUTH_SUCCESSFUL);
+        } else if (error) toastError(error);
+
+        return () => controller.abort();
+    }, [controller, createQueryPath, error, router, isAuth]);
+
+    useEffect(() => {
+        resetStatuses();
+    }, [resetStatuses]);
 
     return (
         <Modal
@@ -44,41 +80,50 @@ export const LoginForm = ({ onClose }: Props) => {
                     email: '',
                     password: '',
                 }}
-                onSubmit={(values) => console.log(values)}
+                onSubmit={onSubmit}
                 validationSchema={validationSchema}
             >
                 {({
-                      touched,
-                      errors
-                  }) => (
-                    <StyledBody className={poppinsFont.className}>
-                        <TextBox
-                            name="email"
-                            icon={EmailIcon}
-                            placeholder="Enter your email"
-                            type="email"
-                        />
-                        <StyledErrorText>{touched.email && errors.email}</StyledErrorText>
-                        <TextBox
-                            name="password"
-                            icon={PasswordIcon}
-                            placeholder="Enter your password"
-                            type="password"
-                        />
-                        <StyledErrorText>{touched.password && errors.password}</StyledErrorText>
+                    touched,
+                    errors,
+                }) => (
+                    <Form>
+                        <StyledBody className={poppinsFont.className}>
+                            {isLoading && <StyledLoader><Loader/></StyledLoader>}
 
-                        <StyledAuthBlock>
-                            <Button>Login</Button>
-                            <div> AUTH_BLOCK</div>
-                            <StyledBottomText>
-                                No account?
-                                {' '}
-                                <Link href={createQueryPath('form', 'register')}>
-                                    Sign up please.
-                                </Link>
-                            </StyledBottomText>
-                        </StyledAuthBlock>
-                    </StyledBody>
+                            <TextBox
+                                name="email"
+                                icon={EmailIcon}
+                                placeholder="Enter your email"
+                                type="email"
+                            />
+                            <StyledErrorText>{touched.email && errors.email}</StyledErrorText>
+
+                            <TextBox
+                                name="password"
+                                icon={PasswordIcon}
+                                placeholder="Enter your password"
+                                type="password"
+                            />
+                            <StyledErrorText>{touched.password && errors.password}</StyledErrorText>
+
+                            <StyledAuthBlock>
+                                <Button type="submit">Login</Button>
+                                <div>
+                                    <GoogleLoginButton/>
+                                    <FacebookLoginButton/>
+                                    <GithubLoginButton/>
+                                </div>
+                                <StyledBottomText>
+                                    No account?
+                                    {' '}
+                                    <Link href={createQueryPath('form', Forms.REGISTER_FORM)}>
+                                        Sign up please.
+                                    </Link>
+                                </StyledBottomText>
+                            </StyledAuthBlock>
+                        </StyledBody>
+                    </Form>
                 )}
             </Formik>
         </Modal>

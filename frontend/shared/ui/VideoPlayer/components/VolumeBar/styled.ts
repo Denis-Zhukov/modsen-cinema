@@ -1,11 +1,13 @@
 import styled from 'styled-components';
 
+import { Colors } from '@/shared/constants/Colors';
+
 export const StyledVolumeBar = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 10px;
-  color: #fff;
+  color: ${Colors.WHITE};
   font-size: 25px;
 
   div{
@@ -17,7 +19,7 @@ export const StyledVolumeBar = styled.div`
     overflow: hidden;
     width: 80px;
     -webkit-appearance: none;
-    background-color: #fff;
+    background-color: ${Colors.WHITE};
   }
 
   input[type='range']::-webkit-slider-runnable-track {
@@ -30,8 +32,8 @@ export const StyledVolumeBar = styled.div`
     width: 10px;
     -webkit-appearance: none;
     height: 10px;
-    background: #89501a;
-    box-shadow: -80px 0 0 80px #D98639;
+    background: ${Colors.DARK_ORANGE};
+    box-shadow: -80px 0 0 80px ${Colors.ORANGE};
     cursor: pointer;
   }
 `;

@@ -4,12 +4,14 @@ import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useCallback } from 'react';
 
+import { LogoutButton } from '@/entities/ui/LogoutButton';
+import { SignInButton } from '@/entities/ui/SignInButton';
+import { SignUpButton } from '@/entities/ui/SignUpButton';
 import { LoginForm } from '@/features/LoginForm';
-import { NavButton } from '@/features/NavButton';
 import { NavItem } from '@/features/NavItem';
 import { RegisterForm } from '@/features/RegisterForm';
 import { poppinsFont } from '@/shared/fonts';
-import { useCreateQueryPath } from '@/shared/hooks/useCreateQueryPath';
+import { useAppSelector } from '@/shared/hooks/redux-hooks';
 import { RoutePaths } from '@/shared/RoutePaths';
 import {
     SettingsBlock,
@@ -21,13 +23,13 @@ import {
 
 import Logo from './images/logo.png';
 import Settings from './images/settings.png';
+import { Forms } from "@/shared/constants/Forms";
 
 export const Header = () => {
     const router = useRouter();
     const pathname = usePathname();
     const searchParams = useSearchParams()!;
     const form = searchParams.get('form');
-    const createQueryPath = useCreateQueryPath();
 
     const handleCloseForm = useCallback(
         () => {
@@ -38,10 +40,12 @@ export const Header = () => {
         [pathname, router, searchParams],
     );
 
+    const isAuth = useAppSelector((state) => state.auth.isAuth);
+
     return (
         <StyledHeaderWrapper className={poppinsFont.className}>
-            {form === 'register' && <RegisterForm onClose={handleCloseForm}/>}
-            {form === 'login' && <LoginForm onClose={handleCloseForm}/>}
+            {form === Forms.REGISTER_FORM && <RegisterForm onClose={handleCloseForm}/>}
+            {form === Forms.LOGIN_FORM && <LoginForm onClose={handleCloseForm}/>}
             <StyledHeader>
                 <Link href="/">
                     <StyledLogo
@@ -56,18 +60,12 @@ export const Header = () => {
                     <NavItem path={RoutePaths.Bookings}>Bookings</NavItem>
                 </StyledNav>
                 <StyledAuthBlock>
-                    <NavButton
-                        path={createQueryPath('form', 'register')}
-                        variant="primary"
-                    >
-                        Sign up
-                    </NavButton>
-                    <NavButton
-                        path={createQueryPath('form', 'login')}
-                        variant="secondary"
-                    >
-                        Sign in
-                    </NavButton>
+                    {isAuth ? <LogoutButton/> : (
+                        <>
+                            <SignUpButton />
+                            <SignInButton />
+                        </>
+                    )}
                 </StyledAuthBlock>
                 <SettingsBlock src={Settings} alt="settings" width={48} height={48}/>
             </StyledHeader>

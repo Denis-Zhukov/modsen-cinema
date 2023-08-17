@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { Colors } from '@/shared/constants/Colors';
+
 export const StyledTitle = styled.div`
   max-width: 430px;
   height: 123px;
@@ -11,7 +13,7 @@ export const StyledTitle = styled.div`
   margin-bottom: 33px;
 
   span {
-    color: #D98639;
+    color: ${Colors.ORANGE};
   }
 `;
 

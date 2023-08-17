@@ -24,19 +24,19 @@ type Action =
         payload: number
     }
     | {
-    type: 'SET_PLAYING',
-    payload: boolean
-}
+        type: 'SET_PLAYING',
+        payload: boolean
+    }
     | {
-    type: 'TOGGLE_PLAYING'
-}
+        type: 'TOGGLE_PLAYING'
+    }
     | {
-    type: 'TOGGLE_FULLSCREEN'
-}
+        type: 'TOGGLE_FULLSCREEN'
+    }
     | {
-    type: 'SET_LAUNCHED',
-    payload: boolean
-};
+        type: 'SET_LAUNCHED',
+        payload: boolean
+    };
 
 export const reducer = (state: State, action: Action) => {
     switch (action.type) {

@@ -2,6 +2,8 @@
 
 import styled, { css } from 'styled-components';
 
+import { Colors } from '@/shared/constants/Colors';
+
 export const StyledBackground = styled.div<{
     $firstColor: [number, number, number],
     $secondColor: [number, number, number]
@@ -18,7 +20,7 @@ export const StyledBackground = styled.div<{
           `
     )}
   h2 {
-    color: #FFFFFF;
+    color: ${Colors.WHITE};
     text-align: center;
     font-size: 42px;
   }

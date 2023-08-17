@@ -1,18 +1,12 @@
 import React from 'react';
-import { ToastContainer } from 'react-toastify';
 
-import { ReduxProvider } from '@/shared/lib/redux-provider';
-import { StyledComponentsRegistry } from '@/shared/lib/registry';
+import { Colors } from '@/shared/constants/Colors';
+import { Providers } from '@/shared/lib/Providers';
 
 export const DefaultLayout = ({ children }: { children: React.ReactNode }) => (
     <html lang="en">
-        <body style={{ background: '#1E1F27' }}>
-            <ReduxProvider>
-                <StyledComponentsRegistry>
-                    {children}
-                    <ToastContainer/>
-                </StyledComponentsRegistry>
-            </ReduxProvider>
+        <body style={{ background: Colors.BLUE_BACKGROUND }}>
+            <Providers>{children}</Providers>
         </body>
     </html>
 );

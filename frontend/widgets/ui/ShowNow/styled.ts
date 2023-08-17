@@ -2,6 +2,8 @@
 
 import styled from 'styled-components';
 
+import { Colors } from '@/shared/constants/Colors';
+
 export const StyledShowNow = styled.div`
   display: flex;
   max-width: 1340px;
@@ -10,7 +12,7 @@ export const StyledShowNow = styled.div`
 `;
 
 export const StyledTextBlock = styled.div`
-  color: #FFFFFF;
+  color: ${Colors.WHITE};
   font-weight: 300;
   width: 50%;
   z-index: 999;
@@ -18,7 +20,7 @@ export const StyledTextBlock = styled.div`
   h2 {
     font-size: 48px;
     text-transform: uppercase;
-    color: #FFF;
+    color: ${Colors.WHITE};
     font-weight: 300;
   }
 

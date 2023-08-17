@@ -2,17 +2,21 @@
 
 import { Form, Formik } from 'formik';
 import Link from 'next/link';
-import React, { useEffect } from 'react';
-import { ToastContainer } from 'react-toastify';
+import React, { useCallback, useEffect, useState } from 'react';
 
+import { FacebookLoginButton } from '@/entities/ui/FacebookLoginButton';
+import { GithubLoginButton } from '@/entities/ui/GithubLoginButton';
+import { GoogleLoginButton } from '@/entities/ui/GoogleLoginButton';
 import { getPasswordComplexity, validationSchema } from '@/features/RegisterForm/validations';
+import { Forms } from '@/shared/constants/Forms';
 import { inriaSansFont, poppinsFont } from '@/shared/fonts';
 import { useCreateQueryPath } from '@/shared/hooks/useCreateQueryPath';
+import { useSwitchForm } from '@/shared/hooks/useSwitchForm';
 import { toastError, toastSuccess } from '@/shared/lib/toast';
 import { useRegisterMutation } from '@/shared/store/rtk/auth.rtk';
 import { RegisterRequest } from '@/shared/typing/api/requests/RegisterRequest';
 import { Notice } from '@/shared/typing/constants/Notice';
-import { isTypedError } from '@/shared/typing/guards/isError';
+import { isTypedError } from '@/shared/typing/guards/isTypedError';
 import { Button } from '@/shared/ui/Button';
 import { Loader } from '@/shared/ui/Loader';
 import { Modal } from '@/shared/ui/Modal';
@@ -26,7 +30,8 @@ import {
     StyledAuthBlock,
     StyledBody,
     StyledBottomText,
-    StyledErrorText, StyledLoader,
+    StyledErrorText,
+    StyledLoader,
     StyledPasswordComplexity,
     StyledTitle,
 } from './styled';
@@ -36,7 +41,6 @@ type Props = {
 };
 
 export const RegisterForm = ({ onClose }: Props) => {
-    const createQueryPath = useCreateQueryPath();
     const [register, {
         isLoading,
         isSuccess,
@@ -44,15 +48,28 @@ export const RegisterForm = ({ onClose }: Props) => {
         error,
     }] = useRegisterMutation();
 
-    const onSubmit = (values: RegisterRequest) => {
-        register(values);
-    };
+    const createQueryPath = useCreateQueryPath();
+    const switchForm = useSwitchForm();
+
+    const [currentRequest, setCurrentRequest] = useState<{ abort:() => void } | null>(null);
+    const onSubmit = useCallback((values: RegisterRequest) => {
+        if (currentRequest) currentRequest.abort();
+        const request = register(values);
+        setCurrentRequest(request);
+    }, [currentRequest, register]);
 
     useEffect(() => {
-        if (isSuccess) toastSuccess(Notice.REGISTRATION_SUCCESSFUL);
-        else if (isError && isTypedError(error)) toastError(error.data.message);
-        else if (isError) toastError(Notice.UNEXPECTED_ERROR);
-    }, [error, isError, isSuccess]);
+        if (isSuccess) {
+            toastSuccess(Notice.REGISTRATION_SUCCESSFUL);
+            switchForm(Forms.LOGIN_FORM);
+        } else if (isError && isTypedError(error)) {
+            toastError(error.data.message);
+        } else if (isError) toastError(Notice.UNEXPECTED_ERROR);
+    }, [error, isError, isSuccess, switchForm]);
+
+    useEffect(() => () => {
+        if (currentRequest) currentRequest.abort();
+    }, [currentRequest]);
 
     return (
         <Modal
@@ -93,6 +110,7 @@ export const RegisterForm = ({ onClose }: Props) => {
                                 type="text"
                             />
                             <StyledErrorText>{touched.name && errors.name}</StyledErrorText>
+
                             <TextBox
                                 name="surname"
                                 icon={GroupIcon}
@@ -100,6 +118,7 @@ export const RegisterForm = ({ onClose }: Props) => {
                                 type="text"
                             />
                             <StyledErrorText>{touched.surname && errors.surname}</StyledErrorText>
+
                             <TextBox
                                 name="email"
                                 icon={EmailIcon}
@@ -126,12 +145,16 @@ export const RegisterForm = ({ onClose }: Props) => {
 
                             <StyledAuthBlock>
                                 <Button type="submit">Register</Button>
-                                <div> AUTH_BLOCK</div>
+                                <div>
+                                    <GoogleLoginButton/>
+                                    <FacebookLoginButton/>
+                                    <GithubLoginButton/>
+                                </div>
                                 <StyledBottomText className={inriaSansFont.className}>
                                     Already has an
                                     account?
                                     {' '}
-                                    <Link href={createQueryPath('form', 'login')}>
+                                    <Link href={createQueryPath('form', Forms.LOGIN_FORM)}>
                                         Login please.
                                     </Link>
                                 </StyledBottomText>

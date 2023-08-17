@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import styled, { css } from 'styled-components';
+import { Colors } from "@/shared/constants/Colors";
 
 export const StyledVerticalSlider = styled.div`
   display: flex;
@@ -12,7 +13,7 @@ export const StyledVerticalSlider = styled.div`
 export const StyledMainSlide = styled.div`
   display: flex;
   flex-direction: column;
-  color: #FFFFFF;
+  color: ${Colors.WHITE};
 
   h3 {
     font-size: 32px;

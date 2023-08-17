@@ -1,3 +1,4 @@
+import { Endpoints } from '@/shared/api/Endpoints';
 import { api } from '@/shared/store/rtk/api';
 import { RegisterRequest } from '@/shared/typing/api/requests/RegisterRequest';
 import { RegisterResponse } from '@/shared/typing/api/responses/RegisterResponse';
@@ -7,7 +8,7 @@ const authRtk = api.injectEndpoints({
         register: build.mutation<RegisterResponse, RegisterRequest>({
             query: (data: RegisterRequest) => ({
                 body: data,
-                url: '/auth/register',
+                url: Endpoints.REGISTER,
                 method: 'POST',
             }),
         }),

@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { Colors } from '@/shared/constants/Colors';
+
 export const StyledTitle = styled.div`
   max-width: 430px;
   height: 123px;
@@ -11,7 +13,7 @@ export const StyledTitle = styled.div`
   margin-bottom: 33px;
 
   span {
-    color: #D98639;
+    color: ${Colors.ORANGE};
   }
 `;
 
@@ -56,4 +58,17 @@ export const StyledBottomText = styled.div`
     color: #FFF;
     font-style: italic;
   }
+`;
+
+export const StyledLoader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: rgba(0, 0, 0, .5);
+  z-index: 9;
 `;

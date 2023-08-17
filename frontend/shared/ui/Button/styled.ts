@@ -1,20 +1,21 @@
 import styled, { css } from 'styled-components';
 
+import { Colors } from '@/shared/constants/Colors';
 import type { TVariantButton } from '@/shared/ui/Button/types';
 
 const styles: Record<TVariantButton, string> = {
     primary: `
-        background: #D98639;
-        color: white;
+        background: ${Colors.ORANGE};
+        color: ${Colors.WHITE};
     `,
     secondary: `
-        background: #FFFFFF;
-        color: black;
+        background: ${Colors.WHITE};
+        color: ${Colors.BLACK};
     `,
 };
 
 export const StyledButton = styled.button<{ $variant?: TVariantButton }>`
-  color: #FFF;
+  color: ${Colors.WHITE};
   font-size: 24px;
   font-weight: 300;
   border: none;

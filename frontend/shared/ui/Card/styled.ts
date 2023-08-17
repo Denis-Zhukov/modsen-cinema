@@ -3,6 +3,8 @@
 import Link from 'next/link';
 import styled from 'styled-components';
 
+import { Colors } from '@/shared/constants/Colors';
+
 export const StyledCard = styled.div`
   display: flex;
   flex-direction: column;
@@ -13,7 +15,7 @@ export const StyledCard = styled.div`
   padding: 22px;
   background: rgba(79, 79, 79, 0.3);
   box-shadow: 10px 10px 20px rgba(0, 0, 0, .75);
-  color: #FFFFFF;
+  color: ${Colors.WHITE};
 
   h3 {
     font-size: 32px;
@@ -47,7 +49,7 @@ export const StyledReadMore = styled(Link)`
   align-items: center;
   gap: 15px;
 
-  color: #FFFFFF;
+  color: ${Colors.WHITE};
   text-decoration: none;
   margin-top: auto;
 
@@ -55,7 +57,7 @@ export const StyledReadMore = styled(Link)`
     text-transform: uppercase;
     font-size: 16px;
     font-weight: 300;
-    color: #D98639;
+    color: ${Colors.ORANGE};
   }
 
   img, div {

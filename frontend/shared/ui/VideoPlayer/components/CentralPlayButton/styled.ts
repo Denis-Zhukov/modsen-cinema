@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { Colors } from '@/shared/constants/Colors';
+
 export const StyledPlayButton = styled.button`
   display: flex;
   justify-content: center;
@@ -10,7 +12,7 @@ export const StyledPlayButton = styled.button`
   top: 50%;
   transform: translate(-50%, -50%);
 
-  background: #D98639;
+  background: ${Colors.ORANGE};
   border-radius: 50%;
   width: 70px;
   height: 70px;

@@ -1,11 +1,12 @@
 'use client';
 
 import styled from 'styled-components';
+import { Colors } from "@/shared/constants/Colors";
 
 export const StyledTrailer = styled.div`
   display: flex;
   max-width: 1340px;
-  color: #FFFFFF;
+  color: ${Colors.WHITE};
   background: #1E1F27;
   margin: 0 auto;
   overflow-y: hidden;

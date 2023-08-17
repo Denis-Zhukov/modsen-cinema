@@ -7,7 +7,8 @@ export const useCreateQueryPath = () => {
 
     return useCallback((name: string, value: string) => {
         const params = new URLSearchParams(searchParams.toString());
-        params.set(name, value);
+        if (value) params.set(name, value);
+        else params.delete(name);
         return `${pathname}?${params.toString()}`;
     }, [pathname, searchParams]);
 };
