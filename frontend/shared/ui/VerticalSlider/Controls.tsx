@@ -19,7 +19,7 @@ export const Controls = React.memo(({
             alt="prev-arrow"
             width={30}
             height={20}
-            degree={180}
+            $degree={180}
         />
         <StyledArrow onClick={onNext} src={ArrowIcon} alt="next-arrow" width={30} height={20}/>
     </StyledControls>

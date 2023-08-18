@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 
 import { Colors } from '@/shared/constants/Colors';
+import { Theme } from '@/shared/constants/themes';
 
-export const StyledTitle = styled.div`
+export const StyledTitle = styled.div<Theme>`
   max-width: 430px;
   height: 123px;
-  color: #FFF;
+  color: ${({ theme: { text: { main } } }) => main};
   text-shadow: 10px 4px 4px rgba(0, 0, 0, 0.25);
   font-size: 32px;
   font-style: italic;
@@ -43,12 +44,12 @@ export const StyledAuthBlock = styled.div`
 export const StyledErrorText = styled.div`
   display: block;
   height: 20px;
-  color: red;
+  color: ${({ theme: { error } }) => error};
   margin: 10px 0 0 90px;
 `;
 
 export const StyledPasswordComplexity = styled.meter`
-    width: 64px;
+  width: 64px;
 `;
 
 export const StyledBottomText = styled.div`
@@ -59,7 +60,7 @@ export const StyledBottomText = styled.div`
   line-height: normal;
 
   > a {
-    color: #FFF;
+    color: ${({ theme: { text } }) => text};
     font-style: italic;
   }
 `;

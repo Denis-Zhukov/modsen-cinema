@@ -3,6 +3,8 @@
 import Image from 'next/image';
 import styled from 'styled-components';
 
+import { Theme } from '@/shared/constants/themes';
+
 export const StyledWrapperModal = styled.div`
   display: flex;
   justify-content: center;
@@ -16,10 +18,10 @@ export const StyledWrapperModal = styled.div`
   z-index: 9999;
 `;
 
-export const StyledModal = styled.div`
+export const StyledModal = styled.div<Theme>`
   padding: 40px 50px;
   width: 840px;
-  background: #1E1F27;
+  background: ${({ theme: { background } }) => background};;
   position: relative;
   box-shadow: 0 0 50px 5px rgba(155, 155, 155, 0.05);
 `;
@@ -30,6 +32,7 @@ export const StyledTopBlock = styled.div`
   justify-content: space-between;
 `;
 
-export const StyledCloseButton = styled(Image)`
+export const StyledCloseButton = styled(Image)<Theme>`
   cursor: pointer;
+  ${({ theme: { type } }) => (type === 'light' ? 'filter: invert(100%);' : '')}
 `;

@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
-export const StyledTextBox = styled.div`
+import { Theme } from '@/shared/constants/themes';
+
+export const StyledTextBox = styled.div<Theme>`
   display: flex;
   flex-direction: row;
   gap: 25px;
@@ -11,10 +13,14 @@ export const StyledTextBox = styled.div`
     outline: none;
     border: none;
 
-    color: #FFF;
-    border-bottom: 2.5px solid #D9D9D9 ;
+    color: ${({ theme: { text: { main } } }) => main};
+    border-bottom: 2.5px solid ${({ theme: { line } }) => line};
     font-size: 24px;
     font-weight: 300;
     background: transparent;
+  }
+
+  img {
+    ${({ theme: { type } }) => (type === 'light' ? 'filter:invert(100%);' : '')}
   }
 `;

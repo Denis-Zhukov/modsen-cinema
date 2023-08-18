@@ -7,9 +7,11 @@ import { useCallback } from 'react';
 import { LogoutButton } from '@/entities/ui/LogoutButton';
 import { SignInButton } from '@/entities/ui/SignInButton';
 import { SignUpButton } from '@/entities/ui/SignUpButton';
+import { ThemeButton } from '@/entities/ui/ThemeButton';
 import { LoginForm } from '@/features/LoginForm';
 import { NavItem } from '@/features/NavItem';
 import { RegisterForm } from '@/features/RegisterForm';
+import { Forms } from '@/shared/constants/Forms';
 import { poppinsFont } from '@/shared/fonts';
 import { useAppSelector } from '@/shared/hooks/redux-hooks';
 import { RoutePaths } from '@/shared/RoutePaths';
@@ -23,7 +25,6 @@ import {
 
 import Logo from './images/logo.png';
 import Settings from './images/settings.png';
-import { Forms } from "@/shared/constants/Forms";
 
 export const Header = () => {
     const router = useRouter();
@@ -68,6 +69,7 @@ export const Header = () => {
                     )}
                 </StyledAuthBlock>
                 <SettingsBlock src={Settings} alt="settings" width={48} height={48}/>
+                <ThemeButton />
             </StyledHeader>
         </StyledHeaderWrapper>
     );

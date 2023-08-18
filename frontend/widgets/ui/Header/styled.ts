@@ -3,8 +3,10 @@
 import Image from 'next/image';
 import styled from 'styled-components';
 
-export const StyledHeaderWrapper = styled.div`
-  background: #1E1F27;
+import { Theme } from '@/shared/constants/themes';
+
+export const StyledHeaderWrapper = styled.div<Theme>`
+  background: ${({ theme: { background } }) => background};
 `;
 
 export const StyledHeader = styled.header`
@@ -13,13 +15,14 @@ export const StyledHeader = styled.header`
   align-items: center;
   padding: 65px 85px;
   gap: 60px;
-  
-  @media (max-width: 1270px){
+
+  @media (max-width: 1270px) {
     flex-direction: column;
   }
 `;
 
 export const StyledLogo = styled(Image)`
+  filter: drop-shadow(0 0 5px black);
   position: relative;
   top: -7px;
 `;
@@ -27,12 +30,12 @@ export const StyledLogo = styled(Image)`
 export const StyledNav = styled.nav`
   display: flex;
   align-items: center;
-  
+
   gap: 16px;
   padding: 0 16px;
   flex: 1 1 auto;
 
-  @media (max-width: 1270px){
+  @media (max-width: 1270px) {
     flex-direction: column;
   }
 `;
@@ -47,10 +50,11 @@ export const StyledAuthBlock = styled.div`
     height: 55px;
   }
 
-  @media (max-width: 1270px){
+  @media (max-width: 1270px) {
     flex-direction: column;
   }
 `;
 
-export const SettingsBlock = styled(Image)`
+export const SettingsBlock = styled(Image)<Theme>`
+  ${({ theme: { type } }) => (type === 'light' ? 'filter:invert(100%);' : '')};
 `;

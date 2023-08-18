@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { removeAccessToken, setAccessToken } from '@/shared/lib/local-storage-utils';
+import { Storage } from '@/shared/lib/local-storage-utils';
 import { initAuthThunk } from '@/shared/store/slices/auth/initAuthThunk';
 import { loginThunk } from '@/shared/store/slices/auth/loginThunk';
 import { logoutThunk } from '@/shared/store/slices/auth/logoutThunk';
@@ -66,7 +66,7 @@ const authSlice = createSlice({
                 state.surname = payload.surname;
                 state.roles = payload.roles;
                 state.isAuth = true;
-                setAccessToken(payload.accessToken);
+                Storage.setAccessToken(payload.accessToken);
 
                 setFulfilledValues(state);
             })
@@ -78,7 +78,7 @@ const authSlice = createSlice({
                 state.surname = payload.surname;
                 state.roles = payload.roles;
                 state.isAuth = true;
-                setAccessToken(payload.accessToken);
+                Storage.setAccessToken(payload.accessToken);
 
                 setFulfilledValues(state);
             })
@@ -90,7 +90,7 @@ const authSlice = createSlice({
                 state.name = null;
                 state.surname = null;
                 state.roles = [];
-                removeAccessToken();
+                Storage.removeAccessToken();
 
                 setFulfilledValues(state);
             })

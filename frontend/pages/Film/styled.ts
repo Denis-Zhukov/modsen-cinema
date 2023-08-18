@@ -2,15 +2,20 @@
 
 import styled, { css } from 'styled-components';
 
-import { Colors } from '@/shared/constants/Colors';
+import { Theme } from '@/shared/constants/themes';
 
 export const StyledBackground = styled.div<{
     $firstColor: [number, number, number],
     $secondColor: [number, number, number]
-}>`
-  box-shadow: inset 0 0 60px 100px #1E1F27;
+} & Theme>`
+  box-shadow: inset 0 0 60px 100px ${({
+        theme: {
+            type,
+            background,
+        },
+    }) => (type === 'light' ? '#e7e4df' : background)};
   padding: 100px;
-  
+
   ${({
         $firstColor,
         $secondColor,
@@ -20,7 +25,7 @@ export const StyledBackground = styled.div<{
           `
     )}
   h2 {
-    color: ${Colors.WHITE};
+    color: ${({ theme: { text: { main } } }) => main};
     text-align: center;
     font-size: 42px;
   }
@@ -30,7 +35,7 @@ export const StyledTrailerBlock = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  
+
   h2 {
     margin-bottom: 67px;
   }

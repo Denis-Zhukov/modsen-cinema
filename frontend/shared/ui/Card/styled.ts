@@ -4,8 +4,9 @@ import Link from 'next/link';
 import styled from 'styled-components';
 
 import { Colors } from '@/shared/constants/Colors';
+import { Theme } from '@/shared/constants/themes';
 
-export const StyledCard = styled.div`
+export const StyledCard = styled.div<Theme>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -15,7 +16,7 @@ export const StyledCard = styled.div`
   padding: 22px;
   background: rgba(79, 79, 79, 0.3);
   box-shadow: 10px 10px 20px rgba(0, 0, 0, .75);
-  color: ${Colors.WHITE};
+  color: ${({ theme: { text: { main } } }) => main};
 
   h3 {
     font-size: 32px;
@@ -49,7 +50,7 @@ export const StyledReadMore = styled(Link)`
   align-items: center;
   gap: 15px;
 
-  color: ${Colors.WHITE};
+  color: ${({ theme: { text: { main } } }) => main};;
   text-decoration: none;
   margin-top: auto;
 

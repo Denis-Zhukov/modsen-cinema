@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import styled, { css } from 'styled-components';
-import { Colors } from "@/shared/constants/Colors";
+
+import { Theme } from '@/shared/constants/themes';
 
 export const StyledVerticalSlider = styled.div`
   display: flex;
@@ -10,17 +11,17 @@ export const StyledVerticalSlider = styled.div`
   gap: 90px;
 `;
 
-export const StyledMainSlide = styled.div`
+export const StyledMainSlide = styled.div<Theme>`
   display: flex;
   flex-direction: column;
-  color: ${Colors.WHITE};
+  color: ${({ theme: { text: { main } } }) => main};
 
   h3 {
     font-size: 32px;
   }
 `;
 
-export const StyledBadges = styled.div`
+export const StyledBadges = styled.div<Theme>`
   display: flex;
   flex-direction: row;
   gap: 15px;
@@ -40,11 +41,12 @@ export const StyledControls = styled.div`
   height: 86px;
 `;
 
-export const StyledArrow = styled(Image)<{ degree?: number }>`
+export const StyledArrow = styled(Image)<{ $degree?: number } & Theme>`
   cursor: pointer;
-  ${({ degree }) => css`transform: rotate(${degree}deg)`}
+  ${({ theme: { type } }) => (type === 'light' ? 'filter: invert(100%);' : '')}
+  ${({ $degree }) => css`transform: rotate(${$degree}deg)`}
 `;
 
 StyledArrow.defaultProps = {
-    degree: 0,
+    $degree: 0,
 };

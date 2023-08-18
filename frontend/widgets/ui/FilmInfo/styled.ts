@@ -3,14 +3,14 @@
 import Link from 'next/link';
 import styled from 'styled-components';
 
-import { Colors } from '@/shared/constants/Colors';
+import { Theme } from '@/shared/constants/themes';
 
-export const StyledFilmInfo = styled.div`
+export const StyledFilmInfo = styled.div<Theme>`
   display: flex;
   flex-direction: column;
   max-width: 1530px;
   margin: 0 auto;
-  color: ${Colors.WHITE};
+  color: ${({ theme: { text: { main } } }) => main};
   gap: 35px;
 `;
 
@@ -25,19 +25,20 @@ export const StyledTopBlock = styled.div`
   }
 `;
 
-export const StyledNextFilm = styled(Link)`
+export const StyledNextFilm = styled(Link)<Theme>`
   display: flex;
   flex-direction: row;
   align-items: center;
   font-size: 36px;
   gap: 25px;
-  color: ${Colors.WHITE};
+  color: ${({ theme: { text: { main } } }) => main};
 
   span {
     text-decoration: underline;
   }
 
   img {
+    ${({ theme: { type } }) => (type === 'light' ? 'filter: invert(100%);' : '')}
     width: 65px;
     object-fit: contain;
   }

@@ -5,7 +5,7 @@ import { Colors } from '@/shared/constants/Colors';
 export const StyledTitle = styled.div`
   max-width: 430px;
   height: 123px;
-  color: #FFF;
+  color: ${({ theme: { text } }) => text};
   text-shadow: 10px 4px 4px rgba(0, 0, 0, 0.25);
   font-size: 32px;
   font-style: italic;
@@ -43,19 +43,19 @@ export const StyledAuthBlock = styled.div`
 export const StyledErrorText = styled.div`
   display: block;
   height: 20px;
-  color: red;
+  color: ${({ theme: { error } }) => error};
   margin: 10px 0 0 90px;
 `;
 
 export const StyledBottomText = styled.div`
-  color: #FFF;
+  color: ${({ theme: { text } }) => text};
   font-size: 18px;
   font-style: italic;
   font-weight: 300;
   line-height: normal;
 
   > a {
-    color: #FFF;
+    color: ${({ theme: { text } }) => text};
     font-style: italic;
   }
 `;

@@ -2,6 +2,8 @@
 
 import styled from 'styled-components';
 
+import { Colors } from '@/shared/constants/Colors';
+
 export const StyledNotFound = styled.div`
   display: flex;
   flex-direction: column;
@@ -13,7 +15,7 @@ export const StyledNotFound = styled.div`
   h1 {
     font-size: 6rem;
     margin-bottom: 1rem;
-    color: #1187db;
+    color: ${Colors.ORANGE};
   }
 
   p {

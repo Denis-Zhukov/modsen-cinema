@@ -1,19 +1,20 @@
 'use client';
 
 import styled from 'styled-components';
-import { Colors } from "@/shared/constants/Colors";
 
-export const StyledTrailer = styled.div`
+import { Theme } from '@/shared/constants/themes';
+
+export const StyledTrailer = styled.div<Theme>`
   display: flex;
   max-width: 1340px;
-  color: ${Colors.WHITE};
-  background: #1E1F27;
+  color: ${({ theme: { text: { main } } }) => main};
+  background: ${({ theme: { background } }) => background};
   margin: 0 auto;
   overflow-y: hidden;
 `;
 
-export const StyledTextBlock = styled.div`
-  box-shadow: 50px 0 50px 75px #1E1F27;
+export const StyledTextBlock = styled.div<Theme>`
+  box-shadow: 50px 0 50px 75px ${({ theme: { background } }) => background};;
   position: relative;
   z-index: 999;
   font-weight: 300;

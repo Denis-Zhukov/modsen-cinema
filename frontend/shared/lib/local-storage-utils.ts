@@ -1,11 +1,13 @@
 import { LocalStorageItems } from '@/shared/typing/constants/LocalStorageItems';
 
-export const setAccessToken = (value: string) => {
-    localStorage.setItem(LocalStorageItems.accessToken, value);
-};
+export class Storage {
+    static setAccessToken = (value: string) => localStorage.setItem(LocalStorageItems.accessToken, value);
 
-export const getAccessToken = () => localStorage.getItem(LocalStorageItems.accessToken);
+    static getAccessToken = () => localStorage.getItem(LocalStorageItems.accessToken);
 
-export const removeAccessToken = () => {
-    localStorage.removeItem(LocalStorageItems.accessToken);
-};
+    static removeAccessToken = () => localStorage.removeItem(LocalStorageItems.accessToken);
+
+    static setTheme = (theme: string) => localStorage.setItem(LocalStorageItems.theme, theme);
+
+    static getTheme = () => localStorage.getItem(LocalStorageItems.theme) as 'light' | 'dark';
+}

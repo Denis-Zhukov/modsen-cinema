@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 
 import { Colors } from '@/shared/constants/Colors';
+import { Theme } from '@/shared/constants/themes';
 import type { TVariantButton } from '@/shared/ui/Button/types';
 
 const styles: Record<TVariantButton, string> = {
@@ -14,8 +15,7 @@ const styles: Record<TVariantButton, string> = {
     `,
 };
 
-export const StyledButton = styled.button<{ $variant?: TVariantButton }>`
-  color: ${Colors.WHITE};
+export const StyledButton = styled.button<Theme & { $variant?: TVariantButton }>`
   font-size: 24px;
   font-weight: 300;
   border: none;

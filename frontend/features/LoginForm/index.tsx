@@ -2,7 +2,6 @@
 
 import { Form, Formik } from 'formik';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import React, { useCallback, useEffect, useMemo } from 'react';
 
 import { FacebookLoginButton } from '@/entities/ui/FacebookLoginButton';
@@ -14,6 +13,7 @@ import { inriaSansFont, poppinsFont } from '@/shared/fonts';
 import { useAppSelector } from '@/shared/hooks/redux-hooks';
 import { useActions } from '@/shared/hooks/useActions';
 import { useCreateQueryPath } from '@/shared/hooks/useCreateQueryPath';
+import { useSwitchForm } from '@/shared/hooks/useSwitchForm';
 import { toastError, toastSuccess } from '@/shared/lib/toast';
 import { selectAuth } from '@/shared/store/selectors/auth.selectors';
 import { LoginRequest } from '@/shared/typing/api/requests/LoginRequest';
@@ -29,7 +29,8 @@ import {
     StyledAuthBlock,
     StyledBody,
     StyledBottomText,
-    StyledErrorText, StyledLoader,
+    StyledErrorText,
+    StyledLoader,
     StyledTitle,
 } from './styled';
 
@@ -44,7 +45,7 @@ export const LoginForm = ({ onClose }: Props) => {
     const { login, resetStatuses } = useActions();
 
     const createQueryPath = useCreateQueryPath();
-    const router = useRouter();
+    const switchForm = useSwitchForm();
 
     const controller = useMemo(() => new AbortController(), []);
     const onSubmit = useCallback((values: LoginRequest) => {
@@ -53,16 +54,15 @@ export const LoginForm = ({ onClose }: Props) => {
 
     useEffect(() => {
         if (isAuth) {
-            router.replace(createQueryPath('form', Forms.NONE));
+            switchForm(Forms.NONE);
             toastSuccess(Notice.AUTH_SUCCESSFUL);
         } else if (error) toastError(error);
-
-        return () => controller.abort();
-    }, [controller, createQueryPath, error, router, isAuth]);
+    }, [error, switchForm, isAuth]);
 
     useEffect(() => {
         resetStatuses();
-    }, [resetStatuses]);
+        return () => controller.abort();
+    }, [resetStatuses, controller]);
 
     return (
         <Modal

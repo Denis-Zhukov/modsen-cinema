@@ -7,5 +7,5 @@ export class TimeUtils {
         const formattedSeconds = remainingSeconds < 10 ? `0${remainingSeconds}` : `${remainingSeconds}`;
 
         return `${formattedMinutes}:${formattedSeconds}`;
-    };
+    }
 }

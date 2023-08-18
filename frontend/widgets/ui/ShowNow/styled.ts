@@ -2,7 +2,7 @@
 
 import styled from 'styled-components';
 
-import { Colors } from '@/shared/constants/Colors';
+import { Theme } from '@/shared/constants/themes';
 
 export const StyledShowNow = styled.div`
   display: flex;
@@ -11,8 +11,8 @@ export const StyledShowNow = styled.div`
   gap: 75px;
 `;
 
-export const StyledTextBlock = styled.div`
-  color: ${Colors.WHITE};
+export const StyledTextBlock = styled.div<Theme>`
+  color: ${({ theme: { text: { main } } }) => main};
   font-weight: 300;
   width: 50%;
   z-index: 999;
@@ -20,7 +20,7 @@ export const StyledTextBlock = styled.div`
   h2 {
     font-size: 48px;
     text-transform: uppercase;
-    color: ${Colors.WHITE};
+    color: ${({ theme: { text: { main } } }) => main};
     font-weight: 300;
   }
 

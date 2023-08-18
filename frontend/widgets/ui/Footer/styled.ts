@@ -1,10 +1,13 @@
 'use client';
 
+import Image from 'next/image';
 import styled from 'styled-components';
 
-export const StyledFooterWrapper = styled.div`
-  box-shadow: inset 0 0 50px 50px #21222a;
-  background: #1E1F27;
+import { Theme } from '@/shared/constants/themes';
+
+export const StyledFooterWrapper = styled.div<Theme>`
+  box-shadow: inset 0 0 50px 50px ${({ theme: { type } }) => (type === 'dark' ? '#21222a' : '#deddd5')};
+  background: ${({ theme: { background } }) => background};
 `;
 
 export const StyledFooter = styled.div`
@@ -16,21 +19,25 @@ export const StyledFooter = styled.div`
   max-width: 1332px;
 `;
 
-export const StyledColumn = styled.div`
+export const StyledLogo = styled(Image)<Theme>`
+  filter: drop-shadow(0 0 10px black);
+`;
+
+export const StyledColumn = styled.div<Theme>`
   display: flex;
   flex-direction: column;
 
-  h2, a{
-    color: #FFF;
+  h2, a {
+    color: ${({ theme: { text: { main } } }) => main};
   }
-  
+
   h2 {
     font-size: 16px;
     font-weight: 700;
     margin-bottom: 16px;
   }
-  
-  a{
+
+  a {
     margin-bottom: 8px;
     font-size: 14px;
     font-weight: 400;
@@ -38,16 +45,16 @@ export const StyledColumn = styled.div`
   }
 `;
 
-export const StyledSubscribe = styled.div`
+export const StyledSubscribe = styled.div<Theme>`
   display: flex;
   flex-direction: column;
-  color: #FFF;
+  color: ${({ theme: { text: { main } } }) => main};
   font-size: 16px;
   font-weight: 700;
   max-width: 395px;
 
   input {
-    color: white;
+    color: ${({ theme: { text: { main } } }) => main};;
     padding: 12px 24px;
     border-radius: 40px;
     background: rgba(255, 255, 255, 0.15);
@@ -60,7 +67,7 @@ export const StyledSubscribe = styled.div`
 
   p {
     opacity: 0.4;
-    color: #FFF;
+    color: ${({ theme: { text: { main } } }) => main};
     font-size: 14px;
     font-weight: 400;
     line-height: 20px;
