@@ -6,6 +6,7 @@ import { LoginDto } from './dto/login.dto';
 import { TokenService } from '../token/token.service';
 import { ConfigService } from '@nestjs/config';
 import { EnvFields } from '../../utils/env-fields';
+import { JwtPayload } from '../token/types';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
@@ -25,6 +26,7 @@ export class AuthService {
     async login(dto: LoginDto) {
         const user = await this.usersService.getByEmail(dto.email);
         if (!user) throw new BadRequestException(UserErrors.USER_NOT_EXIST);
+
         const validatePassword = await bcrypt.compare(
             dto.password,
             user.hashPassword,
@@ -32,10 +34,9 @@ export class AuthService {
         if (!validatePassword)
             throw new BadRequestException(UserErrors.WRONG_AUTH);
 
-        const payload = {
+        const payload: JwtPayload = {
             id: user.id,
             email: user.email,
-            roles: user.roles.map((r) => r.name),
         };
 
         const refreshToken = await this.tokenService.generateJwtToken(
@@ -50,6 +51,87 @@ export class AuthService {
 
         await this.usersService.setRefreshToken(user.id, refreshToken);
 
-        return { user: payload, refreshToken, accessToken };
+        return {
+            user: {
+                id: user.id,
+                name: user.name,
+                surname: user.surname,
+                roles: user.roles,
+            },
+            refreshToken,
+            accessToken,
+        };
+    }
+
+    async oauth(name: string, surname: string, email: string) {
+        let userEntity = await this.usersService.getByEmail(email);
+
+        if (!userEntity) {
+            userEntity = await this.usersService.create({
+                name,
+                surname,
+                email,
+                password: null,
+            });
+        }
+
+        const refreshToken = await this.tokenService.generateJwtToken(
+            {
+                id: userEntity.id,
+                email: userEntity.email,
+            },
+            +this.configService.get(EnvFields.EXPIRE_REFRESH_JWT),
+        );
+
+        await this.usersService.setRefreshToken(userEntity.id, refreshToken);
+
+        return refreshToken;
+    }
+
+    async refreshAccessToken(refreshToken: string) {
+        const { verified, payload } = await this.tokenService.verifyToken(
+            refreshToken,
+        );
+
+        if (!verified)
+            throw new BadRequestException(UserErrors.WRONG_REFRESH_TOKEN);
+
+        const { id, email, ...userEntity } = await this.usersService.getById(
+            payload.id,
+        );
+
+        if (userEntity.refreshToken !== refreshToken)
+            throw new BadRequestException(UserErrors.WRONG_REFRESH_TOKEN);
+
+        const accessToken = await this.tokenService.generateJwtToken(
+            { id, email },
+            +this.configService.get(EnvFields.EXPIRE_REFRESH_JWT),
+        );
+
+        return {
+            accessToken,
+            id,
+            surname: userEntity.surname,
+            name: userEntity.name,
+            roles: userEntity.roles,
+        };
+    }
+
+    async logout(refreshToken: string) {
+        const { verified, payload } = await this.tokenService.verifyToken(
+            refreshToken,
+        );
+
+        if (!verified)
+            throw new BadRequestException(UserErrors.WRONG_REFRESH_TOKEN);
+
+        const { id, ...userEntity } = await this.usersService.getById(
+            payload.id,
+        );
+
+        if (userEntity.refreshToken !== refreshToken)
+            throw new BadRequestException(UserErrors.WRONG_REFRESH_TOKEN);
+
+        await this.usersService.setRefreshToken(id, null);
     }
 }

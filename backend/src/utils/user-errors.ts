@@ -4,4 +4,7 @@ export enum UserErrors {
     WRONG_AUTH = 'Wrong email or password',
     WRONG_FILES_TYPE = 'Unexpected file type',
     NO_REQUIRED_FILES = 'Missing files',
+    NO_EMAIL = 'Email not specified',
+    WRONG_REFRESH_TOKEN = 'Wrong refresh token',
+    NO_REFRESH_TOKEN = 'Token not passed',
 }

@@ -1,3 +1,3 @@
 export enum CookieFields {
-    RefreshToken = 'monema_refresh_token',
+    REFRESH_TOKEN = 'monema_refresh_token',
 }

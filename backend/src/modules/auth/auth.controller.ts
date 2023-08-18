@@ -1,11 +1,22 @@
-import { Body, Controller, Post, Res } from '@nestjs/common';
+import {
+    BadRequestException,
+    Body,
+    Controller,
+    Get,
+    Post,
+    Req,
+    Res,
+    UseGuards,
+} from '@nestjs/common';
 import { CreateUserDto } from '../users/dto/create-user.dto';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
-import { Response } from 'express';
+import { Request, Response } from 'express';
 import { CookieFields } from '../../utils/cookie-fields';
 import { ConfigService } from '@nestjs/config';
 import { EnvFields } from '../../utils/env-fields';
+import { AuthGuard } from '@nestjs/passport';
+import { UserErrors } from '../../utils/user-errors';
 
 @Controller('auth')
 export class AuthController {
@@ -24,7 +35,9 @@ export class AuthController {
         @Body() dto: LoginDto,
         @Res({ passthrough: true }) response: Response,
     ) {
-        const { refreshToken, ...user } = await this.service.login(dto);
+        const { refreshToken, accessToken, user } = await this.service.login(
+            dto,
+        );
 
         const expires = new Date();
         expires.setSeconds(
@@ -32,11 +45,75 @@ export class AuthController {
                 +this.configService.get(EnvFields.EXPIRE_REFRESH_JWT),
         );
 
-        response.cookie(CookieFields.RefreshToken, refreshToken, {
+        response.cookie(CookieFields.REFRESH_TOKEN, refreshToken, {
             httpOnly: true,
             expires,
         });
 
-        return user;
+        return { accessToken, ...user };
+    }
+
+    @Post('refresh')
+    async refresh(@Req() req: Request) {
+        const refreshToken = req.cookies[CookieFields.REFRESH_TOKEN];
+        const newAccessToken = await this.service.refreshAccessToken(
+            refreshToken,
+        );
+        return { accessToken: newAccessToken };
+    }
+
+    @Post('logout')
+    async logout(
+        @Req() req: Request,
+        @Res({ passthrough: true }) res: Response,
+    ) {
+        const refreshToken = req.cookies[CookieFields.REFRESH_TOKEN];
+
+        if (!refreshToken)
+            throw new BadRequestException(UserErrors.NO_REFRESH_TOKEN);
+
+        res.clearCookie(CookieFields.REFRESH_TOKEN);
+        await this.service.logout(refreshToken);
+    }
+
+    private async oauthCallback(req: Request, res: Response) {
+        const { email, surname, name } = req.user as {
+            email: string;
+            surname: string;
+            name: string;
+        };
+        const refreshToken = await this.service.oauth(name, surname, email);
+        res.cookie(CookieFields.REFRESH_TOKEN, refreshToken);
+        res.redirect('http://localhost:3000');
+    }
+
+    @Get('google')
+    @UseGuards(AuthGuard('google'))
+    async googleAuth() {}
+
+    @Get('google/callback')
+    @UseGuards(AuthGuard('google'))
+    async googleAuthRedirect(@Req() req: Request, @Res() res: Response) {
+        await this.oauthCallback(req, res);
+    }
+
+    @Get('github')
+    @UseGuards(AuthGuard('github'))
+    async githubAuth() {}
+
+    @Get('github/callback')
+    @UseGuards(AuthGuard('github'))
+    async githubAuthRedirect(@Req() req: Request, @Res() res: Response) {
+        await this.oauthCallback(req, res);
+    }
+
+    @Get('facebook')
+    @UseGuards(AuthGuard('facebook'))
+    async facebookAuth() {}
+
+    @Get('facebook/callback')
+    @UseGuards(AuthGuard('facebook'))
+    async facebookAuthRedirect(@Req() req: Request, @Res() res: Response) {
+        await this.oauthCallback(req, res);
     }
 }

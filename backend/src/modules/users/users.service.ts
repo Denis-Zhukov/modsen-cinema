@@ -25,11 +25,14 @@ export class UsersService {
         return this.usersRepository.find();
     }
 
-    getById(id: number) {
-        return this.usersRepository.findOne({ where: { id } });
+    getById(id: number): Promise<UsersEntity | null> {
+        return this.usersRepository.findOne({
+            where: { id },
+            relations: ['roles'],
+        });
     }
 
-    getByEmail(email: string) {
+    getByEmail(email: string): Promise<UsersEntity | null> {
         return this.usersRepository.findOne({
             where: { email: email.toLowerCase() },
             relations: ['roles'],
@@ -45,7 +48,7 @@ export class UsersService {
     }
 
     async create({ name, surname, password, email }: CreateUserDto) {
-        const hashPassword = await this.hashPassword(password);
+        const hashPassword = password && (await this.hashPassword(password));
 
         const queryRunner = this.dataSource.createQueryRunner();
         await queryRunner.connect();

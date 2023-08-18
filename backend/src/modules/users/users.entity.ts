@@ -25,7 +25,7 @@ export class UsersEntity {
     @Column({ unique: true })
     email: string;
 
-    @Column({ name: 'hash_password' })
+    @Column({ name: 'hash_password', nullable: true })
     hashPassword: string;
 
     @Column({ name: 'refresh_token', nullable: true })

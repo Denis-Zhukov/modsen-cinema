@@ -19,9 +19,12 @@ import { AuthModule } from './modules/auth/auth.module';
 import { TokenModule } from './modules/token/token.module';
 import { EnvFields } from './utils/env-fields';
 import configurations from './configurations';
-import { JwtStrategy } from './strategy/JwtStrategy';
+import { JwtStrategy } from './strategies/jwt.strategy';
 import { FilesModule } from './modules/files/files.module';
 import { paths } from './utils/constants';
+import { GoogleStrategy } from './strategies/google.strategy';
+import { GithubStrategy } from './strategies/github.strategy';
+import { FacebookStrategy } from './strategies/facebook.strategy';
 
 @Module({
     imports: [
@@ -89,6 +92,6 @@ import { paths } from './utils/constants';
         FilesModule,
     ],
     controllers: [],
-    providers: [JwtStrategy],
+    providers: [JwtStrategy, GoogleStrategy, GithubStrategy, FacebookStrategy],
 })
 export class AppModule {}

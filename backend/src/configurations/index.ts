@@ -10,5 +10,15 @@ export default () => ({
     typeorm_port: process.env.TYPEORM_PORT,
 
     secret: process.env.SECRET,
-    expire_jwt: process.env.EXPIRE_JWT,
+    expire_access_jwt: process.env.EXPIRE_ACCESS_JWT,
+    expire_refresh_jwt: process.env.EXPIRE_REFRESH_JWT,
+
+    google_client_id: process.env.GOOGLE_CLIENT_ID,
+    google_secret: process.env.GOOGLE_SECRET,
+
+    github_client_id: process.env.GITHUB_CLIENT_ID,
+    github_secret: process.env.GITHUB_SECRET,
+
+    facebook_client_id: process.env.FACEBOOK_CLIENT_ID,
+    facebook_secret: process.env.FACEBOOK_SECRET,
 });
