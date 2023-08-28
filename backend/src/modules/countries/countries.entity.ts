@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { FilmsEntity } from '../films/films.entity';
 
 @Entity({ name: 'countries' })
 export class CountriesEntity {
@@ -7,4 +8,7 @@ export class CountriesEntity {
 
     @Column({ unique: true })
     name: string;
+
+    @OneToMany(() => FilmsEntity, (film) => film.author)
+    films: FilmsEntity[];
 }

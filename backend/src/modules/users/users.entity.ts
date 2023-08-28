@@ -3,6 +3,7 @@ import {
     Entity,
     JoinTable,
     ManyToMany,
+    ManyToOne,
     OneToMany,
     PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -10,6 +11,7 @@ import { UserRatingsEntity } from '../user-ratings/user-ratings.entity';
 import { UserReviewsEntity } from '../user-reviews/user-reviews.entity';
 import { BookingsEntity } from '../bookings/bookings.entity';
 import { RolesEntity } from '../roles/roles.entity';
+import { SexEntity } from '../sex/sex.entity';
 
 @Entity({ name: 'users' })
 export class UsersEntity {
@@ -31,6 +33,12 @@ export class UsersEntity {
     @Column({ name: 'refresh_token', nullable: true })
     refreshToken: string;
 
+    @Column({ nullable: true })
+    avatar: string;
+
+    @Column({ name: 'avatar_path', nullable: true })
+    avatarPath: string;
+
     @OneToMany(() => UserRatingsEntity, (ratings) => ratings.user)
     ratings: UserRatingsEntity[];
 
@@ -40,7 +48,9 @@ export class UsersEntity {
     @OneToMany(() => BookingsEntity, (bookings) => bookings.user)
     bookings: BookingsEntity[];
 
-    @ManyToMany(() => RolesEntity, (roles) => roles.users)
+    @ManyToMany(() => RolesEntity, (roles) => roles.users, {
+        onDelete: 'CASCADE',
+    })
     @JoinTable({
         name: 'user_roles',
         inverseJoinColumn: {
@@ -53,4 +63,7 @@ export class UsersEntity {
         },
     })
     roles: RolesEntity[];
+
+    @ManyToOne(() => SexEntity, (sex) => sex.users)
+    sex: SexEntity;
 }

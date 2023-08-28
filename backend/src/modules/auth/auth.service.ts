@@ -17,6 +17,11 @@ export class AuthService {
         private readonly tokenService: TokenService,
     ) {}
 
+    async verify(token: string) {
+        const { verified } = await this.tokenService.verifyToken(token);
+        return verified;
+    }
+
     async register(dto: CreateUserDto) {
         const existedUser = await this.usersService.getByEmail(dto.email);
         if (existedUser) throw new BadRequestException(UserErrors.USER_EXIST);
@@ -25,7 +30,7 @@ export class AuthService {
 
     async login(dto: LoginDto) {
         const user = await this.usersService.getByEmail(dto.email);
-        if (!user) throw new BadRequestException(UserErrors.USER_NOT_EXIST);
+        if (!user) throw new BadRequestException(UserErrors.USER_NOT_EXISTS);
 
         const validatePassword = await bcrypt.compare(
             dto.password,
@@ -37,6 +42,9 @@ export class AuthService {
         const payload: JwtPayload = {
             id: user.id,
             email: user.email,
+            roles: user.roles.map(({ name }) => name),
+            sex: user.sex?.name,
+            avatar: user.avatar,
         };
 
         const refreshToken = await this.tokenService.generateJwtToken(
@@ -79,6 +87,9 @@ export class AuthService {
             {
                 id: userEntity.id,
                 email: userEntity.email,
+                roles: userEntity.roles.map(({ name }) => name),
+                sex: userEntity.sex?.name,
+                avatar: userEntity.avatar,
             },
             +this.configService.get(EnvFields.EXPIRE_REFRESH_JWT),
         );
@@ -104,7 +115,13 @@ export class AuthService {
             throw new BadRequestException(UserErrors.WRONG_REFRESH_TOKEN);
 
         const accessToken = await this.tokenService.generateJwtToken(
-            { id, email },
+            {
+                id,
+                email,
+                roles: userEntity.roles.map(({ name }) => name),
+                sex: userEntity.sex?.name,
+                avatar: userEntity.avatar,
+            },
             +this.configService.get(EnvFields.EXPIRE_REFRESH_JWT),
         );
 
@@ -114,6 +131,8 @@ export class AuthService {
             surname: userEntity.surname,
             name: userEntity.name,
             roles: userEntity.roles,
+            sex: userEntity.sex?.name,
+            avatar: userEntity.avatar,
         };
     }
 

@@ -5,9 +5,9 @@ import {
     Get,
     NotFoundException,
     Param,
-    ParseIntPipe,
     Post,
     UploadedFiles,
+    UseGuards,
     UseInterceptors,
 } from '@nestjs/common';
 import { FilmsService } from './films.service';
@@ -16,28 +16,23 @@ import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { fileFilter } from './utils/file-filter';
 import { FilesService } from '../files/files.service';
 import { UserErrors } from '../../utils/user-errors';
-import { GenresService } from '../genres/genres.service';
+import { SetMainFilmDto } from './dto/set-main-film.dto';
+import { ScheduleService } from '../schedule/schedule.service';
+import { RestrictRoles } from '../../decarators/roles.decarator';
+import { Roles } from '../../utils/init-values/roles';
+import { JwtAuthGuard } from '../../guards/jwt.guard';
+import { RolesGuard } from '../../guards/roles.guard';
 
 @Controller('films')
 export class FilmsController {
     public constructor(
         private readonly service: FilmsService,
         private readonly filesService: FilesService,
-        private readonly genresService: GenresService,
+        private readonly scheduleService: ScheduleService,
     ) {}
 
-    @Get()
-    getFilms() {
-        return this.service.getAll();
-    }
-
-    @Get(':id')
-    async getFilmById(@Param('id', ParseIntPipe) id: number) {
-        const film = await this.service.getById(id);
-        if (!film) throw new NotFoundException(`Film with id ${id} not found`);
-        return film;
-    }
-
+    @RestrictRoles(Roles.Admin)
+    @UseGuards(JwtAuthGuard, RolesGuard)
     @Post('add')
     @UseInterceptors(
         FileFieldsInterceptor(
@@ -72,5 +67,34 @@ export class FilmsController {
             );
 
         return await this.service.addFilm(dto, slug, preview, trailer);
+    }
+
+    @RestrictRoles(Roles.Admin)
+    @UseGuards(JwtAuthGuard, RolesGuard)
+    @Post('set-main')
+    async setMainFilm(@Body() { id }: SetMainFilmDto) {
+        const film = await this.service.getById(id);
+        if (!film) throw new BadRequestException('No such id');
+        await this.filesService.setAsMain(id);
+    }
+
+    @Get('get-main')
+    async getMainFilm() {
+        const id = await this.filesService.getMainFilmId();
+        return this.service.getById(id);
+    }
+
+    @Get('relevant')
+    async getRelevantFilms() {
+        const schedule = await this.scheduleService.getCurrentSchedule();
+        return this.service.getUnique(schedule.map(({ film }) => film));
+    }
+
+    @Get(':slug')
+    async getFilmBySlug(@Param('slug') slug: string) {
+        const film = await this.service.getBySlug(slug);
+        if (!film)
+            throw new NotFoundException(`Film with slug '${slug}' not found`);
+        return film;
     }
 }

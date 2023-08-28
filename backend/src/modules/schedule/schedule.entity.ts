@@ -17,8 +17,11 @@ export class ScheduleEntity {
     @Column({ type: 'timestamp' })
     dateAndTime: Date;
 
-    @Column({ type: 'decimal' })
+    @Column()
     price: number;
+
+    @Column({ name: 'film_id' })
+    filmId: number;
 
     @ManyToOne(() => FilmsEntity, (films) => films.schedules)
     @JoinColumn({ name: 'film_id' })

@@ -5,8 +5,11 @@ import { UsersEntity } from './users.entity';
 import * as bcrypt from 'bcrypt';
 import { CreateUserDto } from './dto/create-user.dto';
 import { RolesService } from '../roles/roles.service';
-import { Roles } from '../../utils/roles';
+import { Roles } from '../../utils/init-values/roles';
 import { InternalErrors } from '../../utils/internal-errors';
+import { UpdateProfileDto } from './dto/update-profile.dto';
+import { FilesService } from '../files/files.service';
+import { SexService } from '../sex/sex.service';
 
 @Injectable()
 export class UsersService {
@@ -14,7 +17,9 @@ export class UsersService {
         @InjectRepository(UsersEntity)
         private readonly usersRepository: Repository<UsersEntity>,
         private readonly rolesService: RolesService,
-        private dataSource: DataSource,
+        private readonly filesService: FilesService,
+        private readonly sexService: SexService,
+        private readonly dataSource: DataSource,
     ) {}
 
     private async hashPassword(password: string) {
@@ -28,14 +33,14 @@ export class UsersService {
     getById(id: number): Promise<UsersEntity | null> {
         return this.usersRepository.findOne({
             where: { id },
-            relations: ['roles'],
+            relations: ['roles', 'sex'],
         });
     }
 
     getByEmail(email: string): Promise<UsersEntity | null> {
         return this.usersRepository.findOne({
             where: { email: email.toLowerCase() },
-            relations: ['roles'],
+            relations: ['roles', 'sex'],
         });
     }
 
@@ -74,5 +79,35 @@ export class UsersService {
         } finally {
             await queryRunner.release();
         }
+    }
+
+    async updateProfile(
+        userId: number,
+        avatar: Express.Multer.File,
+        dto: UpdateProfileDto,
+    ) {
+        const user = await this.getById(userId);
+
+        if (avatar) {
+            const { endpoint, path } = await this.filesService.setAvatar(
+                avatar,
+                userId,
+            );
+            user.avatar = endpoint;
+            user.avatarPath = path;
+        }
+
+        user.name = dto.name ?? user.name;
+        user.surname = dto.surname ?? user.surname;
+
+        console.log(dto, avatar);
+        user.sex = dto.sex
+            ? await this.sexService.findByName(dto.sex)
+            : user.sex;
+        user.hashPassword = dto.newPassword
+            ? await this.hashPassword(dto.newPassword)
+            : user.hashPassword;
+
+        return this.usersRepository.save(user);
     }
 }

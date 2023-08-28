@@ -19,9 +19,6 @@ export class SeatsEntity {
     @Column({ name: 'seat_number' })
     seatNumber: number;
 
-    @Column({ name: 'is_available', default: true })
-    isAvailable: boolean;
-
-    @OneToMany(() => BookingsEntity, (bookings) => bookings.seats)
+    @OneToMany(() => BookingsEntity, (bookings) => bookings.seat)
     bookings: BookingsEntity[];
 }

@@ -25,6 +25,10 @@ import { paths } from './utils/constants';
 import { GoogleStrategy } from './strategies/google.strategy';
 import { GithubStrategy } from './strategies/github.strategy';
 import { FacebookStrategy } from './strategies/facebook.strategy';
+import { VisitsModule } from './modules/visits/visits.module';
+import { SubscribersModule } from './modules/subscribers/subscribers.module';
+import { MailerModule } from './modules/mailer/mailer.module';
+import { SexModule } from './modules/sex/sex.module';
 
 @Module({
     imports: [
@@ -90,6 +94,14 @@ import { FacebookStrategy } from './strategies/facebook.strategy';
         TokenModule,
 
         FilesModule,
+
+        VisitsModule,
+
+        SubscribersModule,
+
+        MailerModule,
+
+        SexModule,
     ],
     controllers: [],
     providers: [JwtStrategy, GoogleStrategy, GithubStrategy, FacebookStrategy],

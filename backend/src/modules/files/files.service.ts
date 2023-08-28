@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { paths } from '../../utils/constants';
 import { resolve, extname } from 'path';
-import { mkdir, writeFile } from 'fs/promises';
+import { mkdir, writeFile, readFile } from 'fs/promises';
 import slugify from 'slugify';
+import { nanoid } from 'nanoid';
 
 @Injectable()
 export class FilesService {
@@ -10,7 +11,7 @@ export class FilesService {
         film: string,
         file: Express.Multer.File,
         prefix: string,
-    ): Promise<string> {
+    ) {
         const filmsPath = resolve(paths.filmsRoute, film);
         const fileName = `${prefix}${extname(file.originalname)}`;
 
@@ -19,7 +20,10 @@ export class FilesService {
 
         await writeFile(filePath, file.buffer);
 
-        return `/static/films/${film}/${fileName}`;
+        return {
+            endpoint: `static/films/${film}/${fileName}`,
+            path: filePath,
+        };
     }
 
     async addPreview(film: string, preview: Express.Multer.File) {
@@ -35,7 +39,7 @@ export class FilesService {
         preview: Express.Multer.File,
         trailer: Express.Multer.File,
     ) {
-        const slugifiedFilm = slugify(film);
+        const slugifiedFilm = `${slugify(film, { lower: true })}-${nanoid(10)}`;
         const previewPath = await this.addPreview(slugifiedFilm, preview);
         const trailerPath = await this.addTrailer(slugifiedFilm, trailer);
 
@@ -44,6 +48,34 @@ export class FilesService {
             slug: slugifiedFilm,
             preview: previewPath,
             trailer: trailerPath,
+        };
+    }
+
+    async setAsMain(id: number) {
+        await writeFile(
+            './public/films/main-info.json',
+            JSON.stringify({ id }),
+        );
+    }
+
+    async getMainFilmId() {
+        const result = await readFile('./public/films/main-info.json', {
+            encoding: 'utf-8',
+        });
+        return JSON.parse(result).id;
+    }
+
+    public async setAvatar(avatar: Express.Multer.File, userId: number) {
+        const fileName = `${userId}${extname(avatar.originalname)}`;
+
+        await mkdir(paths.avatarsRoute, { recursive: true });
+        const filePath = resolve(paths.avatarsRoute, fileName);
+
+        await writeFile(filePath, avatar.buffer);
+
+        return {
+            endpoint: `static/avatars/${fileName}`,
+            path: filePath,
         };
     }
 }

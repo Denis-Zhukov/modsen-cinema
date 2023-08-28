@@ -4,8 +4,8 @@ import {
     JoinColumn,
     JoinTable,
     ManyToMany,
+    ManyToOne,
     OneToMany,
-    OneToOne,
     PrimaryGeneratedColumn,
 } from 'typeorm';
 import { CountriesEntity } from '../countries/countries.entity';
@@ -36,14 +36,20 @@ export class FilmsEntity {
     @Column()
     preview: string;
 
+    @Column({ name: 'trailer_path' })
+    trailerPath: string;
+
+    @Column({ name: 'preview_path' })
+    previewPath: string;
+
     @Column({ unique: true })
     slug: string;
 
-    @OneToOne(() => AuthorsEntity)
+    @ManyToOne(() => AuthorsEntity, (author) => author.films)
     @JoinColumn({ name: 'author_id' })
     author: AuthorsEntity;
 
-    @OneToOne(() => CountriesEntity)
+    @ManyToOne(() => CountriesEntity, (country) => country.films)
     @JoinColumn({ name: 'country_id' })
     country: CountriesEntity;
 

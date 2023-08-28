@@ -56,10 +56,7 @@ export class AuthController {
     @Post('refresh')
     async refresh(@Req() req: Request) {
         const refreshToken = req.cookies[CookieFields.REFRESH_TOKEN];
-        const newAccessToken = await this.service.refreshAccessToken(
-            refreshToken,
-        );
-        return { accessToken: newAccessToken };
+        return await this.service.refreshAccessToken(refreshToken);
     }
 
     @Post('logout')
