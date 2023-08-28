@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo } from 'react';
 
 import { poppinsFont } from '@/shared/fonts';
-import { TimeUtils } from '@/shared/lib/TimeUtils';
+import { DateTimeUtils } from '@/shared/lib/DateTimeUtils';
 import {
     StyledPreloadedTimeBar,
     StyledProgressTimeBar,
@@ -28,11 +28,11 @@ export const Timeline = () => {
         seekTo(current);
     }, [seekTo, duration]);
 
-    const displayedDuration = useMemo(() => TimeUtils.formatTime(duration), [duration]);
+    const displayedDuration = useMemo(() => DateTimeUtils.formatTime(duration), [duration]);
 
     if (!videoRef.current) return null;
 
-    const displayedCurrentTime = TimeUtils.formatTime(currentTime);
+    const displayedCurrentTime = DateTimeUtils.formatTime(currentTime);
     const playedPercentage = (currentTime / duration) * 100;
     const bufferedPercentage = (bufferedTime / duration) * 100;
 

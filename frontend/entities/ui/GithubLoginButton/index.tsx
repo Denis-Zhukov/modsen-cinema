@@ -1,3 +1,6 @@
+import { AiFillGithub } from 'react-icons/ai';
+import { StyledGithubLoginButton } from "@/entities/ui/GithubLoginButton/styled";
+
 export const GithubLoginButton = () => {
     const githubLogin = async () => {
         try {
@@ -7,5 +10,10 @@ export const GithubLoginButton = () => {
         }
     };
 
-    return (<button type="button" onClick={githubLogin}>AUTH GITHUB</button>);
+    return (
+        <StyledGithubLoginButton type="button" onClick={githubLogin}>
+            <AiFillGithub/>
+            Sign up with GitHuB
+        </StyledGithubLoginButton>
+    );
 };

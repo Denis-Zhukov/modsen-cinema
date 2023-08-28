@@ -17,6 +17,7 @@ export const StyledFilmInfo = styled.div<Theme>`
 export const StyledTopBlock = styled.div`
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap-reverse;
   justify-content: space-between;
 
   h1 {
@@ -45,9 +46,13 @@ export const StyledNextFilm = styled(Link)<Theme>`
 `;
 
 export const StyledInfoBlock = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 70px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 15px;
+
+  > * {
+    margin: 0 auto;
+  }
 `;
 
 export const StyledInfo = styled.div`
@@ -58,8 +63,10 @@ export const StyledInfo = styled.div`
   > div {
     font-size: 32px;
     font-weight: 300;
+    text-transform: capitalize;
 
     > span {
+      text-transform: none;
       font-weight: 900;
     }
   }

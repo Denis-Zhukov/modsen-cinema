@@ -38,8 +38,15 @@ export const StyledAuthBlock = styled.div`
 
   button {
     padding: 20px;
+    margin-bottom: 20px;
   }
 `;
+
+export const StyledSocials = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+`
 
 export const StyledErrorText = styled.div`
   display: block;
@@ -52,15 +59,17 @@ export const StyledPasswordComplexity = styled.meter`
   width: 64px;
 `;
 
-export const StyledBottomText = styled.div`
-  color: #FFF;
+
+
+export const StyledBottomText = styled.div<Theme>`
+  color: ${({ theme: { text: { main } } }) => main};;
   font-size: 18px;
   font-style: italic;
   font-weight: 300;
   line-height: normal;
 
   > a {
-    color: ${({ theme: { text } }) => text};
+    color: ${({ theme: { text: { main } } }) => main};
     font-style: italic;
   }
 `;

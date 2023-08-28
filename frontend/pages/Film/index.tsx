@@ -1,52 +1,57 @@
 import { ReviewCard } from '@/features/ReviewCard';
 import { StyledBackground, StyledReviews, StyledTrailerBlock } from '@/pages/Film/styled';
+import { FilmService } from '@/shared/api/FilmService';
+import { Urls } from '@/shared/api/Urls';
 import { poppinsFont } from '@/shared/fonts';
 import { getMainColors } from '@/shared/lib/get-main-colors';
 import { VideoPlayer } from '@/shared/ui/VideoPlayer';
+import { BookingBlock } from '@/widgets/ui/BookingBlock';
 import { FilmInfo } from '@/widgets/ui/FilmInfo';
 
 type Props = {
-    params: { id: string }
+    params: { slug: string }
 };
 
-export const Film = async ({ params: { id } }: Props) => {
-    console.log(id);
-    const img = 'http://localhost:3000/film.png';
-    const [firstColor, secondColor] = await getMainColors(img, 2);
+export const Film = async ({ params: { slug } }: Props) => {
+    const { data } = await FilmService.getFilm(slug);
+    const trailer = `${Urls.BASE_URL}/${data.trailer}`;
+    const preview = `${Urls.BASE_URL}/${data.preview}`;
+
+    const [firstColor, secondColor] = await getMainColors(preview, 2);
 
     return (
         <StyledBackground $firstColor={firstColor} $secondColor={secondColor}>
             <FilmInfo
-                name="Black Panther: Wakanda Forever"
-                year={2022}
-                country="USA"
-                genre="New / Action / Adventure / Fantasy"
-                author="Ryan Googler"
-                actors={['Arthur Fleck', 'Sophie Dumond', 'Penny Fleck', "Lupita Nyong'o", 'Letitia Wright']}
-                image={img}
+                rating={data.rating}
+                name={data.name}
+                year={data.release}
+                country={data.country.name}
+                genres={data.genres.map(({ name }) => name)}
+                author={`${data.author.name} ${data.author.surname}`}
+                actors={data.actors.map(({
+                    name,
+                    surname,
+                }) => `${name} ${surname}`)}
+                image={preview}
+                description={data.description}
             />
+            <BookingBlock filmId={data.id}/>
             <StyledTrailerBlock>
                 <h2 className={poppinsFont.className}>Watch trailer online!</h2>
-                <VideoPlayer
-                    src="http://localhost:8000/static/films/moj-klassnyj-betmen/trailer.mp4"
-                />
+                <VideoPlayer src={trailer}/>
             </StyledTrailerBlock>
             <StyledReviews>
-                <ReviewCard
-                    author="Stanislav Lebedyantsev"
-                    body="I was a person that saw all the hype and claims of masterpiece as overreacting and overblown excitement for another Joker based film. I thought this looked solid at best and even a bit too pretentious in the trailer, but in here to say I was incredibly wrong. This is a massive achievement of cinema that's extremely rare in a day and age of cgi nonsense and reboots. While this is so..."
-                    readMorePath="/"
-                />
-                <ReviewCard
-                    author="Stanislav Lebedyantsev"
-                    body="I was a person that saw all the hype and claims of masterpiece as overreacting and overblown excitement for another Joker based film. I thought this looked solid at best and even a bit too pretentious in the trailer, but in here to say I was incredibly wrong. This is a massive achievement of cinema that's extremely rare in a day and age of cgi nonsense and reboots. While this is so..."
-                    readMorePath="/"
-                />
-                <ReviewCard
-                    author="Stanislav Lebedyantsev"
-                    body="I was a person that saw all the hype and claims of masterpiece as overreacting and overblown excitement for another Joker based film. I thought this looked solid at best and even a bit too pretentious in the trailer, but in here to say I was incredibly wrong. This is a massive achievement of cinema that's extremely rare in a day and age of cgi nonsense and reboots. While this is so..."
-                    readMorePath="/"
-                />
+                {data.reviews.map(({
+                    id,
+                    user,
+                    review,
+                }) => (
+                    <ReviewCard
+                        key={id}
+                        author={`${user.name} ${user.surname}`}
+                        body={review}
+                    />
+                ))}
             </StyledReviews>
         </StyledBackground>
     );

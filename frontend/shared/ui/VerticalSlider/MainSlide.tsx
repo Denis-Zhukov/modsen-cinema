@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import { AnimatePresence, motion } from 'framer-motion';
 import Link from 'next/link';
 import React from 'react';
 
@@ -15,14 +15,17 @@ type Props = {
 };
 
 export const MainSlide = ({
-    title, badges, link, image,
-}:Props) => (
+    title,
+    badges,
+    link,
+    image,
+}: Props) => (
     <StyledMainSlide className={poppinsFont.className}>
         <Link href={link}>
-            <Image
+            <motion.img
                 src={image}
-                alt=""
-                width={262}
+                alt={title}
+                width={260}
                 height={350}
             />
         </Link>

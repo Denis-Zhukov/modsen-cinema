@@ -1,5 +1,7 @@
 export enum Forms {
-    LOGIN_FORM = 'login',
-    REGISTER_FORM = 'register',
+    LOGIN = 'login',
+    REGISTER = 'register',
+    SETTINGS = 'settings',
+    EDIT_PROFILE = 'edit-profile',
     NONE = '',
 }

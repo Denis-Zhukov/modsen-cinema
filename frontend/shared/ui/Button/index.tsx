@@ -1,7 +1,7 @@
 import { poppinsFont } from '@/shared/fonts';
 
 import { StyledButton } from './styled';
-import type { TVariantButton } from './types';
+import type { ButtonType, VariantButton } from './types';
 
 export const Button = ({
     children,
@@ -10,9 +10,9 @@ export const Button = ({
     type = 'button',
 }: {
     children: string,
-    variant?: TVariantButton,
+    variant?: VariantButton,
     onClick?: () => void,
-    type?: 'button' | 'submit',
+    type?: ButtonType,
 }) => (
     <StyledButton
         type={type}

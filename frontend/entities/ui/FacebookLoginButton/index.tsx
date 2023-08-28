@@ -1,3 +1,7 @@
+import { FaFacebook } from 'react-icons/fa';
+
+import { StyledFacebookLoginButton } from '@/entities/ui/FacebookLoginButton/styled';
+
 export const FacebookLoginButton = () => {
     const googleLogin = async () => {
         try {
@@ -7,5 +11,10 @@ export const FacebookLoginButton = () => {
         }
     };
 
-    return (<button type="button" onClick={googleLogin}>AUTH FACEBOOK</button>);
+    return (
+        <StyledFacebookLoginButton type="button" onClick={googleLogin}>
+            <FaFacebook/>
+            Sign up with Facebook
+        </StyledFacebookLoginButton>
+    );
 };

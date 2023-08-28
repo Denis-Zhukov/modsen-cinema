@@ -1,5 +1,11 @@
+'use client';
+
 import type { ReactNode } from 'react';
-import React, { useCallback } from 'react';
+import React, {
+    useCallback, useEffect, useRef, useState,
+} from 'react';
+
+import { fadeIn } from '@/shared/animations/fadeIn';
 
 import CloseIcon from './images/close-icon.svg';
 import {
@@ -8,7 +14,7 @@ import {
 
 type Props = {
     children: ReactNode,
-    topElement?: ReactNode
+    topElement?: ReactNode,
     onClose: () => void
 };
 
@@ -21,8 +27,22 @@ export const Modal = ({
         e.stopPropagation();
     }, []);
 
-    return (
-        <StyledWrapperModal onMouseDown={onClose}>
+    const ref = useRef<Element | null>(null);
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        ref.current = document.querySelector<HTMLElement>('#modal');
+        setMounted(true);
+    }, []);
+
+    return (mounted && ref.current) ? (
+        <StyledWrapperModal
+            onMouseDown={onClose}
+            variants={fadeIn}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+        >
             <StyledModal onMouseDown={handleStopPropagation}>
                 <StyledTopBlock>
                     <div>{topElement}</div>
@@ -37,5 +57,5 @@ export const Modal = ({
                 {children}
             </StyledModal>
         </StyledWrapperModal>
-    );
+    ) : null;
 };

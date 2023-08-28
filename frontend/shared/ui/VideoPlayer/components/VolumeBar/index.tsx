@@ -1,5 +1,5 @@
 import {
-    ChangeEvent, useState,
+    ChangeEvent, useEffect, useState,
 } from 'react';
 import { BsFillVolumeMuteFill, BsFillVolumeUpFill } from 'react-icons/bs';
 
@@ -8,7 +8,12 @@ import { useVideoPlayerContext } from '@/shared/ui/VideoPlayer/context';
 import { useToggleMute } from '@/shared/ui/VideoPlayer/hooks/useToggleMute';
 
 export const VolumeBar = () => {
-    const { state: { videoRef, volume: defaultVolume } } = useVideoPlayerContext();
+    const {
+        state: {
+            videoRef,
+            volume: defaultVolume,
+        },
+    } = useVideoPlayerContext();
 
     const [volume, setVolume] = useState(defaultVolume);
 
@@ -20,6 +25,10 @@ export const VolumeBar = () => {
     };
 
     const handleClickMute = useToggleMute(setVolume);
+
+    useEffect(() => {
+        if (videoRef.current) videoRef.current.volume = volume;
+    }, [videoRef]);
 
     return (
         <StyledVolumeBar>

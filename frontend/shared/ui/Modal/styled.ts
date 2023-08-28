@@ -1,15 +1,20 @@
 'use client';
 
+import { motion } from 'framer-motion';
 import Image from 'next/image';
 import styled from 'styled-components';
 
 import { Theme } from '@/shared/constants/themes';
 
-export const StyledWrapperModal = styled.div`
+export const StyledWrapperModal = styled(motion.div)`
   display: flex;
   justify-content: center;
   align-items: center;
   position: fixed;
+  
+  width: 100vw !important;
+  height: 100vh !important;
+  
   left: 0;
   top: 0;
   right: 0;

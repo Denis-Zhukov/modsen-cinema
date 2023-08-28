@@ -42,6 +42,7 @@
     "react/jsx-tag-spacing": "off",
     "react/require-default-props": "off",
     "no-param-reassign": "off",
-    "no-restricted-exports": "off"
+    "no-restricted-exports": "off",
+    "react/jsx-one-expression-per-line": "off"
   }
 }

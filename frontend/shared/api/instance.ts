@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import { Urls } from '@/shared/api/Urls';
-import { getAccessToken, setAccessToken } from '@/shared/lib/local-storage-utils';
+import { Storage } from '@/shared/lib/local-storage-utils';
 
 export const axiosInstance = axios.create({
     baseURL: Urls.BASE_API_URL,
@@ -9,7 +9,7 @@ export const axiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.request.use((config) => {
-    config.headers.Authorization = `Bearer ${getAccessToken()}`;
+    config.headers.Authorization = `Bearer ${Storage.getAccessToken()}`;
     return config;
 });
 
@@ -18,7 +18,7 @@ axiosInstance.interceptors.response.use((config) => config, async (error) => {
     if (error.response.status === 401 && error.config && !error.config.isRetry) {
         originalRequest.isRetry = true;
         const { data } = await axios.post<{ access: string }>(Urls.REFRESH, {}, { withCredentials: true });
-        setAccessToken(data.access);
+        Storage.setAccessToken(data.access);
         return axiosInstance.request(originalRequest);
     }
     throw error;

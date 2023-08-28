@@ -1,12 +1,12 @@
 import Link from 'next/link';
 import React from 'react';
 
+import { Subscribe } from '@/entities/ui/Subscribe';
 import { interFont } from '@/shared/fonts';
 import {
     StyledColumn,
     StyledFooter,
     StyledFooterWrapper, StyledLogo,
-    StyledSubscribe,
 } from '@/widgets/ui/Footer/styled';
 
 import Logo from './images/logo.png';
@@ -34,11 +34,7 @@ export const Footer = () => (
                 <Link href="/">Sixth page</Link>
                 <Link href="/">Eighth</Link>
             </StyledColumn>
-            <StyledSubscribe>
-                <h2>Subscribe</h2>
-                <input type="text" placeholder="Enter email"/>
-                <p>Join our newsletter to stay up to date on features and releases</p>
-            </StyledSubscribe>
+            <Subscribe/>
         </StyledFooter>
     </StyledFooterWrapper>
 );

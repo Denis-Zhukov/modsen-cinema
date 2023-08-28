@@ -1,6 +1,7 @@
 'use client';
 
 import { Form, Formik } from 'formik';
+import { AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import React, { useCallback, useEffect, useState } from 'react';
 
@@ -11,6 +12,7 @@ import { getPasswordComplexity, validationSchema } from '@/features/RegisterForm
 import { Forms } from '@/shared/constants/Forms';
 import { inriaSansFont, poppinsFont } from '@/shared/fonts';
 import { useCreateQueryPath } from '@/shared/hooks/useCreateQueryPath';
+import { useInitForm } from '@/shared/hooks/useInitForm';
 import { useSwitchForm } from '@/shared/hooks/useSwitchForm';
 import { toastError, toastSuccess } from '@/shared/lib/toast';
 import { useRegisterMutation } from '@/shared/store/rtk/auth.rtk';
@@ -33,14 +35,16 @@ import {
     StyledErrorText,
     StyledLoader,
     StyledPasswordComplexity,
+    StyledSocials,
     StyledTitle,
 } from './styled';
 
-type Props = {
-    onClose: () => void
-};
+export const RegisterForm = () => {
+    const {
+        active,
+        handleCloseForm,
+    } = useInitForm(Forms.REGISTER);
 
-export const RegisterForm = ({ onClose }: Props) => {
     const [register, {
         isLoading,
         isSuccess,
@@ -61,7 +65,7 @@ export const RegisterForm = ({ onClose }: Props) => {
     useEffect(() => {
         if (isSuccess) {
             toastSuccess(Notice.REGISTRATION_SUCCESSFUL);
-            switchForm(Forms.LOGIN_FORM);
+            switchForm(Forms.LOGIN);
         } else if (isError && isTypedError(error)) {
             toastError(error.data.message);
         } else if (isError) toastError(Notice.UNEXPECTED_ERROR);
@@ -72,97 +76,98 @@ export const RegisterForm = ({ onClose }: Props) => {
     }, [currentRequest]);
 
     return (
-        <Modal
-            topElement={(
-                <StyledTitle className={inriaSansFont.className}>
-                    Great Movies in the best cinema! We care about your comfort.
-                    {' '}
-                    <span>
-                        Join us
-                        Right Now!
-                    </span>
-                </StyledTitle>
-            )}
-            onClose={onClose}
-        >
-            {isLoading && <StyledLoader><Loader/></StyledLoader>}
-            <Formik
-                initialValues={{
-                    name: '',
-                    surname: '',
-                    email: '',
-                    password: '',
-                }}
-                validationSchema={validationSchema}
-                onSubmit={onSubmit}
-            >
-                {({
-                    errors,
-                    touched,
-                    values,
-                }) => (
-                    <StyledBody className={poppinsFont.className}>
-                        <Form>
-                            <TextBox
-                                name="name"
-                                icon={AccountIcon}
-                                placeholder="Enter your name"
-                                type="text"
-                            />
-                            <StyledErrorText>{touched.name && errors.name}</StyledErrorText>
+        <AnimatePresence>
+            {active
+                && (
+                    <Modal
+                        topElement={(
+                            <StyledTitle className={inriaSansFont.className}>
+                                Great Movies in the best cinema! We care about your comfort. <span>Join us Right Now!</span>
+                            </StyledTitle>
+                        )}
+                        onClose={handleCloseForm}
+                    >
+                        {isLoading && <StyledLoader><Loader/></StyledLoader>}
+                        <Formik
+                            initialValues={{
+                                name: '',
+                                surname: '',
+                                email: '',
+                                password: '',
+                            }}
+                            validationSchema={validationSchema}
+                            onSubmit={onSubmit}
+                        >
+                            {({
+                                errors,
+                                touched,
+                                values,
+                            }) => (
+                                <StyledBody className={poppinsFont.className}>
+                                    <Form>
+                                        <TextBox
+                                            name="name"
+                                            icon={AccountIcon}
+                                            placeholder="Enter your name"
+                                            type="text"
+                                        />
+                                        <StyledErrorText>{touched.name && errors.name}</StyledErrorText>
 
-                            <TextBox
-                                name="surname"
-                                icon={GroupIcon}
-                                placeholder="Enter your surname"
-                                type="text"
-                            />
-                            <StyledErrorText>{touched.surname && errors.surname}</StyledErrorText>
+                                        <TextBox
+                                            name="surname"
+                                            icon={GroupIcon}
+                                            placeholder="Enter your surname"
+                                            type="text"
+                                        />
+                                        <StyledErrorText>{touched.surname && errors.surname}</StyledErrorText>
 
-                            <TextBox
-                                name="email"
-                                icon={EmailIcon}
-                                placeholder="Enter your email"
-                                type="email"
-                            />
-                            <StyledErrorText>{touched.email && errors.email}</StyledErrorText>
+                                        <TextBox
+                                            name="email"
+                                            icon={EmailIcon}
+                                            placeholder="Enter your email"
+                                            type="email"
+                                        />
+                                        <StyledErrorText>{touched.email && errors.email}</StyledErrorText>
 
-                            <TextBox
-                                name="password"
-                                icon={PasswordIcon}
-                                placeholder="Enter strong password"
-                                type="password"
-                            />
-                            <StyledPasswordComplexity
-                                min="0"
-                                low={33}
-                                high={66}
-                                optimum={100}
-                                max={100}
-                                value={getPasswordComplexity(values.password)}
-                            />
-                            <StyledErrorText>{touched.password && errors.password}</StyledErrorText>
+                                        <TextBox
+                                            name="password"
+                                            icon={PasswordIcon}
+                                            placeholder="Enter strong password"
+                                            type="password"
+                                        />
+                                        <StyledPasswordComplexity
+                                            min="0"
+                                            low={33}
+                                            high={66}
+                                            optimum={100}
+                                            max={100}
+                                            value={getPasswordComplexity(values.password)}
+                                        />
+                                        <StyledErrorText>{touched.password && errors.password}</StyledErrorText>
 
-                            <StyledAuthBlock>
-                                <Button type="submit">Register</Button>
-                                <div>
-                                    <GoogleLoginButton/>
-                                    <FacebookLoginButton/>
-                                    <GithubLoginButton/>
-                                </div>
-                                <StyledBottomText className={inriaSansFont.className}>
-                                    Already has an
-                                    account?
-                                    {' '}
-                                    <Link href={createQueryPath('form', Forms.LOGIN_FORM)}>
-                                        Login please.
-                                    </Link>
-                                </StyledBottomText>
-                            </StyledAuthBlock>
-                        </Form>
-                    </StyledBody>
+                                        <StyledAuthBlock>
+                                            <Button type="submit">Register</Button>
+                                            <StyledSocials>
+                                                <GoogleLoginButton/>
+                                                <FacebookLoginButton/>
+                                                <GithubLoginButton/>
+                                            </StyledSocials>
+                                            <StyledBottomText className={inriaSansFont.className}>
+                                                Already has an
+                                                account?
+                                                <Link
+                                                    href={createQueryPath('form', Forms.LOGIN)}
+                                                >{' '}
+                                                    Login please.
+                                                </Link>
+                                            </StyledBottomText>
+                                        </StyledAuthBlock>
+                                    </Form>
+                                </StyledBody>
+                            )}
+                        </Formik>
+                    </Modal>
                 )}
-            </Formik>
-        </Modal>
+        </AnimatePresence>
     );
 };

@@ -1,1 +1,2 @@
-export type TVariantButton = 'primary' | 'secondary';
+export type VariantButton = 'primary' | 'secondary';
+export type ButtonType = 'button' | 'submit';

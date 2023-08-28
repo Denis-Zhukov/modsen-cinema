@@ -1,5 +1,3 @@
-'use client';
-
 import { Studios } from 'features/Studios';
 
 import { StyledMain, StyledYearText } from '@/pages/Main/styled';

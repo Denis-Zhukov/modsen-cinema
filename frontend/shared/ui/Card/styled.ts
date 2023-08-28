@@ -1,7 +1,6 @@
 'use client';
 
-import Link from 'next/link';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { Colors } from '@/shared/constants/Colors';
 import { Theme } from '@/shared/constants/themes';
@@ -30,29 +29,17 @@ export const StyledCard = styled.div<Theme>`
     font-weight: 300;
     margin: 0 0 32px 0;
   }
-
-  p {
-    font-size: 16px;
-    font-style: italic;
-    font-weight: 300;
-    margin: 0;
-    line-height: 24px;
-
-    &::before, &::after {
-      content: '"';
-    }
-  }
 `;
 
-export const StyledReadMore = styled(Link)`
+export const StyledReadMore = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 15px;
-
+  margin: 16px 0;
   color: ${({ theme: { text: { main } } }) => main};;
   text-decoration: none;
-  margin-top: auto;
+  cursor: pointer;
 
   div {
     text-transform: uppercase;
@@ -63,6 +50,7 @@ export const StyledReadMore = styled(Link)`
 
   img, div {
     transition: ease-in-out 0.15s;
+    border-radius: 50%;
   }
 
   &:hover img {
@@ -71,5 +59,46 @@ export const StyledReadMore = styled(Link)`
 
   &:hover div {
     font-weight: bold;
+  }
+`;
+
+export const StyledHugeText = styled.p<{ $show: boolean }>`
+  width: 100%;
+  font-size: 16px;
+  font-style: italic;
+  font-weight: 300;
+  margin: 0;
+  line-height: 24px;
+  padding: 8px 0;
+
+  ${({ $show }) => ($show ? css`overflow-y: scroll;` : css`
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 9;
+    line-clamp: 9;
+    overflow: hidden;
+  `)}
+  
+  
+  
+  &::before, &::after {
+    content: '"';
+  }
+
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, .2);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, .75);
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgba(200, 200, 200, .75);
   }
 `;

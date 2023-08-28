@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import { CiSettings } from 'react-icons/ci';
 import styled from 'styled-components';
 
 import { Theme } from '@/shared/constants/themes';
@@ -55,6 +56,9 @@ export const StyledAuthBlock = styled.div`
   }
 `;
 
-export const SettingsBlock = styled(Image)<Theme>`
-  ${({ theme: { type } }) => (type === 'light' ? 'filter:invert(100%);' : '')};
+export const SettingsBlock = styled(CiSettings)<Theme>`
+  flex: 0 0 auto;
+  font-size: 54px;
+  cursor: pointer;
+  color: ${({ theme: { text: { main } } }) => main};
 `;

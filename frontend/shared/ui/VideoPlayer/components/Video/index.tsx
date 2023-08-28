@@ -11,11 +11,17 @@ type Props = {
 const ForwardVideo = forwardRef<HTMLVideoElement, Props>(({
     src,
 }, ref) => {
-    const { dispatch } = useVideoPlayerContext();
+    const {
+        dispatch,
+        state: { isPlaying, volume },
+    } = useVideoPlayerContext();
     const handleClick = useTogglePlaying();
     const handleDoubleClick = useToggleFullscreen();
 
-    const handleEnded = () => dispatch({ type: SET_PLAYING, payload: false });
+    const handleEnded = () => dispatch({
+        type: SET_PLAYING,
+        payload: false,
+    });
 
     return (
         <video
@@ -24,6 +30,7 @@ const ForwardVideo = forwardRef<HTMLVideoElement, Props>(({
             onEnded={handleEnded}
             ref={ref}
             controls={false}
+            autoPlay={isPlaying}
         >
             <source src={src}/>
         </video>

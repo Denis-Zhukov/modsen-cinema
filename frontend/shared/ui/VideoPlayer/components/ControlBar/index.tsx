@@ -1,27 +1,27 @@
 import {
     AiOutlineFullscreen, AiOutlineFullscreenExit, AiOutlinePauseCircle, AiOutlinePlayCircle,
 } from 'react-icons/ai';
+import { Timeline } from 'shared/ui/VideoPlayer/components/Timeline';
 
 import {
     StyledControlBar, StyledIconButton,
 } from '@/shared/ui/VideoPlayer/components/ControlBar/styled';
-import { Timeline } from 'shared/ui/VideoPlayer/components/Timeline';
 import { VolumeBar } from '@/shared/ui/VideoPlayer/components/VolumeBar';
 import { useVideoPlayerContext } from '@/shared/ui/VideoPlayer/context';
-import { useShowControls } from '@/shared/ui/VideoPlayer/hooks/useShowControls';
 import { useToggleFullscreen } from '@/shared/ui/VideoPlayer/hooks/useToggleFullscreen';
 import { useTogglePlaying } from '@/shared/ui/VideoPlayer/hooks/useTogglePlaying';
 
 export const ControlBar = () => {
     const { state: { isPlaying, isFullscreen } } = useVideoPlayerContext();
-    const showControls = useShowControls();
     const handleStartPause = useTogglePlaying();
     const handleFullscreen = useToggleFullscreen();
 
-    if (!showControls) return null;
-
     return (
-        <StyledControlBar>
+        <StyledControlBar
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+        >
             <StyledIconButton
                 tabIndex={-1}
                 onClick={handleStartPause}

@@ -3,7 +3,7 @@
 import Link from 'next/link';
 
 import { Button } from '@/shared/ui/Button';
-import type { TVariantButton } from '@/shared/ui/Button/types';
+import type { VariantButton } from '@/shared/ui/Button/types';
 
 export const NavButton = ({
     path,
@@ -12,7 +12,7 @@ export const NavButton = ({
     onClick,
 }: {
     path: string,
-    variant?: TVariantButton
+    variant?: VariantButton
     children: string,
     onClick?: () => void
 }) => <Link href={path}><Button variant={variant} onClick={onClick}>{children}</Button></Link>;

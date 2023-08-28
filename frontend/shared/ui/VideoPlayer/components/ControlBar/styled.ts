@@ -1,6 +1,7 @@
+import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
-export const StyledControlBar = styled.div`
+export const StyledControlBar = styled(motion.div)`
   display: flex;
   flex-direction: row;
   align-items: center;

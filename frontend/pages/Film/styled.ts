@@ -1,5 +1,6 @@
 'use client';
 
+import { lighten } from 'polished';
 import styled, { css } from 'styled-components';
 
 import { Theme } from '@/shared/constants/themes';
@@ -13,7 +14,7 @@ export const StyledBackground = styled.div<{
             type,
             background,
         },
-    }) => (type === 'light' ? '#e7e4df' : background)};
+    }) => (type === 'light' ? lighten(0.015, background) : background)};
   padding: 100px;
 
   ${({

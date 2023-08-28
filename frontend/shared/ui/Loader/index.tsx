@@ -7,9 +7,7 @@ export const Loader = () => (
         height="250"
         width="250"
         color={Colors.ORANGE}
-        wrapperStyle={{
-            transform: 'translateX(18%)',
-        }}
+        wrapperStyle={{ transform: 'translateX(18%)' }}
         visible
     />
 );

@@ -3,7 +3,7 @@ export enum Colors {
     ORANGE = '#D98639',
     WHITE = '#FFFFFF',
     BLACK = '#000000',
-    BLUE_BACKGROUND='#1E1F27',
+    BLUE_BACKGROUND = '#1E1F27',
     GRAY = '#888888',
     TRANSPARENT = 'transparent',
 }

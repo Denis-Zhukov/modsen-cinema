@@ -3,19 +3,23 @@
 import styled from 'styled-components';
 
 import { Theme } from '@/shared/constants/themes';
+import { VerticalSlider } from '@/shared/ui/VerticalSlider';
 
 export const StyledShowNow = styled.div`
-  display: flex;
-  max-width: 1340px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   margin: 0 auto;
-  gap: 75px;
+  
+  @media screen and (max-width: 1120px){
+    grid-template-columns: 1fr;
+  }
 `;
 
 export const StyledTextBlock = styled.div<Theme>`
   color: ${({ theme: { text: { main } } }) => main};
   font-weight: 300;
-  width: 50%;
   z-index: 999;
+  max-width: 600px;
 
   h2 {
     font-size: 48px;
@@ -34,4 +38,7 @@ export const StyledTextBlock = styled.div<Theme>`
   p, h2 {
     font-style: italic;
   }
+`;
+
+export const StyledSlider = styled(VerticalSlider)`
 `;

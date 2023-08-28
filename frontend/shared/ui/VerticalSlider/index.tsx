@@ -1,9 +1,14 @@
+'use client';
+
 import Image from 'next/image';
 import React, { useCallback, useMemo, useState } from 'react';
+
+import { Urls } from '@/shared/api/Urls';
 
 import { Controls } from './Controls';
 import { MainSlide } from './MainSlide';
 import {
+    StyledControls,
     StyledSideSlides,
     StyledVerticalSlider,
 } from './styled';
@@ -11,10 +16,10 @@ import {
 type Props = {
     slides: {
         id: number,
-        src: string,
-        title: string
+        preview: string,
+        name: string
         badges: string[]
-        link: string,
+        slug: string,
     }[]
 };
 
@@ -41,21 +46,23 @@ export const VerticalSlider = ({ slides }: Props) => {
         return [prevSlide, activeSlide, nextSlide];
     }, [activeSlide, slides]);
 
+    if (slides.length === 0) return null;
     return (
         <StyledVerticalSlider>
+
             <MainSlide
-                link={slides[activeSlide].link}
-                title={slides[activeSlide].title}
-                badges={slides[activeSlide].badges}
-                image={slides[activeSlide].src}
+                link={`film/${slides[activeSlide].slug}`}
+                title={slides[activeSlide].name}
+                badges={slides[activeSlide].badges ?? []}
+                image={`${Urls.BASE_URL}/${slides[activeSlide].preview}`}
             />
 
             <StyledSideSlides>
-                {visibleSideSlidesIndexes.map((index) => (
+                {visibleSideSlidesIndexes.map((index, i) => (
                     <Image
-                        key={slides[index].id}
-                        src={slides[index].src}
-                        alt=""
+                        key={`${slides[index].id}${i}`}
+                        src={`${Urls.BASE_URL}/${slides[index]?.preview}`}
+                        alt="slide"
                         width={index === activeSlide ? 137 : 84}
                         height={index === activeSlide ? 182 : 124}
                         onClick={() => setActiveSlide(index)}

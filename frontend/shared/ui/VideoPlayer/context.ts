@@ -7,7 +7,6 @@ type State = {
     videoRef: MutableRefObject<HTMLVideoElement | null>
     isPlaying: boolean,
     isFullscreen: boolean,
-    wasLaunched: boolean,
     volume: number,
 };
 
@@ -65,7 +64,6 @@ export const VideoPlayerContext = createContext<Context>({
         videoRef: createRef(),
         isPlaying: false,
         isFullscreen: false,
-        wasLaunched: false,
         volume: 1,
     },
     dispatch: () => {

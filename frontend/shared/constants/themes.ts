@@ -13,7 +13,7 @@ type InnerTheme = typeof darkTheme;
 
 export const lightTheme: InnerTheme = {
     type: 'light',
-    background: '#E1E0D8',
+    background: '#dcdcdc',
     text: {
         main: '#000000',
         inverse: '#FFFFFF',

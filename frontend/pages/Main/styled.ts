@@ -1,3 +1,5 @@
+'use client';
+
 import styled from 'styled-components';
 
 import { Theme } from '@/shared/constants/themes';
@@ -15,6 +17,6 @@ export const StyledYearText = styled.div<Theme>`
   justify-content: center;
   font-size: 24px;
   font-weight: 300;
-  color: ${({ theme: { color } }) => color};
+  color: ${({ theme: { text: { main } } }) => main};
   padding: 20px;
 `;

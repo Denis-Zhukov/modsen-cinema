@@ -1,18 +1,21 @@
 'use client';
 
+import { AnimatePresence } from 'framer-motion';
 import {
-    MutableRefObject, useEffect, useReducer, useRef,
+    MutableRefObject, useCallback, useEffect, useMemo, useReducer, useRef,
 } from 'react';
 
+import { Modal } from '@/shared/ui/Modal';
 import { CentralPlayButton } from '@/shared/ui/VideoPlayer/components/CentralPlayButton';
 import { ControlBar } from '@/shared/ui/VideoPlayer/components/ControlBar';
 import { Video } from '@/shared/ui/VideoPlayer/components/Video';
 import {
-    reducer, SET_LAUNCHED,
+    reducer, SET_LAUNCHED, SET_PLAYING,
     useVideoPlayerContext,
     VideoPlayerContext,
 } from '@/shared/ui/VideoPlayer/context';
 import { useBindHotKeys } from '@/shared/ui/VideoPlayer/hooks/useBindHotKeys';
+import { useShowControls } from '@/shared/ui/VideoPlayer/hooks/useShowControls';
 
 import { StyledPreview, StyledVideoWrapper } from './styled';
 
@@ -22,24 +25,36 @@ type Props = {
     src: string
     preview?: string
     className?: string
-    controls?: boolean
     muted?: boolean,
 };
 
 const VideoPlayerInner = ({
-    videoRef, className, src, videoContainerRef, preview, controls,
+    videoRef,
+    className,
+    src,
+    videoContainerRef,
+    preview,
 }: Props) => {
-    const { state: { isPlaying, wasLaunched }, dispatch } = useVideoPlayerContext();
+    const {
+        state: {
+            isPlaying,
+        },
+        dispatch,
+    } = useVideoPlayerContext();
 
     useEffect(() => {
-        const setWasLaunched = () => dispatch({ type: SET_LAUNCHED, payload: true });
+        const setWasLaunched = () => dispatch({
+            type: SET_LAUNCHED,
+            payload: true,
+        });
         videoRef.current?.addEventListener('play', setWasLaunched);
         return () => videoRef.current?.removeEventListener('play', setWasLaunched);
     }, [dispatch, videoRef]);
 
     useBindHotKeys();
+    const showControls = useShowControls();
 
-    return (
+    const videoPlayer = (
         <StyledVideoWrapper
             className={className}
             ref={videoContainerRef}
@@ -51,15 +66,34 @@ const VideoPlayerInner = ({
 
             {!isPlaying && <CentralPlayButton/>}
 
-            {controls && <ControlBar/>}
+            <AnimatePresence>
+                {showControls && <ControlBar/>}
+            </AnimatePresence>
 
-            {!wasLaunched && preview && <StyledPreview src={preview} fill alt="preview"/>}
+            {preview && !isPlaying && <StyledPreview src={preview} fill alt="preview"/>}
         </StyledVideoWrapper>
     );
+
+    const handleCloseModal = useCallback(() => {
+        videoRef.current?.pause();
+        dispatch({
+            type: SET_PLAYING,
+            payload: false,
+        });
+    }, [videoRef, dispatch]);
+
+    return isPlaying ? (
+        <Modal onClose={handleCloseModal}>
+            {videoPlayer}
+        </Modal>
+    ) : videoPlayer;
 };
 
 export const VideoPlayer = ({
-    src, preview, className = '', controls = true, muted = false,
+    src,
+    preview,
+    className = '',
+    muted = false,
 }: Omit<Props, 'videoContainerRef' | 'videoRef'>) => {
     const videoContainerRef = useRef<HTMLDivElement | null>(null);
     const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -73,13 +107,17 @@ export const VideoPlayer = ({
         volume: muted ? 0 : 1,
     });
 
+    const memoState = useMemo(() => ({
+        state,
+        dispatch,
+    }), [state]);
+
     return (
-        <VideoPlayerContext.Provider value={{ state, dispatch }}>
+        <VideoPlayerContext.Provider value={memoState}>
             <VideoPlayerInner
                 src={src}
                 preview={preview}
                 className={className}
-                controls={controls}
                 videoRef={videoRef}
                 videoContainerRef={videoContainerRef}
             />

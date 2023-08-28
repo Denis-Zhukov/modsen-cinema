@@ -6,17 +6,36 @@ import styled from 'styled-components';
 import { Theme } from '@/shared/constants/themes';
 
 export const StyledFooterWrapper = styled.div<Theme>`
-  box-shadow: inset 0 0 50px 50px ${({ theme: { type } }) => (type === 'dark' ? '#21222a' : '#deddd5')};
   background: ${({ theme: { background } }) => background};
 `;
 
 export const StyledFooter = styled.div`
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns:  1fr 1fr 1fr 1fr auto;
+
   margin: 0 auto;
   justify-content: space-between;
   padding: 40px;
-  max-width: 1332px;
+  max-width: 1330px;
+  gap: 30px;
+
+  > *:nth-last-child(1) {
+  }
+
+  @media screen and (max-width: 1030px) {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+
+    > *:nth-last-child(1) {
+      grid-column: 2/4;
+    }
+  }
+
+  @media screen and (max-width: 913px) {
+    > *:nth-last-child(1) {
+      grid-column: 1/3;
+      margin: 0 auto;
+    }
+  }
 `;
 
 export const StyledLogo = styled(Image)<Theme>`
@@ -42,34 +61,5 @@ export const StyledColumn = styled.div<Theme>`
     font-size: 14px;
     font-weight: 400;
     text-decoration: none;
-  }
-`;
-
-export const StyledSubscribe = styled.div<Theme>`
-  display: flex;
-  flex-direction: column;
-  color: ${({ theme: { text: { main } } }) => main};
-  font-size: 16px;
-  font-weight: 700;
-  max-width: 395px;
-
-  input {
-    color: ${({ theme: { text: { main } } }) => main};;
-    padding: 12px 24px;
-    border-radius: 40px;
-    background: rgba(255, 255, 255, 0.15);
-    border: none;
-    outline: none;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 24px;
-  }
-
-  p {
-    opacity: 0.4;
-    color: ${({ theme: { text: { main } } }) => main};
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 20px;
   }
 `;

@@ -12,7 +12,6 @@ export const loginThunk = createAsyncThunk(
             const response = await AuthService.login(data, controller);
             return response.data;
         } catch (error: any) {
-            console.log(error)
             if (isTypedErrorFromAxios(error)) return rejectWithValue(error.response.data.message);
             return rejectWithValue(Notice.UNEXPECTED_ERROR);
         }

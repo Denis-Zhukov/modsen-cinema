@@ -1,8 +1,13 @@
+import React from 'react';
+
 import { Header } from '@/widgets/ui/Header';
+import { InnerWrapper, OutWrapper } from '@/widgets/ui/Layouts/styled';
 
 export const HeaderLayout = ({ children }: { children: React.ReactNode }) => (
     <>
         <Header/>
-        {children}
+        <OutWrapper>
+            <InnerWrapper>{children}</InnerWrapper>
+        </OutWrapper>
     </>
 );

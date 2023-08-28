@@ -1,0 +1,13 @@
+{
+  "header": {
+    "home": "Home",
+    "bookings": "Bookings",
+    "profile": "Profile",
+    "signUp": "Sign up",
+    "signIn": "Sign in"
+  },
+  "showNow": {
+    "title": "Now in the Cinema",
+    "text": "Watch great Movies in the best cinema! We care about your comfort. Book tickets right now!"
+  }
+}

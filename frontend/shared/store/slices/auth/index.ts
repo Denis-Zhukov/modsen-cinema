@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { Storage } from '@/shared/lib/local-storage-utils';
-import { initAuthThunk } from '@/shared/store/slices/auth/initAuthThunk';
 import { loginThunk } from '@/shared/store/slices/auth/loginThunk';
 import { logoutThunk } from '@/shared/store/slices/auth/logoutThunk';
+import { refreshAuthThunk } from '@/shared/store/slices/auth/refreshAuthThunk';
 import { LoginResponse } from '@/shared/typing/api/responses/LoginResponse';
 
 type InitialState = {
@@ -11,7 +11,9 @@ type InitialState = {
     isAuth: boolean,
     name: string | null,
     surname: string | null,
-    roles: string[]
+    roles: string[],
+    sex: string | null,
+    avatar: string | null,
 
     isLoading: boolean,
     isSuccess: boolean,
@@ -24,6 +26,8 @@ const initialState: InitialState = {
     name: null,
     surname: null,
     roles: [],
+    sex: null,
+    avatar: null,
 
     isLoading: false,
     isSuccess: false,
@@ -66,23 +70,27 @@ const authSlice = createSlice({
                 state.surname = payload.surname;
                 state.roles = payload.roles;
                 state.isAuth = true;
+                state.sex = payload.sex;
+                state.avatar = payload.avatar;
                 Storage.setAccessToken(payload.accessToken);
 
                 setFulfilledValues(state);
             })
             .addCase(loginThunk.rejected, setRejectedValues)
-            .addCase(initAuthThunk.pending, setPendingStatuses)
-            .addCase(initAuthThunk.fulfilled, (state, { payload }: PayloadAction<LoginResponse>) => {
+            .addCase(refreshAuthThunk.pending, setPendingStatuses)
+            .addCase(refreshAuthThunk.fulfilled, (state, { payload }: PayloadAction<LoginResponse>) => {
                 state.id = payload.id;
                 state.name = payload.name;
                 state.surname = payload.surname;
                 state.roles = payload.roles;
                 state.isAuth = true;
+                state.sex = payload.sex;
+                state.avatar = payload.avatar;
                 Storage.setAccessToken(payload.accessToken);
 
                 setFulfilledValues(state);
             })
-            .addCase(initAuthThunk.rejected, setRejectedValues)
+            .addCase(refreshAuthThunk.rejected, setRejectedValues)
             .addCase(logoutThunk.pending, setPendingStatuses)
             .addCase(logoutThunk.fulfilled, (state) => {
                 state.id = null;
@@ -90,6 +98,8 @@ const authSlice = createSlice({
                 state.name = null;
                 state.surname = null;
                 state.roles = [];
+                state.sex = '';
+                state.avatar = null;
                 Storage.removeAccessToken();
 
                 setFulfilledValues(state);

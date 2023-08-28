@@ -1,4 +1,4 @@
-import { Endpoints } from '@/shared/api/Endpoints';
+import { Endpoints } from '@/shared/constants/Endpoints';
 import { api } from '@/shared/store/rtk/api';
 import { RegisterRequest } from '@/shared/typing/api/requests/RegisterRequest';
 import { RegisterResponse } from '@/shared/typing/api/responses/RegisterResponse';
