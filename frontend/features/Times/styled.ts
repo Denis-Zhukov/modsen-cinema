@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
-import { Theme } from '@/shared/constants/themes';
+import { Theme } from '@/shared/config/constants/Themes';
 
 export const StyledTimes = styled.div`
   max-width: 1000px;
@@ -18,4 +18,5 @@ export const StyledText = styled(motion.div)<Theme>`
   justify-content: center;
   color: ${({ theme: { text: { main } } }) => main};
   font-size: 32px;
+  grid-column: 1/4;
 `;

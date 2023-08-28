@@ -2,9 +2,12 @@
 
 import styled from 'styled-components';
 
-import type { Theme } from '@/shared/constants/themes';
+import type { Theme } from '@/shared/config/constants/Themes';
 
 export const StyledSettingsForm = styled.div`
+    display: flex;
+  flex-direction: column;
+  gap: 32px;
 `;
 
 export const StyledRow = styled.div<Theme>`

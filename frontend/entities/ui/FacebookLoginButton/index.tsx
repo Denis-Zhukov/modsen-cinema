@@ -1,6 +1,7 @@
 import { FaFacebook } from 'react-icons/fa';
 
 import { StyledFacebookLoginButton } from '@/entities/ui/FacebookLoginButton/styled';
+import { useTranslations } from "next-intl";
 
 export const FacebookLoginButton = () => {
     const googleLogin = async () => {
@@ -11,10 +12,12 @@ export const FacebookLoginButton = () => {
         }
     };
 
+    const t = useTranslations();
+
     return (
         <StyledFacebookLoginButton type="button" onClick={googleLogin}>
             <FaFacebook/>
-            Sign up with Facebook
+            {t('facebookAuth')}
         </StyledFacebookLoginButton>
     );
 };

@@ -1,19 +1,19 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import {
     useCallback, useEffect, useRef, useState,
 } from 'react';
 
-import { slideRight } from '@/shared/animations/slideRight';
-import { Urls } from '@/shared/api/Urls';
-import { Forms } from '@/shared/constants/Forms';
-import { poppinsFont } from '@/shared/fonts';
-import { useAppSelector } from '@/shared/hooks/redux-hooks';
-import { useActions } from '@/shared/hooks/useActions';
-import { useCreateQueryPath } from '@/shared/hooks/useCreateQueryPath';
-import { selectAuth } from '@/shared/store/selectors/auth.selectors';
+import { slideRight } from '@/shared/lib/animations/slideRight';
+import { Urls } from '@/shared/config/constants/Urls';
+import { Forms } from '@/shared/config/constants/Forms';
+import { poppinsFont } from 'shared/lib/fonts';
+import { useAppSelector } from '@/shared/lib/hooks/redux-hooks';
+import { useActions } from '@/shared/lib/hooks/useActions';
+import { useCreateQueryPath } from '@/shared/lib/hooks/useCreateQueryPath';
+import { selectAuth } from '@/shared/model/store/selectors/auth.selectors';
 import {
     StyledAvatar,
     StyledHugeCapitalize,
@@ -52,6 +52,8 @@ export const Profile = ({ onClose }: Props) => {
         setMounted(true);
     }, []);
 
+    const t = useTranslations('profile');
+
     return ((mounted && ref.current)
         ? (
             <StyledProfile
@@ -63,7 +65,7 @@ export const Profile = ({ onClose }: Props) => {
             >
                 <StyledProfileHeader>
                     <StyledRightArrow onClick={onClose}/>
-                    User profile
+                    {t('userProfile')}
                 </StyledProfileHeader>
                 <StyledAvatar
                     src={avatar ? `${Urls.BASE_URL}/${avatar}` : PersonIcon}
@@ -77,9 +79,9 @@ export const Profile = ({ onClose }: Props) => {
                     <StyledSmallUpperCase>{sex ?? ''}</StyledSmallUpperCase>
                 </StyledProfileInfo>
                 <StyledProfileButtons>
-                    <Link href={createQueryPath('form', Forms.EDIT_PROFILE)}>Edit Profile</Link>
-                    <Link href={createQueryPath('form', Forms.SETTINGS)}>Settings</Link>
-                    <button onClick={handleLogout} type="button">Log out</button>
+                    <Link href={createQueryPath('form', Forms.EDIT_PROFILE)}>{t('edit')}</Link>
+                    <Link href={createQueryPath('form', Forms.SETTINGS)}>{t('settings')}</Link>
+                    <button onClick={handleLogout} type="button">{t('logOut')}</button>
                 </StyledProfileButtons>
             </StyledProfile>
         ) : null

@@ -1,7 +1,7 @@
 import Image from 'next/image';
-import type { ReactNode } from 'react';
+import type { BaseHTMLAttributes, ReactNode } from 'react';
 
-import { poppinsFont } from '@/shared/fonts';
+import { poppinsFont } from '@/shared/lib/fonts';
 
 import {
     StyledDivider, StyledEdge, StyledInfoBlock,
@@ -13,15 +13,16 @@ type Props = {
     upperElement: ReactNode
     downElement: ReactNode
     edgeElement: ReactNode
-};
+} & BaseHTMLAttributes<HTMLDivElement>;
 
 export const SplittedLongCard = ({
     image,
     upperElement,
     downElement,
     edgeElement,
+    ...props
 }: Props) => (
-    <StyledLongCard className={poppinsFont.className}>
+    <StyledLongCard className={poppinsFont.className} {...props}>
         <Image src={image} alt="preview" width={145} height={200}/>
         <StyledEdge>{edgeElement}</StyledEdge>
         <StyledInfoBlock>

@@ -1,5 +1,5 @@
 import { Film } from '@/pages/Film';
-import { FilmService } from '@/shared/api/FilmService';
+import { FilmService } from '@/shared/api/services/FilmService';
 
 type Props = {
     params: { slug: string }

@@ -3,23 +3,24 @@
 import { Form, Formik } from 'formik';
 import { AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import React, { useCallback, useEffect, useMemo } from 'react';
 
 import { FacebookLoginButton } from '@/entities/ui/FacebookLoginButton';
 import { GithubLoginButton } from '@/entities/ui/GithubLoginButton';
 import { GoogleLoginButton } from '@/entities/ui/GoogleLoginButton';
 import { validationSchema } from '@/features/LoginForm/validations';
-import { Forms } from '@/shared/constants/Forms';
-import { inriaSansFont, poppinsFont } from '@/shared/fonts';
-import { useAppSelector } from '@/shared/hooks/redux-hooks';
-import { useActions } from '@/shared/hooks/useActions';
-import { useCreateQueryPath } from '@/shared/hooks/useCreateQueryPath';
-import { useInitForm } from '@/shared/hooks/useInitForm';
-import { useSwitchForm } from '@/shared/hooks/useSwitchForm';
-import { toastError, toastSuccess } from '@/shared/lib/toast';
-import { selectAuth } from '@/shared/store/selectors/auth.selectors';
-import { LoginRequest } from '@/shared/typing/api/requests/LoginRequest';
-import { Notice } from '@/shared/typing/constants/Notice';
+import { Forms } from '@/shared/config/constants/Forms';
+import { inriaSansFont, poppinsFont } from 'shared/lib/fonts';
+import { useAppSelector } from '@/shared/lib/hooks/redux-hooks';
+import { useActions } from '@/shared/lib/hooks/useActions';
+import { useCreateQueryPath } from '@/shared/lib/hooks/useCreateQueryPath';
+import { useInitForm } from '@/shared/lib/hooks/useInitForm';
+import { useSwitchForm } from '@/shared/lib/hooks/useSwitchForm';
+import { toastError, toastSuccess } from '@/shared/lib/utils/toast';
+import { selectAuth } from '@/shared/model/store/selectors/auth.selectors';
+import { LoginRequest } from '@/shared/model/store/rtk/typing/requests/LoginRequest';
+import { Notice } from '@/shared/config/constants/Notice';
 import { Button } from '@/shared/ui/Button';
 import { Loader } from '@/shared/ui/Loader';
 import { Modal } from '@/shared/ui/Modal';
@@ -43,9 +44,14 @@ export const LoginForm = () => {
     } = useInitForm(Forms.LOGIN);
 
     const {
-        error, isLoading, isAuth,
+        error,
+        isLoading,
+        isAuth,
     } = useAppSelector(selectAuth);
-    const { login, resetStatuses } = useActions();
+    const {
+        login,
+        resetStatuses,
+    } = useActions();
 
     const createQueryPath = useCreateQueryPath();
     const switchForm = useSwitchForm();
@@ -67,14 +73,15 @@ export const LoginForm = () => {
         return () => controller.abort();
     }, [resetStatuses, controller]);
 
+    const t = useTranslations('login');
+
     return (
         <AnimatePresence>
             {active && (
                 <Modal
                     topElement={(
                         <StyledTitle className={inriaSansFont.className}>
-                            We are glad to see you
-                            again! <span> Enjoy watching movies with us!</span>
+                            {t('title')} <span>{t('subtitle')}</span>
                         </StyledTitle>
                     )}
                     onClose={handleCloseForm}
@@ -98,7 +105,7 @@ export const LoginForm = () => {
                                     <TextBox
                                         name="email"
                                         icon={EmailIcon}
-                                        placeholder="Enter your email"
+                                        placeholder={t('emailPlaceholder')}
                                         type="email"
                                     />
                                     <StyledErrorText>{touched.email && errors.email}</StyledErrorText>
@@ -106,25 +113,23 @@ export const LoginForm = () => {
                                     <TextBox
                                         name="password"
                                         icon={PasswordIcon}
-                                        placeholder="Enter your password"
+                                        placeholder={t('passwordPlaceholder')}
                                         type="password"
                                     />
                                     <StyledErrorText>{touched.password && errors.password}</StyledErrorText>
 
                                     <StyledAuthBlock>
-                                        <Button type="submit">Login</Button>
+                                        <Button type="submit">{t('login')}</Button>
                                         <StyledSocials>
                                             <GoogleLoginButton/>
                                             <FacebookLoginButton/>
                                             <GithubLoginButton/>
                                         </StyledSocials>
                                         <StyledBottomText>
-                                            No account?
-                                            {' '}
+                                            {t('subtext')}{' '}
                                             <Link
                                                 href={createQueryPath('form', Forms.REGISTER)}
-                                            >
-                                                Sign up please.
+                                            >{t('clickableSubtext')}
                                             </Link>
                                         </StyledBottomText>
                                     </StyledAuthBlock>

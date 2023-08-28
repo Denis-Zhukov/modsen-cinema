@@ -1,13 +1,15 @@
 import { usePathname } from 'next/navigation';
-import Link from 'next-intl/link';
+import { useTranslations } from 'next-intl';
+
+import { StyledLanguage, StyledLanguageSelect } from '@/entities/ui/LanguageSelect/styled';
 
 export const LanguageSelect = () => {
     const pathname = usePathname()!.replace(/^\/(en|ru)/i, '/');
-
+    const t = useTranslations('settings');
     return (
-        <div>
-            <Link locale="en" href={pathname}>English</Link>
-            <Link locale="ru" href={pathname}>Russian</Link>
-        </div>
+        <StyledLanguageSelect>
+            <StyledLanguage locale="en" href={pathname}>{t('english')}</StyledLanguage>
+            <StyledLanguage locale="ru" href={pathname}>{t('russian')}</StyledLanguage>
+        </StyledLanguageSelect>
     );
 };

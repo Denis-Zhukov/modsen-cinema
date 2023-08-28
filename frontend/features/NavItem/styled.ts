@@ -3,8 +3,8 @@
 import Link from 'next/link';
 import styled from 'styled-components';
 
-import { Colors } from '@/shared/constants/Colors';
-import { Theme } from '@/shared/constants/themes';
+import { Colors } from '@/shared/config/constants/Colors';
+import { Theme } from '@/shared/config/constants/Themes';
 
 export const StyledNavItem = styled(Link)<{ $active?: boolean } & Theme>`
   color: ${({ theme: { text: { main } } }) => main};

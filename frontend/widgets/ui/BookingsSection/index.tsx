@@ -3,8 +3,8 @@ import type { QueryDefinition } from '@reduxjs/toolkit/query';
 import type { BaseQueryFn } from '@reduxjs/toolkit/query/react';
 import React from 'react';
 
-import { poppinsFont } from '@/shared/fonts';
-import type { GetMyBookingsResponse } from '@/shared/typing/api/responses/GetMyBookingsResponse';
+import { poppinsFont } from 'shared/lib/fonts';
+import type { GetMyBookingsResponse } from '@/shared/model/store/rtk/typing/responses/GetMyBookingsResponse';
 import { Loader } from '@/shared/ui/Loader';
 import { StyledItems, StyledText, StyledTitle } from '@/widgets/ui/BookingsSection/styled';
 

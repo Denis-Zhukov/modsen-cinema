@@ -3,22 +3,23 @@
 import { Form, Formik } from 'formik';
 import { AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import React, { useCallback, useEffect, useState } from 'react';
+import { inriaSansFont, poppinsFont } from 'shared/lib/fonts';
 
 import { FacebookLoginButton } from '@/entities/ui/FacebookLoginButton';
 import { GithubLoginButton } from '@/entities/ui/GithubLoginButton';
 import { GoogleLoginButton } from '@/entities/ui/GoogleLoginButton';
 import { getPasswordComplexity, validationSchema } from '@/features/RegisterForm/validations';
-import { Forms } from '@/shared/constants/Forms';
-import { inriaSansFont, poppinsFont } from '@/shared/fonts';
-import { useCreateQueryPath } from '@/shared/hooks/useCreateQueryPath';
-import { useInitForm } from '@/shared/hooks/useInitForm';
-import { useSwitchForm } from '@/shared/hooks/useSwitchForm';
-import { toastError, toastSuccess } from '@/shared/lib/toast';
-import { useRegisterMutation } from '@/shared/store/rtk/auth.rtk';
-import { RegisterRequest } from '@/shared/typing/api/requests/RegisterRequest';
-import { Notice } from '@/shared/typing/constants/Notice';
-import { isTypedError } from '@/shared/typing/guards/isTypedError';
+import { Forms } from '@/shared/config/constants/Forms';
+import { Notice } from '@/shared/config/constants/Notice';
+import { useCreateQueryPath } from '@/shared/lib/hooks/useCreateQueryPath';
+import { useInitForm } from '@/shared/lib/hooks/useInitForm';
+import { useSwitchForm } from '@/shared/lib/hooks/useSwitchForm';
+import { ErrorUtils } from '@/shared/lib/utils/ErrorUtils';
+import { toastError, toastSuccess } from '@/shared/lib/utils/toast';
+import { useRegisterMutation } from '@/shared/model/store/rtk/auth.rtk';
+import { RegisterRequest } from '@/shared/model/store/rtk/typing/requests/RegisterRequest';
 import { Button } from '@/shared/ui/Button';
 import { Loader } from '@/shared/ui/Loader';
 import { Modal } from '@/shared/ui/Modal';
@@ -66,7 +67,7 @@ export const RegisterForm = () => {
         if (isSuccess) {
             toastSuccess(Notice.REGISTRATION_SUCCESSFUL);
             switchForm(Forms.LOGIN);
-        } else if (isError && isTypedError(error)) {
+        } else if (isError && ErrorUtils.isTypedError(error)) {
             toastError(error.data.message);
         } else if (isError) toastError(Notice.UNEXPECTED_ERROR);
     }, [error, isError, isSuccess, switchForm]);
@@ -75,6 +76,8 @@ export const RegisterForm = () => {
         if (currentRequest) currentRequest.abort();
     }, [currentRequest]);
 
+    const t = useTranslations('register');
+
     return (
         <AnimatePresence>
             {active
@@ -82,7 +85,7 @@ export const RegisterForm = () => {
                     <Modal
                         topElement={(
                             <StyledTitle className={inriaSansFont.className}>
-                                Great Movies in the best cinema! We care about your comfort. <span>Join us Right Now!</span>
+                                {t('title')} <span>{t('subtitle')}</span>
                             </StyledTitle>
                         )}
                         onClose={handleCloseForm}
@@ -108,7 +111,7 @@ export const RegisterForm = () => {
                                         <TextBox
                                             name="name"
                                             icon={AccountIcon}
-                                            placeholder="Enter your name"
+                                            placeholder={t('namePlaceholder')}
                                             type="text"
                                         />
                                         <StyledErrorText>{touched.name && errors.name}</StyledErrorText>
@@ -116,7 +119,7 @@ export const RegisterForm = () => {
                                         <TextBox
                                             name="surname"
                                             icon={GroupIcon}
-                                            placeholder="Enter your surname"
+                                            placeholder={t('surnamePlaceholder')}
                                             type="text"
                                         />
                                         <StyledErrorText>{touched.surname && errors.surname}</StyledErrorText>
@@ -124,7 +127,7 @@ export const RegisterForm = () => {
                                         <TextBox
                                             name="email"
                                             icon={EmailIcon}
-                                            placeholder="Enter your email"
+                                            placeholder={t('emailPlaceholder')}
                                             type="email"
                                         />
                                         <StyledErrorText>{touched.email && errors.email}</StyledErrorText>
@@ -132,7 +135,7 @@ export const RegisterForm = () => {
                                         <TextBox
                                             name="password"
                                             icon={PasswordIcon}
-                                            placeholder="Enter strong password"
+                                            placeholder={t('passwordPlaceholder')}
                                             type="password"
                                         />
                                         <StyledPasswordComplexity
@@ -146,20 +149,17 @@ export const RegisterForm = () => {
                                         <StyledErrorText>{touched.password && errors.password}</StyledErrorText>
 
                                         <StyledAuthBlock>
-                                            <Button type="submit">Register</Button>
+                                            <Button type="submit">{t('register')}</Button>
                                             <StyledSocials>
                                                 <GoogleLoginButton/>
                                                 <FacebookLoginButton/>
                                                 <GithubLoginButton/>
                                             </StyledSocials>
                                             <StyledBottomText className={inriaSansFont.className}>
-                                                Already has an
-                                                account?
+                                                {t('subtext')}{' '}
                                                 <Link
                                                     href={createQueryPath('form', Forms.LOGIN)}
-                                                >{' '}
-                                                    Login please.
-                                                </Link>
+                                                >{t('clickableSubtext')}</Link>
                                             </StyledBottomText>
                                         </StyledAuthBlock>
                                     </Form>

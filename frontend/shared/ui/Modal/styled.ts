@@ -1,10 +1,8 @@
-'use client';
-
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import styled from 'styled-components';
 
-import { Theme } from '@/shared/constants/themes';
+import { Theme } from '@/shared/config/constants/Themes';
 
 export const StyledWrapperModal = styled(motion.div)`
   display: flex;

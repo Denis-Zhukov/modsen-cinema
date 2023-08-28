@@ -1,11 +1,9 @@
-'use client';
-
 import type { ReactNode } from 'react';
 import React, {
     useCallback, useEffect, useRef, useState,
 } from 'react';
 
-import { fadeIn } from '@/shared/animations/fadeIn';
+import { fade } from '@/shared/lib/animations/fade';
 
 import CloseIcon from './images/close-icon.svg';
 import {
@@ -23,12 +21,12 @@ export const Modal = ({
     topElement,
     onClose,
 }: Props) => {
+    const ref = useRef<Element | null>(null);
+    const [mounted, setMounted] = useState(false);
+
     const handleStopPropagation = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
         e.stopPropagation();
     }, []);
-
-    const ref = useRef<Element | null>(null);
-    const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
         ref.current = document.querySelector<HTMLElement>('#modal');
@@ -38,7 +36,7 @@ export const Modal = ({
     return (mounted && ref.current) ? (
         <StyledWrapperModal
             onMouseDown={onClose}
-            variants={fadeIn}
+            variants={fade}
             initial="hidden"
             animate="visible"
             exit="hidden"

@@ -1,7 +1,6 @@
-import { Studios } from 'features/Studios';
-
+import { Studios } from '@/features/Studios';
 import { StyledMain, StyledYearText } from '@/pages/Main/styled';
-import { poppinsFont } from '@/shared/fonts';
+import { poppinsFont } from '@/shared/lib/fonts';
 import { ShowNow } from '@/widgets/ui/ShowNow';
 import { Trailer } from '@/widgets/ui/Trailer';
 

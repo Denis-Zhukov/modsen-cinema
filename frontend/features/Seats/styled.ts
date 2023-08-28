@@ -2,7 +2,7 @@
 
 import styled from 'styled-components';
 
-import { Colors } from '@/shared/constants/Colors';
+import { Colors } from '@/shared/config/constants/Colors';
 
 export const StyledSeats = styled.div`
   display: flex;

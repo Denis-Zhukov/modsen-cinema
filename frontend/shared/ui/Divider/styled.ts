@@ -1,11 +1,9 @@
-'use client';
-
 import styled from 'styled-components';
 
-export const StyledDivider = styled.div`
+export const StyledDivider = styled.div<{ $color: string }>`
   width: 100%;
   height: 5px;
   border-radius: 10px;
-  background: #DBA758;
+  background: ${({ $color }) => $color};
   margin: 20px 0;
 `;

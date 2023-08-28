@@ -1,10 +1,9 @@
-import { ReviewCard } from '@/features/ReviewCard';
-import { StyledBackground, StyledReviews, StyledTrailerBlock } from '@/pages/Film/styled';
-import { FilmService } from '@/shared/api/FilmService';
-import { Urls } from '@/shared/api/Urls';
-import { poppinsFont } from '@/shared/fonts';
-import { getMainColors } from '@/shared/lib/get-main-colors';
-import { VideoPlayer } from '@/shared/ui/VideoPlayer';
+import { ReviewCard } from '@/entities/ReviewCard';
+import { TrailerBlock } from '@/pages/Film/components/TrailerBlock';
+import { StyledBackground, StyledReviews } from '@/pages/Film/styled';
+import { FilmService } from '@/shared/api/services/FilmService';
+import { Urls } from '@/shared/config/constants/Urls';
+import { ColorUtils } from '@/shared/lib/utils/ColorUtils';
 import { BookingBlock } from '@/widgets/ui/BookingBlock';
 import { FilmInfo } from '@/widgets/ui/FilmInfo';
 
@@ -17,7 +16,7 @@ export const Film = async ({ params: { slug } }: Props) => {
     const trailer = `${Urls.BASE_URL}/${data.trailer}`;
     const preview = `${Urls.BASE_URL}/${data.preview}`;
 
-    const [firstColor, secondColor] = await getMainColors(preview, 2);
+    const [firstColor, secondColor] = await ColorUtils.getMainColors(preview, 2);
 
     return (
         <StyledBackground $firstColor={firstColor} $secondColor={secondColor}>
@@ -36,10 +35,7 @@ export const Film = async ({ params: { slug } }: Props) => {
                 description={data.description}
             />
             <BookingBlock filmId={data.id}/>
-            <StyledTrailerBlock>
-                <h2 className={poppinsFont.className}>Watch trailer online!</h2>
-                <VideoPlayer src={trailer}/>
-            </StyledTrailerBlock>
+            <TrailerBlock trailer={trailer}/>
             <StyledReviews>
                 {data.reviews.map(({
                     id,

@@ -1,21 +1,20 @@
-import type { ReactNode } from 'react';
+import type { ButtonHTMLAttributes, ReactNode } from 'react';
 
-import { StyledButtonIcon } from '@/shared/ui/ButtonIcon/styled';
+import { StyledButtonIcon } from './styled';
 
 type Props = {
     start?: ReactNode
     end?: ReactNode
-    onClick?: () => void
     children: string
-};
+} & ButtonHTMLAttributes<HTMLButtonElement>;
 
 export const ButtonIcon = ({
     start,
     end,
     children,
-    onClick,
+    ...props
 }: Props) => (
-    <StyledButtonIcon onClick={onClick}>
+    <StyledButtonIcon {...props}>
         {start}
         <span>{children}</span>
         {end}

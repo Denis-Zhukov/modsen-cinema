@@ -2,7 +2,7 @@ import Image from 'next/image';
 import React from 'react';
 
 import { NavButton } from '@/features/NavButton';
-import { nunitoSansFont, poppinsFont } from '@/shared/fonts';
+import { nunitoSansFont, poppinsFont } from 'shared/lib/fonts';
 import {
     StyledBookingBlock,
     StyledDescription,
@@ -14,6 +14,7 @@ import {
 
 import Arrow from './images/arrow.png';
 import Star from './images/star.png';
+import { useTranslations } from "next-intl";
 
 type Props = {
     name: string,
@@ -41,12 +42,13 @@ export const FilmInfo = ({
     const genresString = genres.length ? genres.join(' / ') : 'Unknown';
     const actorsString = actors.length ? actors.join(', ') : 'Unknown';
 
+    const t = useTranslations('filmInfo');
     return (
         <StyledFilmInfo className={nunitoSansFont.className}>
             <StyledTopBlock>
                 <h1>{name}</h1>
                 <StyledNextFilm href="#" className={poppinsFont.className}>
-                    <span>Move to the next movie</span>
+                    <span>{t('nextMovie')}</span>
                     <Image src={Arrow} alt="Next"/>
                 </StyledNextFilm>
             </StyledTopBlock>
@@ -59,27 +61,27 @@ export const FilmInfo = ({
                 />
                 <StyledInfo>
                     <div>
-                        <span>Release year: </span>
+                        <span>{t('releaseYear')}: </span>
                         {year}
                     </div>
                     <div>
-                        <span>Country: </span>
+                        <span>{t('country')}: </span>
                         {country}
                     </div>
                     <div>
-                        <span>Genre: </span>
+                        <span>{t('country')}: </span>
                         {genresString}
                     </div>
                     <div>
-                        <span>Author: </span>
+                        <span>{t('author')}: </span>
                         {author}
                     </div>
                     <div>
-                        <span>Actors: </span>
+                        <span>{t('actors')}: </span>
                         {actorsString}
                     </div>
                     <StyledBookingBlock>
-                        <NavButton path="/" variant="primary">Book Now!</NavButton>
+                        <NavButton path="/" variant="primary">{t('bookNow')}</NavButton>
                         <div>
                             <span className={poppinsFont.className}>{rating}</span>
                             <Image src={Star} alt="Star" width={39} height={38}/>

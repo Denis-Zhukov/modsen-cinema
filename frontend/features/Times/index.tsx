@@ -1,8 +1,10 @@
 import { AnimatePresence } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 import React, { useCallback } from 'react';
 
+import { ScheduleCard } from '@/entities/ScheduleCard';
 import { StyledText, StyledTimes } from '@/features/Times/styled';
-import { ScheduleCard } from '@/shared/ui/Time/ScheduleCard';
+import { fade } from '@/shared/lib/animations/fade';
 
 type Props = {
     items: { id: number, dateAndTime: string }[]
@@ -16,13 +18,12 @@ export const Times = ({
     selectedId,
 }: Props) => {
     const handleClick = useCallback((id: number) => () => onSelect(id), [onSelect]);
-
-    if (!items.length) return <StyledText initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>This movie is not available for this day</StyledText>;
+    const t = useTranslations('times');
 
     return (
         <StyledTimes>
             <AnimatePresence mode="wait">
-                {items?.map(({
+                {items.length > 0 ? items?.map(({
                     dateAndTime,
                     id,
                 }) => (
@@ -32,7 +33,15 @@ export const Times = ({
                         onClick={handleClick(id)}
                         active={id === selectedId}
                     />
-                ))}
+                )) : (
+                    <StyledText
+                        variants={fade}
+                        initial="hidden"
+                        animate="visible"
+                        exit="hidden"
+                    >{t('notAvailable')}
+                    </StyledText>
+                )}
             </AnimatePresence>
         </StyledTimes>
     );

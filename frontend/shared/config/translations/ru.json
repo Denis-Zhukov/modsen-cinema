@@ -1,0 +1,120 @@
+{
+  "header": {
+    "home": "Главная",
+    "bookings": "Заказы",
+    "profile": "Профиль",
+    "signUp": "Создать",
+    "signIn": "Войти"
+  },
+  "showNow": {
+    "title": "Сейчас в кино",
+    "text": "Смотрите отличные фильмы в лучшем кинотеатре! Мы заботимся о вашем комфорте. Бронируйте билеты прямо сейчас!"
+  },
+  "bookings": {
+    "upcoming": "Ваши предстоящие фильмы",
+    "past": "Ваши посещенные фильмы",
+    "missing": "Ваши пропущенные фильмы"
+  },
+  "bookingCard": {
+    "cancel": "Отменить",
+    "seat": "Место",
+    "seats": "Мест"
+  },
+  "footer": {
+    "firstColumn": "Первая колонка",
+    "firstPage": "Первая страница",
+    "secondPage": "Вторая страница",
+    "thirdPage": "Третья страница",
+    "fourthPage": "Четвертая страница",
+    "secondColumn": "Вторая",
+    "fifthPage": "Пятая страница",
+    "sixthPage": "Шестая страница",
+    "seventhPage": "Седьмая страница",
+    "thirdColumn": "Третья",
+    "eighthPage": "Восьмая страница",
+    "ninthPage": "Девятая страница",
+    "tenthPage": "Десятая страница"
+  },
+  "subscribe": {
+    "title": "Подписаться",
+    "placeholder": "Введите email",
+    "subtext": "Подпишитесь на нашу рассылку, чтобы быть в курсе новых функций и обновлений."
+  },
+  "register": {
+    "title": "Отличные фильмы в лучшем кинотеатре! Мы заботимся о вашем комфорте.",
+    "subtitle": "Присоединяйтесь к нам прямо сейчас!",
+    "namePlaceholder": "Введите ваше имя",
+    "surnamePlaceholder": "Введите вашу фамилию",
+    "emailPlaceholder": "Введите вашу почту",
+    "passwordPlaceholder": "Введите сложный пароль",
+    "register": "Зарегистрироваться",
+    "subtext": "Уже есть аккаунт?",
+    "clickableSubtext": "Войдите пожалуйста."
+  },
+  "login": {
+    "title": "Мы рады видеть вас снова!",
+    "subtitle": "Наслаждайтесь просмотром фильмов вместе с нами!",
+    "emailPlaceholder": "Введите вашу почту",
+    "passwordPlaceholder": "Введите ваш пароль",
+    "login": "Войти",
+    "subtext": "Нет аккаунта?",
+    "clickableSubtext": "Зарегистрируетесь."
+  },
+  "googleAuth": "Войти с Google",
+  "facebookAuth": "Войти с Facebook",
+  "githubAuth": "Войти с Github",
+  "film": {
+    "watchTrailer": "Смотреть трейлер онлайн!"
+  },
+  "filmInfo": {
+    "nextMovie": "Следующий фильм",
+    "releaseYear": "Год выхода",
+    "country": "Страна",
+    "genre": "Жанр",
+    "author": "Автор",
+    "actors": "Актеры",
+    "bookNow": "Заказать"
+  },
+  "bookingBlock": {
+    "title": "Заказать сейчас!",
+    "seat": "Место",
+    "seats": "Мест",
+    "bookNow": "Заказать"
+  },
+  "seats":{
+    "screen": "Экран",
+    "available": "Доступно",
+    "reserved": "Занято",
+    "selected": "Выбрано"
+  },
+  "times":{
+    "notAvailable": "Этот фильм не в прокате в этот день"
+  },
+  "profile": {
+    "userProfile": "Профиль",
+    "edit": "Редактировать",
+    "settings": "Настройки",
+    "logOut": "Выйти"
+  },
+  "edit": {
+    "avatar": "Аватар",
+    "surname": "Фамилия",
+    "name": "Имя",
+    "sex": "Пол",
+    "password": "Пароль",
+    "save": "Сохранить",
+    "unknown": "Неизвестно",
+    "male": "Мужчина",
+    "female": "Женщина"
+  },
+  "settings": {
+    "theme": "Тема",
+    "language": "Язык",
+    "english": "Англиский",
+    "russian": "Русский"
+  },
+  "reviewCard": {
+    "hide": "Скрыть",
+    "show": "Читать..."
+  }
+}

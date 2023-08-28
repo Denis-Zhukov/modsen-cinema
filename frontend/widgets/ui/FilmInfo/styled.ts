@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import styled from 'styled-components';
 
-import { Theme } from '@/shared/constants/themes';
+import { Theme } from '@/shared/config/constants/Themes';
 
 export const StyledFilmInfo = styled.div<Theme>`
   display: flex;

@@ -1,18 +1,20 @@
 'use client';
 
 import { Times } from 'features/Times';
+import { useLocale, useTranslations } from 'next-intl';
 import {
     useCallback, useEffect, useMemo, useState,
 } from 'react';
 
 import { DayPicker } from '@/features/DayPicker';
 import { Seats } from '@/features/Seats';
-import { nunitoSansFont, poppinsFont } from '@/shared/fonts';
-import { DateTimeUtils } from '@/shared/lib/DateTimeUtils';
-import { toastError, toastSuccess } from '@/shared/lib/toast';
-import { useBookMutation } from '@/shared/store/rtk/booking.rtk';
-import { useGetScheduleByMonthDayQuery } from '@/shared/store/rtk/film.rtk';
-import { Notice } from '@/shared/typing/constants/Notice';
+import { nunitoSansFont, poppinsFont } from 'shared/lib/fonts';
+import { DateTimeUtils } from '@/shared/lib/utils/DateTimeUtils';
+import { TextUtils } from '@/shared/lib/utils/TextUtils';
+import { toastError, toastSuccess } from '@/shared/lib/utils/toast';
+import { useBookMutation } from '@/shared/model/store/rtk/booking.rtk';
+import { useGetScheduleByMonthDayQuery } from '@/shared/model/store/rtk/film.rtk';
+import { Notice } from '@/shared/config/constants/Notice';
 import { Button } from '@/shared/ui/Button';
 import { Divider } from '@/shared/ui/Divider';
 import {
@@ -21,6 +23,7 @@ import {
     StyledSeatsInfo,
     StyledSelectionDetails, StyledTitle, StyledWrapper,
 } from '@/widgets/ui/BookingBlock/styled';
+import { Colors } from "@/shared/config/constants/Colors";
 
 type Props = {
     filmId: number,
@@ -65,10 +68,22 @@ export const BookingBlock = ({
         } else if (error) toastError(error as string);
     }, [error, isSuccess]);
 
+    const locale = useLocale();
+    const t = useTranslations('bookingBlock');
+
+    let seatText = '';
+    if (locale === 'en' && seats.length > 1) {
+        seatText = t('seats');
+    } else if (locale === 'en') {
+        seatText = t('seat');
+    } else if (locale === 'ru') {
+        seatText = t('seats') + TextUtils.getEndingWordByPlural(seats.length);
+    }
+
     return (
         <StyledWrapper className={poppinsFont.className}>
-            <Divider/>
-            <StyledTitle className={nunitoSansFont.className}>Book Now!</StyledTitle>
+            <Divider $color={Colors.ORANGE}/>
+            <StyledTitle className={nunitoSansFont.className}>{t('title')}</StyledTitle>
             <DayPicker days={onlyDays} activeDay={activeIndexDay} setActiveDay={setActiveIndexDay}/>
             <Times
                 items={data ?? []}
@@ -83,13 +98,13 @@ export const BookingBlock = ({
             />
             <StyledBooking>
                 <StyledSelectionDetails className={poppinsFont.className}>
-                    <StyledSeatsInfo>{seats.length} {seats.length === 1 ? 'Seat' : 'Seats'}</StyledSeatsInfo>
+                    <StyledSeatsInfo>{seats.length} {seatText}</StyledSeatsInfo>
                     <StyledPrice>{Math.floor(price * seats.length * 100) / 100} $</StyledPrice>
                 </StyledSelectionDetails>
-                <Button onClick={handleBook}>Book Now</Button>
+                <Button onClick={handleBook}>{t('bookNow')}</Button>
             </StyledBooking>
 
-            <Divider/>
+            <Divider $color={Colors.ORANGE}/>
         </StyledWrapper>
     );
 };

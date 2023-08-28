@@ -1,0 +1,120 @@
+{
+  "header": {
+    "home": "Home",
+    "bookings": "Bookings",
+    "profile": "Profile",
+    "signUp": "Sign up",
+    "signIn": "Sign in"
+  },
+  "showNow": {
+    "title": "Now in the Cinema",
+    "text": "Watch great Movies in the best cinema! We care about your comfort. Book tickets right now!"
+  },
+  "bookings": {
+    "upcoming": "Your upcoming bookings",
+    "past": "Your past bookings",
+    "missing": "Your missing bookings"
+  },
+  "bookingCard": {
+    "cancel": "Cancel",
+    "seat": "Seat",
+    "seats": "Seats"
+  },
+  "footer": {
+    "firstColumn": "First column",
+    "firstPage": "First page",
+    "secondPage": "Second page",
+    "thirdPage": "Third page",
+    "fourthPage": "Fourth page",
+    "secondColumn": "Second",
+    "fifthPage": "Fifth page",
+    "sixthPage": "Sixth page",
+    "seventhPage": "Seventh page",
+    "thirdColumn": "Third",
+    "eighthPage": "Eighth page",
+    "ninthPage": "Ninth page",
+    "tenthPage": "Tenth page"
+  },
+  "subscribe": {
+    "title": "Subscribe",
+    "placeholder": "Enter email",
+    "subtext": "Join our newsletter to stay up to date on features and releases"
+  },
+  "register": {
+    "title": "Great Movies in the best cinema! We care about your comfort.",
+    "subtitle": "Join us Right Now!",
+    "namePlaceholder": "Enter your name",
+    "surnamePlaceholder": "Enter your surname",
+    "emailPlaceholder": "Enter your email",
+    "passwordPlaceholder": "Enter strong password",
+    "register": "Register",
+    "subtext": "Already has an account?",
+    "clickableSubtext": "Login please."
+  },
+  "login": {
+    "title": "We are glad to see you again!",
+    "subtitle": "Enjoy watching movies with us!",
+    "emailPlaceholder": "Enter your email",
+    "passwordPlaceholder": "Enter your password",
+    "login": "Login",
+    "subtext": "No account?",
+    "clickableSubtext": "Sign up please."
+  },
+  "googleAuth": "Continue with Google",
+  "facebookAuth": "Continue with Facebook",
+  "githubAuth": "Continue with Github",
+  "film": {
+    "watchTrailer": "Watch trailer online!"
+  },
+  "filmInfo": {
+    "nextMovie": "Move to the next movie",
+    "releaseYear": "Release year",
+    "country": "Country",
+    "genre": "Genre",
+    "author": "Author",
+    "actors": "Actors",
+    "bookNow": "Book Now!"
+  },
+  "bookingBlock": {
+    "title": "Book Now!",
+    "seat": "Seat",
+    "seats": "Seats",
+    "bookNow": "Book Now"
+  },
+  "seats": {
+    "screen": "Screen",
+    "available": "Available",
+    "reserved": "Reserved",
+    "selected": "Selected"
+  },
+  "times": {
+    "notAvailable": "This movie is not available for this day"
+  },
+  "profile": {
+    "userProfile": "User profile",
+    "edit": "Edit profile",
+    "settings": "settings",
+    "logOut": "Log out"
+  },
+  "edit": {
+    "avatar": "Avatar",
+    "surname": "Surname",
+    "name": "Name",
+    "sex": "Sex",
+    "password": "Password",
+    "save": "Save",
+    "unknown": "Unknown",
+    "male": "Male",
+    "female": "Female"
+  },
+  "settings": {
+    "theme": "Theme",
+    "language": "Language",
+    "english": "English",
+    "russian": "Russian"
+  },
+  "reviewCard": {
+    "hide": "Hide",
+    "show": "Read more"
+  }
+}

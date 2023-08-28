@@ -6,18 +6,18 @@ import {
 } from 'react';
 
 import { Modal } from '@/shared/ui/Modal';
-import { CentralPlayButton } from '@/shared/ui/VideoPlayer/components/CentralPlayButton';
-import { ControlBar } from '@/shared/ui/VideoPlayer/components/ControlBar';
-import { Video } from '@/shared/ui/VideoPlayer/components/Video';
+
 import {
     reducer, SET_LAUNCHED, SET_PLAYING,
     useVideoPlayerContext,
     VideoPlayerContext,
-} from '@/shared/ui/VideoPlayer/context';
-import { useBindHotKeys } from '@/shared/ui/VideoPlayer/hooks/useBindHotKeys';
-import { useShowControls } from '@/shared/ui/VideoPlayer/hooks/useShowControls';
-
+} from './context';
+import { useBindHotKeys } from './hooks/useBindHotKeys';
+import { useShowControls } from './hooks/useShowControls';
 import { StyledPreview, StyledVideoWrapper } from './styled';
+import { CentralPlayButton } from './subcomponents/CentralPlayButton';
+import { ControlBar } from './subcomponents/ControlBar';
+import { Video } from './subcomponents/Video';
 
 type Props = {
     videoContainerRef: MutableRefObject<HTMLDivElement | null>

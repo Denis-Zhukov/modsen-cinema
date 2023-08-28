@@ -5,12 +5,12 @@ import { useLocale } from 'next-intl';
 import React from 'react';
 import { ToastContainer } from 'react-toastify';
 
+import { Providers } from '@/application/providers';
+import { TranslateProvider } from '@/application/providers/subproviders/TranslateProvider';
 import { EditProfileForm } from '@/features/EditProfileForm';
 import { LoginForm } from '@/features/LoginForm';
 import { RegisterForm } from '@/features/RegisterForm';
 import { SettingsForm } from '@/features/SettingsForm';
-import { Providers } from '@/shared/lib/Providers';
-import { TranslateProvider } from '@/shared/lib/TranslateProvider';
 
 export const DefaultLayout = ({
     children,

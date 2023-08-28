@@ -1,23 +1,24 @@
 'use client';
 
-import { Field, Form, Formik } from 'formik';
+import { Field, Formik } from 'formik';
+import { useTranslations } from 'next-intl';
 import { useCallback, useEffect, useRef } from 'react';
+import { poppinsFont } from 'shared/lib/fonts';
 
 import {
     StyledForm,
     StyledRow,
     StyledSubmitButton,
-    StyledTitle
+    StyledTitle,
 } from '@/features/EditProfileForm/styled';
-import { Forms } from '@/shared/constants/Forms';
-import { useAppSelector } from '@/shared/hooks/redux-hooks';
-import { useInitForm } from '@/shared/hooks/useInitForm';
-import { toastSuccess } from '@/shared/lib/toast';
-import { useUpdateProfileMutation } from '@/shared/store/rtk/user.rtk';
-import { selectAuth } from '@/shared/store/selectors/auth.selectors';
-import { Notice } from '@/shared/typing/constants/Notice';
+import { Forms } from '@/shared/config/constants/Forms';
+import { Notice } from '@/shared/config/constants/Notice';
+import { useAppSelector } from '@/shared/lib/hooks/redux-hooks';
+import { useInitForm } from '@/shared/lib/hooks/useInitForm';
+import { toastSuccess } from '@/shared/lib/utils/toast';
+import { useUpdateProfileMutation } from '@/shared/model/store/rtk/user.rtk';
+import { selectAuth } from '@/shared/model/store/selectors/auth.selectors';
 import { Modal } from '@/shared/ui/Modal';
-import { poppinsFont } from "@/shared/fonts";
 
 export const EditProfileForm = () => {
     const {
@@ -56,6 +57,8 @@ export const EditProfileForm = () => {
         updateProfile(data);
     }, [updateProfile]);
 
+    const t = useTranslations('edit');
+
     return active && (
         <Modal onClose={handleCloseForm}>
             <Formik
@@ -69,7 +72,7 @@ export const EditProfileForm = () => {
             >
                 <StyledForm className={poppinsFont.className}>
                     <StyledRow>
-                        <StyledTitle>Файл</StyledTitle>
+                        <StyledTitle>{t('avatar')}</StyledTitle>
                         <input
                             type="file"
                             name="avatar"
@@ -78,26 +81,26 @@ export const EditProfileForm = () => {
                         />
                     </StyledRow>
                     <StyledRow>
-                        <StyledTitle>Фамилия</StyledTitle>
-                        <Field type="text" name="surname"/>
-                    </StyledRow>
-                    <StyledRow>
-                        <StyledTitle>Имя</StyledTitle>
+                        <StyledTitle>{t('name')}</StyledTitle>
                         <Field type="text" name="name"/>
                     </StyledRow>
                     <StyledRow>
-                        <StyledTitle>Пол</StyledTitle>
+                        <StyledTitle>{t('surname')}</StyledTitle>
+                        <Field type="text" name="surname"/>
+                    </StyledRow>
+                    <StyledRow>
+                        <StyledTitle>{t('sex')}</StyledTitle>
                         <Field as="select" name="sex">
-                            <option value="">Unknown</option>
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
+                            <option value="">{t('unknown')}</option>
+                            <option value="male">{t('male')}</option>
+                            <option value="female">{t('female')}</option>
                         </Field>
                     </StyledRow>
                     <StyledRow>
-                        <StyledTitle>Пароль</StyledTitle>
+                        <StyledTitle>{t('password')}</StyledTitle>
                         <Field type="password" name="password"/>
                     </StyledRow>
-                    <StyledSubmitButton type="submit">Save</StyledSubmitButton>
+                    <StyledSubmitButton type="submit">{t('save')}</StyledSubmitButton>
                 </StyledForm>
             </Formik>
         </Modal>

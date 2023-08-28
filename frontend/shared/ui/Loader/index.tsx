@@ -1,12 +1,14 @@
 import { LineWave } from 'react-loader-spinner';
 
-import { Colors } from '@/shared/constants/Colors';
+type Props = {
+    color: string
+};
 
-export const Loader = () => (
+export const Loader = ({ color }: Props) => (
     <LineWave
         height="250"
         width="250"
-        color={Colors.ORANGE}
+        color={color}
         wrapperStyle={{ transform: 'translateX(18%)' }}
         visible
     />

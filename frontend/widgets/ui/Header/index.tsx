@@ -8,11 +8,11 @@ import { useCallback, useState } from 'react';
 import { SignInButton } from '@/entities/ui/SignInButton';
 import { SignUpButton } from '@/entities/ui/SignUpButton';
 import { NavItem } from '@/features/NavItem';
-import { Forms } from '@/shared/constants/Forms';
-import { poppinsFont } from '@/shared/fonts';
-import { useAppSelector } from '@/shared/hooks/redux-hooks';
-import { useCreateQueryPath } from '@/shared/hooks/useCreateQueryPath';
-import { RoutePaths } from '@/shared/RoutePaths';
+import { Forms } from '@/shared/config/constants/Forms';
+import { poppinsFont } from 'shared/lib/fonts';
+import { useAppSelector } from '@/shared/lib/hooks/redux-hooks';
+import { useCreateQueryPath } from '@/shared/lib/hooks/useCreateQueryPath';
+import { Routes } from '@/shared/config/constants/Routes';
 import { Button } from '@/shared/ui/Button';
 import {
     SettingsBlock,
@@ -46,8 +46,8 @@ export const Header = () => {
                     />
                 </Link>
                 <StyledNav>
-                    <NavItem path={RoutePaths.Home}>{t('home')}</NavItem>
-                    <NavItem path={RoutePaths.Bookings}>{t('bookings')}</NavItem>
+                    <NavItem path={Routes.Home}>{t('home')}</NavItem>
+                    <NavItem path={Routes.Bookings}>{t('bookings')}</NavItem>
                 </StyledNav>
                 <StyledAuthBlock>
                     {isAuth ? <Button onClick={handleToggle}>{t('profile')}</Button> : (

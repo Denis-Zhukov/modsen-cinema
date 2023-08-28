@@ -7,7 +7,7 @@ import {
     StyledArrow, StyledItemsBlock,
     StyledSlider,
 } from '@/features/DayPicker/components/Selector/styled';
-import { generateCyclesItems } from '@/shared/lib/generate-cycles-items';
+import { MathUtils } from '@/shared/lib/utils/MathUtils';
 
 import Arrow from './images/arrow.png';
 
@@ -30,7 +30,7 @@ export const Selector = ({
         setActive((prev) => (prev + 1) % items.length);
     }, [items.length, setActive]);
 
-    const days = useMemo(() => generateCyclesItems(items, active, 5), [active, items]);
+    const days = useMemo(() => MathUtils.generateCyclesItems(items, active, 5), [active, items]);
 
     return (
         <StyledSlider>

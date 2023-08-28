@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { BsArrowDown } from 'react-icons/bs';
 import styled from 'styled-components';
 
-import { Theme } from '@/shared/constants/themes';
+import { Theme } from '@/shared/config/constants/Themes';
 
 export const StyledProfile = styled(motion.div)<Theme>`
   display: flex;
@@ -33,6 +33,7 @@ export const StyledProfileHeader = styled.div`
   align-items: center;
   font-size: 40px;
   font-weight: 300;
+  gap: 70px;
 `;
 
 export const StyledRightArrow = styled(BsArrowDown)<Theme>`

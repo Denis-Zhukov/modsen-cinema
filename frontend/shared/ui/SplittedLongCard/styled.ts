@@ -1,9 +1,7 @@
-'use client';
-
 import styled from 'styled-components';
 
-import { Colors } from '@/shared/constants/Colors';
-import { Theme } from '@/shared/constants/themes';
+import { Colors } from '@/shared/config/constants/Colors';
+import { Theme } from '@/shared/config/constants/Themes';
 
 export const StyledLongCard = styled.div<Theme>`
   display: flex;

@@ -1,10 +1,8 @@
-'use client';
-
 import Image from 'next/image';
 import styled, { css } from 'styled-components';
 
-import type { Theme } from '@/shared/constants/themes';
-import { Controls } from "@/shared/ui/VerticalSlider/Controls";
+import type { Theme } from '@/shared/config/constants/Themes';
+import { motion } from "framer-motion";
 
 export const StyledVerticalSlider = styled.div`
   display: flex;
@@ -12,13 +10,13 @@ export const StyledVerticalSlider = styled.div`
   justify-content: space-between;
   align-items: center;
   gap: 10px;
-  
-  @media screen and (max-width: 485px){
+
+  @media screen and (max-width: 485px) {
     flex-direction: column;
   }
 `;
 
-export const StyledMainSlide = styled.div<Theme>`
+export const StyledMainSlide = styled(motion.div)<Theme>`
   display: flex;
   flex-direction: column;
   color: ${({ theme: { text: { main } } }) => main};
@@ -51,7 +49,7 @@ export const StyledControls = styled.div`
   justify-content: space-between;
   height: 86px;
 
-  @media screen and (max-width: 485px){
+  @media screen and (max-width: 485px) {
     display: none;
   }
 `;

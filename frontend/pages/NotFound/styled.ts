@@ -2,9 +2,10 @@
 
 import styled from 'styled-components';
 
-import { Colors } from '@/shared/constants/Colors';
+import { Colors } from '@/shared/config/constants/Colors';
+import { Theme } from '@/shared/config/constants/Themes';
 
-export const StyledNotFound = styled.div`
+export const StyledNotFound = styled.div<Theme>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -13,8 +14,8 @@ export const StyledNotFound = styled.div`
   background-color: #f0f0f0;
 
   h1 {
-    font-size: 6rem;
-    margin-bottom: 1rem;
+    font-size: 96px;
+    margin-bottom: 16px;
     color: ${Colors.ORANGE};
   }
 

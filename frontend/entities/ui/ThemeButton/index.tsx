@@ -1,9 +1,9 @@
 import { BiMoon, BiSun } from 'react-icons/bi';
 
 import { StyledThemeButton } from '@/entities/ui/ThemeButton/styled';
-import { useAppSelector } from '@/shared/hooks/redux-hooks';
-import { useActions } from '@/shared/hooks/useActions';
-import { selectTheme } from '@/shared/store/selectors/theme.selectors';
+import { useAppSelector } from '@/shared/lib/hooks/redux-hooks';
+import { useActions } from '@/shared/lib/hooks/useActions';
+import { selectTheme } from '@/shared/model/store/selectors/theme.selectors';
 
 export const ThemeButton = () => {
     const { toggleTheme } = useActions();

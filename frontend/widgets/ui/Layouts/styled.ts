@@ -2,7 +2,7 @@
 
 import styled from 'styled-components';
 
-import { Theme } from '@/shared/constants/themes';
+import { Theme } from '@/shared/config/constants/Themes';
 
 export const OutWrapper = styled.div<Theme>`
   background: ${({ theme: { background } }) => background};

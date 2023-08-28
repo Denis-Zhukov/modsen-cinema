@@ -2,7 +2,7 @@
 
 import styled from 'styled-components';
 
-import { Theme } from '@/shared/constants/themes';
+import { Theme } from '@/shared/config/constants/Themes';
 
 export const StyledTitle = styled.h2<Theme>`
   margin: 70px 0 50px 0;

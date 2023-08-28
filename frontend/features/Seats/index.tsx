@@ -1,13 +1,14 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import {
     Dispatch, SetStateAction, useCallback, useEffect,
 } from 'react';
 
-import { poppinsFont } from '@/shared/fonts';
-import { useGetSeatsByScheduleQuery } from '@/shared/store/rtk/seats.rtk';
-import { Seat } from '@/shared/ui/Seat';
-import { SeatType } from '@/shared/ui/Seat/type';
+import { poppinsFont } from 'shared/lib/fonts';
+import { useGetSeatsByScheduleQuery } from '@/shared/model/store/rtk/seats.rtk';
+import { Seat } from 'entities/Seat';
+import { SeatType } from '@/entities/Seat/type';
 
 import {
     StyledNotice, StyledPositions, StyledRow, StyledSeats,
@@ -21,7 +22,10 @@ type Props = {
 };
 
 export const Seats = ({
-    scheduleId, selected, setSelected, setPrice,
+    scheduleId,
+    selected,
+    setSelected,
+    setPrice,
 }: Props) => {
     const { data } = useGetSeatsByScheduleQuery({ scheduleId: scheduleId ?? 0 });
 
@@ -40,15 +44,20 @@ export const Seats = ({
         setSelected([]);
     }, [scheduleId, setSelected]);
 
+    const t = useTranslations('seats');
+
     return (
         <StyledSeats className={poppinsFont.className}>
-            <h2>Screen</h2>
+            <h2>{t('screen')}</h2>
             <StyledPositions>
                 {
                     Object.keys(data?.seats ?? {})
                         .map((row: string) => (
                             <StyledRow>
-                                {data?.seats[row].map(({ id, available }) => {
+                                {data?.seats[row].map(({
+                                    id,
+                                    available,
+                                }) => {
                                     const type: SeatType = selected.includes(id) ? 'selected' : 'available';
                                     return (
                                         <Seat
@@ -64,13 +73,13 @@ export const Seats = ({
             </StyledPositions>
             <StyledNotice>
                 <div>
-                    <Seat type="available"/> Available
+                    <Seat type="available"/> {t('available')}
                 </div>
                 <div>
-                    <Seat type="reserved"/> Reserved
+                    <Seat type="reserved"/> {t('reserved')}
                 </div>
                 <div>
-                    <Seat type="selected"/> Selected
+                    <Seat type="selected"/> {t('selected')}
                 </div>
             </StyledNotice>
         </StyledSeats>

@@ -1,22 +1,23 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
+
 import { BookingCard } from '@/entities/ui/BookingCard';
 import { StyledBookings } from '@/pages/Bookings/styled';
-import { Urls } from '@/shared/api/Urls';
-import { useRedirectUnauth } from '@/shared/hooks/useRedirectUnauth';
+import { Urls } from '@/shared/config/constants/Urls';
 import {
     useGetMyMissingBookingQuery,
     useGetMyUpcomingBookingQuery,
     useGetMyVisitedBookingQuery,
-} from '@/shared/store/rtk/booking.rtk';
+} from '@/shared/model/store/rtk/booking.rtk';
 import { BookingsSection } from '@/widgets/ui/BookingsSection';
 
 export const Bookings = () => {
-    useRedirectUnauth();
+    const t = useTranslations('bookings');
 
     return (
         <StyledBookings>
-            <BookingsSection title="Your upcoming bookings" useData={useGetMyUpcomingBookingQuery}>
+            <BookingsSection title={t('upcoming')} useData={useGetMyUpcomingBookingQuery}>
                 {({
                     scheduleId,
                     film,
@@ -39,7 +40,7 @@ export const Bookings = () => {
                     />
                 )}
             </BookingsSection>
-            <BookingsSection title="Your past bookings" useData={useGetMyVisitedBookingQuery}>
+            <BookingsSection title={t('past')} useData={useGetMyVisitedBookingQuery}>
                 {({
                     scheduleId,
                     film,
@@ -61,7 +62,7 @@ export const Bookings = () => {
                     />
                 )}
             </BookingsSection>
-            <BookingsSection title="Your missing bookings" useData={useGetMyMissingBookingQuery}>
+            <BookingsSection title={t('missing')} useData={useGetMyMissingBookingQuery}>
                 {({
                     scheduleId,
                     film,

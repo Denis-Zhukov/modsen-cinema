@@ -3,8 +3,8 @@
 import { motion } from 'framer-motion';
 import styled, { css } from 'styled-components';
 
-import { Colors } from '@/shared/constants/Colors';
-import { Theme } from '@/shared/constants/themes';
+import { Colors } from '@/shared/config/constants/Colors';
+import { Theme } from '@/shared/config/constants/Themes';
 
 const styleByOrder = {
     '-2': css`

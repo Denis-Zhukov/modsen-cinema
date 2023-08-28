@@ -1,24 +1,24 @@
-import { poppinsFont } from '@/shared/fonts';
+import type { ButtonHTMLAttributes } from 'react';
+import { poppinsFont } from 'shared/lib/fonts';
 
 import { StyledButton } from './styled';
-import type { ButtonType, VariantButton } from './types';
+import type { VariantButton } from './types';
+
+type Props = {
+    children: string,
+    variant?: VariantButton,
+} & ButtonHTMLAttributes<HTMLButtonElement>;
 
 export const Button = ({
     children,
     variant = 'primary',
-    onClick,
-    type = 'button',
-}: {
-    children: string,
-    variant?: VariantButton,
-    onClick?: () => void,
-    type?: ButtonType,
-}) => (
+    className,
+    ...props
+}:Props) => (
     <StyledButton
-        type={type}
         $variant={variant}
-        className={poppinsFont.className}
-        onClick={onClick}
+        className={`${poppinsFont.className} ${className}`}
+        {...props}
     >
         {children}
     </StyledButton>

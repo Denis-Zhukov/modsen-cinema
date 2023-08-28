@@ -1,13 +1,14 @@
 'use client';
 
 import { Field, Formik } from 'formik';
+import { useTranslations } from 'next-intl';
 import React, { useCallback, useEffect } from 'react';
 import { BsFillSendFill } from 'react-icons/bs';
 
-import { toastError, toastSuccess } from '@/shared/lib/toast';
-import { useSubscribeMutation } from '@/shared/store/rtk/subscribe.rtk';
-import { Notice } from '@/shared/typing/constants/Notice';
-import { isTypedError } from '@/shared/typing/guards/isTypedError';
+import { Notice } from '@/shared/config/constants/Notice';
+import { ErrorUtils } from '@/shared/lib/utils/ErrorUtils';
+import { toastError, toastSuccess } from '@/shared/lib/utils/toast';
+import { useSubscribeMutation } from '@/shared/model/store/rtk/subscribe.rtk';
 
 import { StyledHeadTitle, StyledInput, StyledSubscribe } from './styled';
 import { validationSchema } from './validations';
@@ -26,13 +27,15 @@ export const Subscribe = () => {
         if (isSuccess) {
             toastSuccess(Notice.SUBSCRIBED);
         } else if (error) {
-            if (isTypedError(error)) {
+            if (ErrorUtils.isTypedError(error)) {
                 toastError(error.data.message);
             } else {
                 toastError(Notice.UNEXPECTED_ERROR);
             }
         }
     }, [error, isSuccess]);
+
+    const t = useTranslations('subscribe');
 
     return (
         <Formik
@@ -46,14 +49,14 @@ export const Subscribe = () => {
             }) => (
                 <StyledSubscribe>
                     <StyledHeadTitle>
-                        <h2>Subscribe</h2>
+                        <h2>{t('title')}</h2>
                         <p>{touched.email && errors.email}</p>
                     </StyledHeadTitle>
                     <StyledInput>
-                        <Field name="email" type="text" placeholder="Enter email"/>
+                        <Field name="email" type="text" placeholder={t('placeholder')}/>
                         <button type="submit"><BsFillSendFill/></button>
                     </StyledInput>
-                    <p>Join our newsletter to stay up to date on features and releases</p>
+                    <p>{t('subtext')}</p>
                 </StyledSubscribe>
             )}
         </Formik>

@@ -3,7 +3,7 @@
 import { lighten } from 'polished';
 import styled, { css } from 'styled-components';
 
-import { Theme } from '@/shared/constants/themes';
+import { Theme } from '@/shared/config/constants/Themes';
 
 export const StyledBackground = styled.div<{
     $firstColor: [number, number, number],

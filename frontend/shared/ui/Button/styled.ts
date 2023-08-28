@@ -1,9 +1,7 @@
-'use client';
-
 import styled, { css } from 'styled-components';
 
-import { Colors } from '@/shared/constants/Colors';
-import { Theme } from '@/shared/constants/themes';
+import { Colors } from '@/shared/config/constants/Colors';
+import type { Theme } from '@/shared/config/constants/Themes';
 import type { VariantButton } from '@/shared/ui/Button/types';
 
 const styles: Record<VariantButton, string> = {

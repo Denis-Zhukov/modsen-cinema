@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { Colors } from '@/shared/constants/Colors';
+import { Colors } from '@/shared/config/constants/Colors';
 
 export const StyledGoogleLoginButton = styled.button`
   display: flex;

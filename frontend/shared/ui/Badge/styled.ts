@@ -1,10 +1,10 @@
 import styled, { css } from 'styled-components';
 
-import { Theme } from '@/shared/constants/themes';
+import { Theme } from '@/shared/config/constants/Themes';
 
 export const StyledBadge = styled.div<Theme>`
   color: ${({ theme: { text: { main } } }) => main};
-  font-size: 15px;
+  font-size: 16px;
   padding: 8px;
   border-radius: 10px;
   ${({ theme: { type, line } }) => (type === 'light' ? css`

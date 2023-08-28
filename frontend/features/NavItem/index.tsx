@@ -2,7 +2,7 @@
 
 import { usePathname } from 'next/navigation';
 
-import { poppinsFont } from '@/shared/fonts';
+import { poppinsFont } from 'shared/lib/fonts';
 
 import { StyledNavItem } from './styled';
 

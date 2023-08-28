@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { FilmService } from '@/shared/api/FilmService';
-import { Urls } from '@/shared/api/Urls';
-import { nunitoSansFont } from '@/shared/fonts';
+import { FilmService } from '@/shared/api/services/FilmService';
+import { Urls } from '@/shared/config/constants/Urls';
+import { nunitoSansFont } from 'shared/lib/fonts';
 
 import { StyledTextBlock, StyledTrailer, StyledVideoPlayer } from './styled';
 
 export const Trailer = async () => {
-    const { data } = await FilmService.GetMainFilm();
+    const { data } = await FilmService.getMainFilm();
     const trailerUrl = `${Urls.BASE_URL}/${data.trailer}`;
     const previewUrl = `${Urls.BASE_URL}/${data.preview}`;
 

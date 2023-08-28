@@ -1,5 +1,7 @@
+import { useTranslations } from 'next-intl';
 import { AiFillGithub } from 'react-icons/ai';
-import { StyledGithubLoginButton } from "@/entities/ui/GithubLoginButton/styled";
+
+import { StyledGithubLoginButton } from '@/entities/ui/GithubLoginButton/styled';
 
 export const GithubLoginButton = () => {
     const githubLogin = async () => {
@@ -10,10 +12,12 @@ export const GithubLoginButton = () => {
         }
     };
 
+    const t = useTranslations();
+
     return (
         <StyledGithubLoginButton type="button" onClick={githubLogin}>
             <AiFillGithub/>
-            Sign up with GitHuB
+            {t('githubAuth')}
         </StyledGithubLoginButton>
     );
 };

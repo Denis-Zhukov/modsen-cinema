@@ -2,7 +2,7 @@
 
 import styled from 'styled-components';
 
-import { Theme } from '@/shared/constants/themes';
+import { Theme } from '@/shared/config/constants/Themes';
 import { VideoPlayer } from '@/shared/ui/VideoPlayer';
 
 export const StyledTrailer = styled.div<Theme>`

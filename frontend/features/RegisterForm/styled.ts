@@ -1,11 +1,10 @@
 import styled from 'styled-components';
 
-import { Colors } from '@/shared/constants/Colors';
-import { Theme } from '@/shared/constants/themes';
+import { Colors } from '@/shared/config/constants/Colors';
+import { Theme } from '@/shared/config/constants/Themes';
 
 export const StyledTitle = styled.div<Theme>`
-  max-width: 430px;
-  height: 123px;
+  max-width: 600px;
   color: ${({ theme: { text: { main } } }) => main};
   text-shadow: 10px 4px 4px rgba(0, 0, 0, 0.25);
   font-size: 32px;
