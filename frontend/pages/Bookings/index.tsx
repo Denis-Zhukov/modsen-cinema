@@ -1,11 +1,13 @@
 'use client';
 
+import { BookingCard } from 'entities/bookings/ui/BookingCard';
 import { useTranslations } from 'next-intl';
+import { useCallback } from 'react';
 
-import { BookingCard } from '@/entities/ui/BookingCard';
 import { StyledBookings } from '@/pages/Bookings/styled';
 import { Urls } from '@/shared/config/constants/Urls';
 import {
+    useCancelBookingsMutation,
     useGetMyMissingBookingQuery,
     useGetMyUpcomingBookingQuery,
     useGetMyVisitedBookingQuery,
@@ -14,6 +16,9 @@ import { BookingsSection } from '@/widgets/ui/BookingsSection';
 
 export const Bookings = () => {
     const t = useTranslations('bookings');
+
+    const [cancel] = useCancelBookingsMutation({});
+    const handleCancel = useCallback((id: number) => () => cancel({ scheduleId: id }), [cancel]);
 
     return (
         <StyledBookings>
@@ -29,7 +34,7 @@ export const Bookings = () => {
                 }) => (
                     <BookingCard
                         ticket={ticket}
-                        scheduleId={scheduleId}
+                        onCancel={handleCancel(scheduleId)}
                         key={scheduleId}
                         title={film.name}
                         rating={rating}

@@ -1,7 +1,8 @@
+import { useTranslations } from 'next-intl';
+
 import { NavButton } from '@/features/NavButton';
 import { Forms } from '@/shared/config/constants/Forms';
 import { useCreateQueryPath } from '@/shared/lib/hooks/useCreateQueryPath';
-import { useTranslations } from "next-intl";
 
 export const SignInButton = () => {
     const createQueryPath = useCreateQueryPath();

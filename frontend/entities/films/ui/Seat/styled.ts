@@ -1,6 +1,6 @@
 import styled, { css, RuleSet } from 'styled-components';
 
-import { SeatType } from '@/entities/Seat/type';
+import { SeatType } from './type';
 
 const styles: Record<SeatType, RuleSet> = {
     available: css`

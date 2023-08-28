@@ -1,11 +1,10 @@
-import {
-    ChangeEvent, useEffect, useState,
-} from 'react';
+import type { ChangeEvent } from 'react';
+import { useEffect, useState } from 'react';
 import { BsFillVolumeMuteFill, BsFillVolumeUpFill } from 'react-icons/bs';
 
-import { StyledVolumeBar } from '@/shared/ui/VideoPlayer/components/VolumeBar/styled';
-import { useVideoPlayerContext } from '@/shared/ui/VideoPlayer/context';
-import { useToggleMute } from '@/shared/ui/VideoPlayer/hooks/useToggleMute';
+import { useVideoPlayerContext } from '../../context';
+import { useToggleMute } from '../../hooks/useToggleMute';
+import { StyledVolumeBar } from './styled';
 
 export const VolumeBar = () => {
     const {

@@ -3,8 +3,8 @@
 import { AnimatePresence } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 
-import { LanguageSelect } from '@/entities/ui/LanguageSelect';
-import { ThemeButton } from '@/entities/ui/ThemeButton';
+import { LanguageSelect } from 'features/LanguageSelect';
+import { ThemeButton } from 'features/ThemeButton';
 import { Forms } from '@/shared/config/constants/Forms';
 import { useInitForm } from '@/shared/lib/hooks/useInitForm';
 import { Modal } from '@/shared/ui/Modal';

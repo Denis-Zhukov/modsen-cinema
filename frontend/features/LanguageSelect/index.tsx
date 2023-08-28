@@ -1,7 +1,7 @@
 import { usePathname } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 
-import { StyledLanguage, StyledLanguageSelect } from '@/entities/ui/LanguageSelect/styled';
+import { StyledLanguage, StyledLanguageSelect } from '@/features/LanguageSelect/styled';
 
 export const LanguageSelect = () => {
     const pathname = usePathname()!.replace(/^\/(en|ru)/i, '/');

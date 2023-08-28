@@ -5,8 +5,8 @@ import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { useCallback, useState } from 'react';
 
-import { SignInButton } from '@/entities/ui/SignInButton';
-import { SignUpButton } from '@/entities/ui/SignUpButton';
+import { SignInButton } from 'features/SignInButton';
+import { SignUpButton } from 'features/SignUpButton';
 import { NavItem } from '@/features/NavItem';
 import { Forms } from '@/shared/config/constants/Forms';
 import { poppinsFont } from 'shared/lib/fonts';

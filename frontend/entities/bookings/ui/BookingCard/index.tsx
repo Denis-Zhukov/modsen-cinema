@@ -1,13 +1,10 @@
 import Image from 'next/image';
 import { useLocale, useTranslations } from 'next-intl';
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { AiFillStar } from 'react-icons/ai';
 
 import { DateTimeUtils } from '@/shared/lib/utils/DateTimeUtils';
 import { TextUtils } from '@/shared/lib/utils/TextUtils';
-import { toastSuccess } from '@/shared/lib/utils/toast';
-import { useCancelBookingsMutation } from '@/shared/model/store/rtk/booking.rtk';
-import { Notice } from '@/shared/config/constants/Notice';
 import { ButtonIcon } from '@/shared/ui/ButtonIcon';
 import { SplittedLongCard } from '@/shared/ui/SplittedLongCard';
 
@@ -20,7 +17,6 @@ import {
 } from './styled';
 
 type Props = {
-    scheduleId?: number
     title: string
     preview: string
     date: string
@@ -28,10 +24,11 @@ type Props = {
     paid: number
     ticket: string
     rating: number
+    onCancel?: () => void
 };
 
 export const BookingCard = ({
-    scheduleId,
+    onCancel,
     title,
     preview,
     seats,
@@ -43,19 +40,7 @@ export const BookingCard = ({
     const locale = useLocale();
     const dateAndTime = useMemo(() => DateTimeUtils.formatDate(date, locale), [date, locale]);
 
-    const [cancel, {
-        isSuccess,
-        error,
-    }] = useCancelBookingsMutation({});
     const t = useTranslations('bookingCard');
-    useEffect(() => {
-        if (isSuccess) toastSuccess(Notice.CANCEL_BOOKINGS);
-    }, [isSuccess, error]);
-
-    const handleCancel = useCallback(() => {
-        if (!scheduleId) return;
-        cancel({ scheduleId });
-    }, [cancel, scheduleId]);
 
     let seatText = '';
     if (locale === 'en' && seats > 1) {
@@ -81,9 +66,9 @@ export const BookingCard = ({
                 <StyledDownWrapper>
                     <StyledSubtext>{seats} {seatText}</StyledSubtext>
                     <StyledText>{paid} $</StyledText>
-                    {scheduleId && (
+                    {onCancel && (
                         <ButtonIcon
-                            onClick={handleCancel}
+                            onClick={onCancel}
                             end={(
                                 <Image
                                     src={CancelIcon}

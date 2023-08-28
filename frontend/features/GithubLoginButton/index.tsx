@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 import { AiFillGithub } from 'react-icons/ai';
 
-import { StyledGithubLoginButton } from '@/entities/ui/GithubLoginButton/styled';
+import { StyledGithubLoginButton } from '@/features/GithubLoginButton/styled';
 
 export const GithubLoginButton = () => {
     const githubLogin = async () => {

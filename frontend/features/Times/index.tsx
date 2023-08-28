@@ -2,7 +2,7 @@ import { AnimatePresence } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import React, { useCallback } from 'react';
 
-import { ScheduleCard } from '@/entities/ScheduleCard';
+import { ScheduleCard } from 'entities/films/ui/ScheduleCard';
 import { StyledText, StyledTimes } from '@/features/Times/styled';
 import { fade } from '@/shared/lib/animations/fade';
 

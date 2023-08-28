@@ -21,15 +21,15 @@ export const VerticalSlider = ({ slides }: Props) => {
 
     const handlePrev = useCallback(() => {
         setActiveSlide((prev) => {
-            if ((prev - 1) < 0) return (slides.length - 1) < 0 ? 0 : slides.length - 1;
-            return prev - 1;
+            if ((prev + 1) >= slides.length) return 0;
+            return prev + 1;
         });
     }, [slides]);
 
     const handleNext = useCallback(() => {
         setActiveSlide((prev) => {
-            if ((prev + 1) >= slides.length) return 0;
-            return prev + 1;
+            if ((prev - 1) < 0) return (slides.length - 1) < 0 ? 0 : slides.length - 1;
+            return prev - 1;
         });
     }, [slides]);
 

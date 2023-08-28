@@ -1,4 +1,4 @@
-import { ReviewCard } from '@/entities/ReviewCard';
+import { ReviewCard } from '@/entities/films';
 import { TrailerBlock } from '@/pages/Film/components/TrailerBlock';
 import { StyledBackground, StyledReviews } from '@/pages/Film/styled';
 import { FilmService } from '@/shared/api/services/FilmService';

@@ -1,6 +1,6 @@
 import { FaFacebook } from 'react-icons/fa';
 
-import { StyledFacebookLoginButton } from '@/entities/ui/FacebookLoginButton/styled';
+import { StyledFacebookLoginButton } from '@/features/FacebookLoginButton/styled';
 import { useTranslations } from "next-intl";
 
 export const FacebookLoginButton = () => {

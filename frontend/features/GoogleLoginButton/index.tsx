@@ -1,7 +1,7 @@
 import { FcGoogle } from 'react-icons/fc';
 
-import { StyledGoogleLoginButton } from '@/entities/ui/GoogleLoginButton/styled';
-import { interFont } from 'shared/lib/fonts';
+import { StyledGoogleLoginButton } from '@/features/GoogleLoginButton/styled';
+import { interFont } from '@/shared/lib/fonts';
 import { useTranslations } from "next-intl";
 
 export const GoogleLoginButton = () => {

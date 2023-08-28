@@ -6,9 +6,9 @@ import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import React, { useCallback, useEffect, useMemo } from 'react';
 
-import { FacebookLoginButton } from '@/entities/ui/FacebookLoginButton';
-import { GithubLoginButton } from '@/entities/ui/GithubLoginButton';
-import { GoogleLoginButton } from '@/entities/ui/GoogleLoginButton';
+import { FacebookLoginButton } from 'features/FacebookLoginButton';
+import { GithubLoginButton } from 'features/GithubLoginButton';
+import { GoogleLoginButton } from 'features/GoogleLoginButton';
 import { validationSchema } from '@/features/LoginForm/validations';
 import { Forms } from '@/shared/config/constants/Forms';
 import { inriaSansFont, poppinsFont } from 'shared/lib/fonts';

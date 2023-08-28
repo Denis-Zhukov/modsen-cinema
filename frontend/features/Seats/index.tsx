@@ -7,8 +7,8 @@ import {
 
 import { poppinsFont } from 'shared/lib/fonts';
 import { useGetSeatsByScheduleQuery } from '@/shared/model/store/rtk/seats.rtk';
-import { Seat } from 'entities/Seat';
-import { SeatType } from '@/entities/Seat/type';
+import { Seat } from 'entities/films/ui/Seat';
+import { SeatType } from '@/entities/films/ui/Seat/type';
 
 import {
     StyledNotice, StyledPositions, StyledRow, StyledSeats,
