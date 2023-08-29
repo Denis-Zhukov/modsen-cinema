@@ -1,11 +1,11 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import styled from 'styled-components';
 
 import { Theme } from '@/shared/config/constants/Themes';
 
-export const StyledTimes = styled.div`
+export const StyledTimes = styled(AnimatePresence)`
   max-width: 1000px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);

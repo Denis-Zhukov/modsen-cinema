@@ -4,8 +4,7 @@ import { StyledBackground } from '@/pages/Film/styled';
 import { FilmService } from '@/shared/api/services/FilmService';
 import { Urls } from '@/shared/config/constants/Urls';
 import { ColorUtils } from '@/shared/lib/utils/ColorUtils';
-import { BookingBlock } from '@/widgets/ui/BookingBlock';
-import { FilmInfo } from '@/widgets/ui/FilmInfo';
+import { BookingBlock, FilmInfo } from '@/widgets/films';
 
 type Props = {
     params: { slug: string }

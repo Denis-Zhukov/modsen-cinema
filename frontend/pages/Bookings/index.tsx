@@ -1,8 +1,9 @@
 'use client';
 
-import { BookingCard } from 'entities/bookings/ui/BookingCard';
+import { BookingCard } from 'entities/bookings';
 import { useTranslations } from 'next-intl';
 import { useCallback } from 'react';
+import { BookingsSection } from 'widgets/films/ui/BookingsSection';
 
 import { StyledBookings } from '@/pages/Bookings/styled';
 import { Urls } from '@/shared/config/constants/Urls';
@@ -12,7 +13,6 @@ import {
     useGetMyUpcomingBookingQuery,
     useGetMyVisitedBookingQuery,
 } from '@/shared/model/store/rtk/booking.rtk';
-import { BookingsSection } from '@/widgets/ui/BookingsSection';
 
 export const Bookings = () => {
     const t = useTranslations('bookings');

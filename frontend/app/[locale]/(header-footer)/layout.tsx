@@ -1,3 +1,3 @@
-import { HeaderFooterLayout } from '@/widgets/ui/Layouts/HeaderFooterLayout';
+import { HeaderFooterLayout } from '@/application/Layouts/HeaderFooterLayout';
 
 export default HeaderFooterLayout;
