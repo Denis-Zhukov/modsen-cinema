@@ -1,4 +1,4 @@
-import { Studios } from '@/features/Studios';
+import { Studios } from '@/entities/main';
 import { StyledMain, StyledYearText } from '@/pages/Main/styled';
 import { poppinsFont } from '@/shared/lib/fonts';
 import { ShowNow } from '@/widgets/ui/ShowNow';

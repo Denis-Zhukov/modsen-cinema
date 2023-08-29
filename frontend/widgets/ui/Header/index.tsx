@@ -5,9 +5,9 @@ import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { useCallback, useState } from 'react';
 
-import { SignInButton } from 'features/SignInButton';
-import { SignUpButton } from 'features/SignUpButton';
-import { NavItem } from '@/features/NavItem';
+import { SignInButton } from 'features/auth/ui/SignInButton';
+import { SignUpButton } from 'features/auth/ui/SignUpButton';
+import { NavItem } from 'entities/header/ui/NavItem';
 import { Forms } from '@/shared/config/constants/Forms';
 import { poppinsFont } from 'shared/lib/fonts';
 import { useAppSelector } from '@/shared/lib/hooks/redux-hooks';

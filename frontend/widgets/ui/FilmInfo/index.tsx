@@ -1,8 +1,11 @@
-import Image from 'next/image';
-import React from 'react';
+'use client';
 
-import { NavButton } from '@/features/NavButton';
+import Image from 'next/image';
+import { useTranslations } from 'next-intl';
+import React from 'react';
 import { nunitoSansFont, poppinsFont } from 'shared/lib/fonts';
+import { NavButton } from 'shared/ui/NavButton';
+
 import {
     StyledBookingBlock,
     StyledDescription,
@@ -14,7 +17,6 @@ import {
 
 import Arrow from './images/arrow.png';
 import Star from './images/star.png';
-import { useTranslations } from "next-intl";
 
 type Props = {
     name: string,

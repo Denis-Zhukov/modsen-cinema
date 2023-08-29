@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import React from 'react';
 
-import { Subscribe } from 'features/Subscribe';
+import { Subscribe } from 'features/subscribers/ui/Subscribe';
 import { interFont } from 'shared/lib/fonts';
 import {
     StyledColumn,

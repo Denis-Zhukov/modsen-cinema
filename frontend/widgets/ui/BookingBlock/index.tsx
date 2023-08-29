@@ -1,20 +1,21 @@
 'use client';
 
-import { Times } from 'features/Times';
 import { useLocale, useTranslations } from 'next-intl';
 import {
     useCallback, useEffect, useMemo, useState,
 } from 'react';
-
-import { DayPicker } from '@/features/DayPicker';
-import { Seats } from '@/features/Seats';
 import { nunitoSansFont, poppinsFont } from 'shared/lib/fonts';
+
+import { DayPicker } from '@/entities/films/ui/DayPicker';
+import { Seats } from 'features/films/ui/Seats';
+import { Times } from 'features/films/ui/Times';
+import { Colors } from '@/shared/config/constants/Colors';
+import { Notice } from '@/shared/config/constants/Notice';
 import { DateTimeUtils } from '@/shared/lib/utils/DateTimeUtils';
 import { TextUtils } from '@/shared/lib/utils/TextUtils';
 import { toastError, toastSuccess } from '@/shared/lib/utils/toast';
 import { useBookMutation } from '@/shared/model/store/rtk/booking.rtk';
 import { useGetScheduleByMonthDayQuery } from '@/shared/model/store/rtk/film.rtk';
-import { Notice } from '@/shared/config/constants/Notice';
 import { Button } from '@/shared/ui/Button';
 import { Divider } from '@/shared/ui/Divider';
 import {
@@ -23,7 +24,6 @@ import {
     StyledSeatsInfo,
     StyledSelectionDetails, StyledTitle, StyledWrapper,
 } from '@/widgets/ui/BookingBlock/styled';
-import { Colors } from "@/shared/config/constants/Colors";
 
 type Props = {
     filmId: number,

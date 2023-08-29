@@ -7,10 +7,10 @@ import { ToastContainer } from 'react-toastify';
 
 import { Providers } from '@/application/providers';
 import { TranslateProvider } from '@/application/providers/subproviders/TranslateProvider';
-import { EditProfileForm } from '@/features/EditProfileForm';
-import { LoginForm } from '@/features/LoginForm';
-import { RegisterForm } from '@/features/RegisterForm';
-import { SettingsForm } from '@/features/SettingsForm';
+import { EditProfileForm } from 'widgets/EditProfileForm';
+import { LoginForm } from 'widgets/LoginForm';
+import { RegisterForm } from 'widgets/RegisterForm';
+import { SettingsForm } from 'widgets/SettingsForm';
 
 export const DefaultLayout = ({
     children,

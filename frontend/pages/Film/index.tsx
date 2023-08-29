@@ -1,6 +1,6 @@
-import { ReviewCard } from '@/entities/films';
+import { Reviews } from '@/features/films';
 import { TrailerBlock } from '@/pages/Film/components/TrailerBlock';
-import { StyledBackground, StyledReviews } from '@/pages/Film/styled';
+import { StyledBackground } from '@/pages/Film/styled';
 import { FilmService } from '@/shared/api/services/FilmService';
 import { Urls } from '@/shared/config/constants/Urls';
 import { ColorUtils } from '@/shared/lib/utils/ColorUtils';
@@ -36,19 +36,7 @@ export const Film = async ({ params: { slug } }: Props) => {
             />
             <BookingBlock filmId={data.id}/>
             <TrailerBlock trailer={trailer}/>
-            <StyledReviews>
-                {data.reviews.map(({
-                    id,
-                    user,
-                    review,
-                }) => (
-                    <ReviewCard
-                        key={id}
-                        author={`${user.name} ${user.surname}`}
-                        body={review}
-                    />
-                ))}
-            </StyledReviews>
+            <Reviews reviews={data.reviews}/>
         </StyledBackground>
     );
 };
