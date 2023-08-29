@@ -1,10 +1,10 @@
 import { Reviews } from '@/features/films';
-import { TrailerBlock } from '@/pages/Film/components/TrailerBlock';
-import { StyledBackground } from '@/pages/Film/styled';
 import { FilmService } from '@/shared/api/services/FilmService';
 import { Urls } from '@/shared/config/constants/Urls';
 import { ColorUtils } from '@/shared/lib/utils/ColorUtils';
-import { BookingBlock, FilmInfo } from '@/widgets/films';
+import { BookingBlock, FilmInfo, TrailerBlock } from '@/widgets/films';
+
+import { StyledBackground } from './styled';
 
 type Props = {
     params: { slug: string }

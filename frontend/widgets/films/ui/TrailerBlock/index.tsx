@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
-import { poppinsFont } from 'shared/lib/fonts';
 
 import { StyledTrailerBlock } from '@/pages/Film/styled';
+import { poppinsFont } from '@/shared/lib/fonts';
 import { VideoPlayer } from '@/shared/ui/VideoPlayer';
 
 type Props = {
