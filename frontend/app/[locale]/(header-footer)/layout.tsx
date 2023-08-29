@@ -1,3 +1,3 @@
-import { HeaderFooterLayout } from '@/application/Layouts/HeaderFooterLayout';
+import { HeaderFooterLayout } from '@/application/layouts';
 
 export default HeaderFooterLayout;

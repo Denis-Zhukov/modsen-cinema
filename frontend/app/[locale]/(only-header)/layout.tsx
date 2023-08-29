@@ -1,3 +1,3 @@
-import { HeaderLayout } from '@/application/Layouts/HeaderLayout';
+import { HeaderLayout } from '@/application/layouts';
 
 export default HeaderLayout;

@@ -7,10 +7,9 @@ import { ToastContainer } from 'react-toastify';
 
 import { Providers } from '@/application/providers';
 import { TranslateProvider } from '@/application/providers/subproviders/TranslateProvider';
-import { EditProfileForm } from 'widgets/forms/ui/EditProfileForm';
-import { LoginForm } from 'widgets/forms/ui/LoginForm';
-import { RegisterForm } from 'widgets/forms/ui/RegisterForm';
-import { SettingsForm } from 'widgets/forms/ui/SettingsForm';
+import {
+    EditProfileForm, LoginForm, RegisterForm, SettingsForm,
+} from '@/widgets/forms';
 
 export const DefaultLayout = ({
     children,
@@ -18,9 +17,7 @@ export const DefaultLayout = ({
 }: { children: React.ReactNode, params: Record<string, string> }) => {
     const locale = useLocale();
 
-    if (params.locale !== locale) {
-        notFound();
-    }
+    if (params.locale !== locale) notFound();
 
     return (
         <html lang={locale}>

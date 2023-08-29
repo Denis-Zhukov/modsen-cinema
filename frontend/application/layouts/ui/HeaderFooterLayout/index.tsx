@@ -1,8 +1,9 @@
 import React from 'react';
 
-import { Footer } from 'widgets/layouts/ui/Footer';
-import { Header } from 'widgets/layouts/ui/Header';
-import { InnerWrapper, OutWrapper } from '@/application/Layouts/styled';
+import { Footer } from '@/widgets/layouts/ui/Footer';
+import { Header } from '@/widgets/layouts/ui/Header';
+
+import { InnerWrapper, OutWrapper } from './styled';
 
 export const HeaderFooterLayout = ({ children }: { children: React.ReactNode }) => (
     <>
