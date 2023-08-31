@@ -16,3 +16,20 @@ jobs:
          cd ..
       - name: Lint
         run: yarn --cwd ./frontend run lint && yarn --cwd ./backend run lint
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+      - uses: actions/checkout@v3
+      - name: Install deps
+        run: |
+          cd ./backend
+          npm install bcrypt
+          yarn
+          cd ./../frontend
+          yarn
+          cd ..
+      - name: Test
+        run: |
+          cd ./backend
+          yarn test
