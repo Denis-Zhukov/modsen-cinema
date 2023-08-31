@@ -15,6 +15,7 @@ import { Colors } from '@/shared/config/constants/Colors';
 import { Notice } from '@/shared/config/constants/Notice';
 import { nunitoSansFont, poppinsFont } from '@/shared/lib/fonts';
 import { DateTimeUtils } from '@/shared/lib/utils/DateTimeUtils';
+import { ErrorUtils } from '@/shared/lib/utils/ErrorUtils';
 import { TextUtils } from '@/shared/lib/utils/TextUtils';
 import { toastError, toastSuccess } from '@/shared/lib/utils/toast';
 import { useBookMutation } from '@/shared/model/store/rtk/booking.rtk';
@@ -69,20 +70,21 @@ export const BookingBlock = forwardRef((
         if (isSuccess) {
             toastSuccess(Notice.SEATS_BOOKED);
             setSeats([]);
-        } else if (error) toastError(error as string);
+        } else if (error) toastError(Notice.BOOK_FAILED);
     }, [error, isSuccess]);
 
     const locale = useLocale();
     const t = useTranslations('bookingBlock');
 
-    let seatText = '';
-    if (locale === 'en' && seats.length > 1) {
-        seatText = t('seats');
-    } else if (locale === 'en') {
-        seatText = t('seat');
-    } else if (locale === 'ru') {
-        seatText = t('seats') + TextUtils.getEndingWordByPlural(seats.length);
-    }
+    const seatText = useMemo(() => {
+        if (locale === 'en' && (seats.length > 1 || seats.length === 0)) {
+            return t('seats');
+        }
+        if (locale === 'ru') {
+            return t('seats') + TextUtils.getEndingWordByPlural(seats.length);
+        }
+        return t('seat');
+    }, [locale, seats.length, t]);
 
     return (
         <StyledWrapper ref={ref} className={poppinsFont.className}>

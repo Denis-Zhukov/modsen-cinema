@@ -7,4 +7,5 @@ export enum Notice {
     UNEXPECTED_ERROR = 'Unexpected error',
     UNAUTH = "You're not authorized",
     UPDATE_SUCCESSFUL = 'Profile data are updated',
+    BOOK_FAILED = 'Failed to book',
 }
