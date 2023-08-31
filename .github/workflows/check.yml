@@ -13,3 +13,6 @@ jobs:
          yarn
          cd ./../frontend
          yarn
+         cd ..
+      - name: Lint
+        run: yarn --cwd ./frontend run lint && yarn --cwd ./backend run lint
