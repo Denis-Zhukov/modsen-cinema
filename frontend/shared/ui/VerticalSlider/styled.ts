@@ -1,10 +1,10 @@
+import { motion } from 'framer-motion';
 import Image from 'next/image';
 import styled, { css } from 'styled-components';
 
 import type { Theme } from '@/shared/config/constants/Themes';
-import { motion } from "framer-motion";
 
-export const StyledVerticalSlider = styled.div`
+export const StyledVerticalSlider = styled(motion.div)`
   display: flex;
   flex-direction: row;
   justify-content: space-between;

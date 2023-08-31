@@ -23,7 +23,7 @@ export class ScheduleService {
             where: {
                 dateAndTime: MoreThanOrEqual(new Date()),
             },
-            relations: ['film'],
+            relations: ['film', 'film.genres'],
         });
     }
 

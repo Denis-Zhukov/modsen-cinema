@@ -1,15 +1,18 @@
-import { Film } from '@/pages/Film';
+import { Film } from '@/pages/films';
 import { FilmService } from '@/shared/api/services/FilmService';
 
 type Props = {
     params: { slug: string }
 };
 
-export const generateMetadata = async ({ params: { slug } }: Props) => {
-    const { data } = await FilmService.getFilm(slug);
-    return {
-        title: `${data.name} - Monema`,
-    };
-};
+const FilmPage = (props: any) => <Film {...props}/>;
+export default FilmPage;
 
-export default Film;
+export const generateMetadata = async ({ params: { slug } }: Props) => {
+    try {
+        const { data } = await FilmService.getFilm(slug);
+        return { title: `${data.name} - Monema` };
+    } catch (e) {
+        return { title: 'Unloaded - Monema' };
+    }
+};

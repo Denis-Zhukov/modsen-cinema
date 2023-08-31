@@ -2,6 +2,7 @@
 
 import { Form, Formik } from 'formik';
 import { AnimatePresence } from 'framer-motion';
+import { Button } from 'monema-ui';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import React, { useCallback, useEffect, useMemo } from 'react';
@@ -9,17 +10,13 @@ import React, { useCallback, useEffect, useMemo } from 'react';
 import { FacebookLoginButton, GithubLoginButton, GoogleLoginButton } from '@/features/auth';
 import { Colors } from '@/shared/config/constants/Colors';
 import { Forms } from '@/shared/config/constants/Forms';
-import { Notice } from '@/shared/config/constants/Notice';
 import { inriaSansFont, poppinsFont } from '@/shared/lib/fonts';
 import { useAppSelector } from '@/shared/lib/hooks/redux-hooks';
 import { useActions } from '@/shared/lib/hooks/useActions';
 import { useCreateQueryPath } from '@/shared/lib/hooks/useCreateQueryPath';
 import { useInitForm } from '@/shared/lib/hooks/useInitForm';
-import { useSwitchForm } from '@/shared/lib/hooks/useSwitchForm';
-import { toastError, toastSuccess } from '@/shared/lib/utils/toast';
 import { LoginRequest } from '@/shared/model/store/rtk/typing/requests/LoginRequest';
 import { selectAuth } from '@/shared/model/store/selectors/auth.selectors';
-import { Button } from '@/shared/ui/Button';
 import { Loader } from '@/shared/ui/Loader';
 import { Modal } from '@/shared/ui/Modal';
 import { TextBox } from '@/shared/ui/TextBox';
@@ -37,35 +34,17 @@ import {
 } from './styled';
 
 export const LoginForm = () => {
-    const {
-        active,
-        handleCloseForm,
-    } = useInitForm(Forms.LOGIN);
+    const { active, handleCloseForm } = useInitForm(Forms.LOGIN);
 
-    const {
-        error,
-        isLoading,
-        isAuth,
-    } = useAppSelector(selectAuth);
-    const {
-        login,
-        resetStatuses,
-    } = useActions();
+    const { isLoading } = useAppSelector(selectAuth);
+    const { login, resetStatuses } = useActions();
 
     const createQueryPath = useCreateQueryPath();
-    const switchForm = useSwitchForm();
 
     const controller = useMemo(() => new AbortController(), []);
     const onSubmit = useCallback((values: LoginRequest) => {
         login({ controller, ...values });
     }, [controller, login]);
-
-    useEffect(() => {
-        if (isAuth) {
-            // switchForm(Forms.NONE);
-            toastSuccess(Notice.AUTH_SUCCESSFUL);
-        } else if (error) toastError(error);
-    }, [error, switchForm, isAuth]);
 
     useEffect(() => {
         resetStatuses();

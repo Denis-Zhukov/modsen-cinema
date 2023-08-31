@@ -21,7 +21,7 @@ export const StyledProfile = styled(motion.div)<Theme>`
   right: 0;
   top: 0;
   
-  z-index: 99999;
+  z-index: 9999;
 
   color: ${({ theme: { text: { main } } }) => main};
   background: ${({ theme: { background } }) => background};

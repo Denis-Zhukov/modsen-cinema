@@ -76,8 +76,8 @@ export class AuthService {
 
         if (!userEntity) {
             userEntity = await this.usersService.create({
-                name,
-                surname,
+                name: name || 'Unknown',
+                surname: surname || 'Unknown',
                 email,
                 password: null,
             });
@@ -107,17 +107,15 @@ export class AuthService {
         if (!verified)
             throw new BadRequestException(UserErrors.WRONG_REFRESH_TOKEN);
 
-        const { id, email, ...userEntity } = await this.usersService.getById(
-            payload.id,
-        );
+        const userEntity = await this.usersService.getById(payload.id);
 
-        if (userEntity.refreshToken !== refreshToken)
+        if (!userEntity || userEntity.refreshToken !== refreshToken)
             throw new BadRequestException(UserErrors.WRONG_REFRESH_TOKEN);
 
         const accessToken = await this.tokenService.generateJwtToken(
             {
-                id,
-                email,
+                id: userEntity.id,
+                email: userEntity.email,
                 roles: userEntity.roles.map(({ name }) => name),
                 sex: userEntity.sex?.name,
                 avatar: userEntity.avatar,
@@ -127,7 +125,7 @@ export class AuthService {
 
         return {
             accessToken,
-            id,
+            id: userEntity.id,
             surname: userEntity.surname,
             name: userEntity.name,
             roles: userEntity.roles,

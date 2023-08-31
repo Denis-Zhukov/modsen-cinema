@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import { Theme } from '@/shared/config/constants/Themes';
 import { VideoPlayer } from '@/shared/ui/VideoPlayer';
+import { motion } from "framer-motion";
 
 export const StyledTrailer = styled.div<Theme>`
   display: grid;
@@ -18,7 +19,7 @@ export const StyledTrailer = styled.div<Theme>`
   }
 `;
 
-export const StyledTextBlock = styled.div<Theme>`
+export const StyledTextBlock = styled(motion.div)<Theme>`
   box-shadow: 50px 0 50px 75px ${({ theme: { background } }) => background};;
   position: relative;
   z-index: 999;
@@ -38,5 +39,6 @@ export const StyledTextBlock = styled.div<Theme>`
   }
 `;
 
-export const StyledVideoPlayer = styled(VideoPlayer)`
+export const StyledVideoPlayerWrapper = styled(motion.div)`
+  overflow: hidden;
 `;

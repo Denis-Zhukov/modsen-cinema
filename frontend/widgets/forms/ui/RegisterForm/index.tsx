@@ -2,6 +2,7 @@
 
 import { Form, Formik } from 'formik';
 import { AnimatePresence } from 'framer-motion';
+import { Button } from 'monema-ui';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -18,7 +19,6 @@ import { ErrorUtils } from '@/shared/lib/utils/ErrorUtils';
 import { toastError, toastSuccess } from '@/shared/lib/utils/toast';
 import { useRegisterMutation } from '@/shared/model/store/rtk/auth.rtk';
 import { RegisterRequest } from '@/shared/model/store/rtk/typing/requests/RegisterRequest';
-import { Button } from '@/shared/ui/Button';
 import { Loader } from '@/shared/ui/Loader';
 import { Modal } from '@/shared/ui/Modal';
 import { TextBox } from '@/shared/ui/TextBox';

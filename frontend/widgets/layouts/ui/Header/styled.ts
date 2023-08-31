@@ -5,6 +5,7 @@ import { CiSettings } from 'react-icons/ci';
 import styled from 'styled-components';
 
 import { Theme } from '@/shared/config/constants/Themes';
+import { motion } from "framer-motion";
 
 export const StyledHeaderWrapper = styled.div<Theme>`
   background: ${({ theme: { background } }) => background};

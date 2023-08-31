@@ -100,7 +100,6 @@ export class UsersService {
         user.name = dto.name ?? user.name;
         user.surname = dto.surname ?? user.surname;
 
-        console.log(dto, avatar);
         user.sex = dto.sex
             ? await this.sexService.findByName(dto.sex)
             : user.sex;

@@ -2,6 +2,8 @@
 
 import { AnimatePresence } from 'framer-motion';
 import {
+    ForwardedRef,
+    forwardRef,
     MutableRefObject, useCallback, useEffect, useMemo, useReducer, useRef,
 } from 'react';
 

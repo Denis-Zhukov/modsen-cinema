@@ -1,8 +1,11 @@
 'use client';
 
+import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { BaseHTMLAttributes, useCallback, useState } from 'react';
+import {
+    BaseHTMLAttributes, ForwardedRef, forwardRef, useCallback, useState,
+} from 'react';
 
 import { nunitoSansFont } from '@/shared/lib/fonts';
 
@@ -14,19 +17,19 @@ type Props = {
     body: string,
 } & BaseHTMLAttributes<HTMLDivElement>;
 
-export const ReviewCard = ({
+export const ReviewCard = forwardRef(({
     author,
     body,
     className,
     ...props
-}: Props) => {
+}: Props, ref:ForwardedRef<HTMLDivElement>) => {
     const [show, setShow] = useState(false);
     const handleShowMore = useCallback(() => setShow((prev) => !prev), []);
 
     const t = useTranslations('reviewCard');
 
     return (
-        <StyledCard className={`${nunitoSansFont.className} ${className}`} {...props}>
+        <StyledCard ref={ref} className={`${nunitoSansFont.className} ${className}`} {...props}>
             <h3>Review</h3>
             <h4>From {author}</h4>
             <StyledHugeText $show={show}>{body}</StyledHugeText>
@@ -36,4 +39,6 @@ export const ReviewCard = ({
             </StyledReadMore>
         </StyledCard>
     );
-};
+});
+
+export const MReviewCard = motion(ReviewCard);

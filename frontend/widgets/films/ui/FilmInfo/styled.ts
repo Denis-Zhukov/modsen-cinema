@@ -1,5 +1,7 @@
 'use client';
 
+import { motion } from 'framer-motion';
+import Image from 'next/image';
 import Link from 'next/link';
 import styled from 'styled-components';
 
@@ -31,11 +33,11 @@ export const StyledNextFilm = styled(Link)<Theme>`
   flex-direction: row;
   align-items: center;
   font-size: 36px;
-  gap: 25px;
   color: ${({ theme: { text: { main } } }) => main};
 
   span {
     text-decoration: underline;
+    margin-right: 25px;
   }
 
   img {
@@ -55,7 +57,7 @@ export const StyledInfoBlock = styled.div`
   }
 `;
 
-export const StyledInfo = styled.div`
+export const StyledInfo = styled(motion.div)`
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -72,7 +74,7 @@ export const StyledInfo = styled.div`
   }
 `;
 
-export const StyledBookingBlock = styled.div`
+export const StyledBookingBlock = styled(motion.div)`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -93,3 +95,5 @@ export const StyledDescription = styled.div`
   font-size: 32px;
   font-weight: 300;
 `;
+
+export const MImage = motion(Image);

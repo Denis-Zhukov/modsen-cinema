@@ -1,7 +1,6 @@
-import { Main } from '@/pages/Main';
+import { Main } from '@/pages/main';
 
-const MainPage = () => <Main />;
-export default MainPage;
+export default Main;
 
 export const metadata = {
     title: 'Monema',

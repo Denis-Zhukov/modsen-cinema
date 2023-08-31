@@ -1,7 +1,11 @@
 'use client';
 
-import { useCallback, useMemo, useState } from 'react';
+import {
+    ForwardedRef,
+    forwardRef, useCallback, useMemo, useState,
+} from 'react';
 
+import { slideRight } from '@/shared/lib/animations';
 import { SideSlides } from '@/shared/ui/VerticalSlider/subcomponents/SideSlides';
 
 import { StyledVerticalSlider } from './styled';
@@ -18,7 +22,7 @@ type Props = {
     }[]
 };
 
-export const VerticalSlider = ({ slides }: Props) => {
+export const VerticalSlider = ({ slides }: Props, ref: ForwardedRef<HTMLDivElement>) => {
     const [activeSlide, setActiveSlide] = useState(0);
 
     const handlePrev = useCallback(() => {
@@ -36,10 +40,16 @@ export const VerticalSlider = ({ slides }: Props) => {
     }, [slides]);
 
     const visibleSideSlides = useMemo(() => {
+        if (slides.length < 1) return [];
         const prevSlideIndex = activeSlide === 0 ? slides.length - 1 : activeSlide - 1;
         const nextSlideIndex = activeSlide === slides.length - 1 ? 0 : activeSlide + 1;
-        return [slides[prevSlideIndex], slides[activeSlide], slides[nextSlideIndex]].map(({ id, preview }) => ({
-            id, preview, active: id === slides[activeSlide].id,
+        return [slides[prevSlideIndex], slides[activeSlide], slides[nextSlideIndex]].map(({
+            id,
+            preview,
+        }) => ({
+            id,
+            preview,
+            active: id === slides[activeSlide].id,
         }));
     }, [activeSlide, slides]);
 
@@ -48,10 +58,14 @@ export const VerticalSlider = ({ slides }: Props) => {
         setActiveSlide(index);
     }, [slides]);
 
-    if (slides.length === 0) return <div>No slides to display</div>;
+    if (slides.length === 0) return <h2>No slides to display</h2>;
 
     return (
-        <StyledVerticalSlider>
+        <StyledVerticalSlider
+            variants={slideRight}
+            initial="hidden"
+            whileInView="visible"
+        >
             <MainSlide
                 id={slides[activeSlide].id}
                 link={slides[activeSlide].url}

@@ -13,6 +13,7 @@ import { useGetSeatsByScheduleQuery } from '@/shared/model/store/rtk/seats.rtk';
 import {
     StyledNotice, StyledPositions, StyledRow, StyledSeats,
 } from './styled';
+import { log } from "next/dist/server/typescript/utils";
 
 type Props = {
     scheduleId: number | null,
@@ -53,7 +54,7 @@ export const Seats = ({
                 {
                     Object.keys(data?.seats ?? {})
                         .map((row: string) => (
-                            <StyledRow>
+                            <StyledRow key={row}>
                                 {data?.seats[row].map(({
                                     id,
                                     available,

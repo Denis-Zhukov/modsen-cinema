@@ -29,9 +29,26 @@ import { VisitsModule } from './modules/visits/visits.module';
 import { SubscribersModule } from './modules/subscribers/subscribers.module';
 import { MailerModule } from './modules/mailer/mailer.module';
 import { SexModule } from './modules/sex/sex.module';
+import { utilities, WinstonModule } from 'nest-winston';
+import * as winston from 'winston';
 
 @Module({
     imports: [
+        WinstonModule.forRoot({
+            transports: [
+                new winston.transports.Console({
+                    format: winston.format.combine(
+                        winston.format.timestamp(),
+                        winston.format.ms(),
+                        utilities.format.nestLike('Monema', {
+                            colors: true,
+                            prettyPrint: true,
+                        }),
+                    ),
+                }),
+            ],
+        }),
+
         ConfigModule.forRoot({
             isGlobal: true,
             load: [configurations],
@@ -61,7 +78,7 @@ import { SexModule } from './modules/sex/sex.module';
                     ],
                     synchronize: true,
                     autoLoadEntities: true,
-                    logging: true,
+                    logging: false,
                 } as TypeOrmModuleOptions),
         }),
 

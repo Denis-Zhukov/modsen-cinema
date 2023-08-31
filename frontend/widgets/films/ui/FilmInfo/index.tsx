@@ -1,15 +1,18 @@
 'use client';
 
+import { motion } from 'framer-motion';
+import { Button } from 'monema-ui';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import React from 'react';
 
+import { fade, slideLeft, slideRight } from '@/shared/lib/animations';
 import { nunitoSansFont, poppinsFont } from '@/shared/lib/fonts';
-import { NavButton } from '@/shared/ui/NavButton';
 
 import Arrow from './images/arrow.png';
 import Star from './images/star.png';
 import {
+    MImage,
     StyledBookingBlock,
     StyledDescription,
     StyledFilmInfo, StyledInfo,
@@ -28,6 +31,7 @@ type Props = {
     image: string,
     description: string,
     rating: number,
+    bookClick?: () => void
 };
 
 export const FilmInfo = ({
@@ -40,6 +44,7 @@ export const FilmInfo = ({
     image,
     description,
     rating,
+    bookClick,
 }: Props) => {
     const genresString = genres.length ? genres.join(' / ') : 'Unknown';
     const actorsString = actors.length ? actors.join(', ') : 'Unknown';
@@ -48,42 +53,90 @@ export const FilmInfo = ({
     return (
         <StyledFilmInfo className={nunitoSansFont.className}>
             <StyledTopBlock>
-                <h1>{name}</h1>
+                <motion.h1
+                    variants={slideRight}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                >{name}
+                </motion.h1>
                 <StyledNextFilm href="#" className={poppinsFont.className}>
-                    <span>{t('nextMovie')}</span>
-                    <Image src={Arrow} alt="Next"/>
+                    <motion.div variants={slideLeft} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+                        <span>{t('nextMovie')}</span>
+                        <Image src={Arrow} alt="Next"/>
+                    </motion.div>
                 </StyledNextFilm>
             </StyledTopBlock>
             <StyledInfoBlock>
-                <Image
+                <MImage
                     src={image}
                     alt="Film"
                     width={410}
                     height={600}
+                    variants={fade}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
                 />
                 <StyledInfo>
-                    <div>
+                    <motion.div
+                        variants={fade}
+                        initial="hidden"
+                        whileInView="visible"
+                        custom={1}
+                        viewport={{ once: true }}
+                    >
                         <span>{t('releaseYear')}: </span>
                         {year}
-                    </div>
-                    <div>
+                    </motion.div>
+                    <motion.div
+                        variants={fade}
+                        initial="hidden"
+                        whileInView="visible"
+                        custom={2}
+                        viewport={{ once: true }}
+                    >
                         <span>{t('country')}: </span>
                         {country}
-                    </div>
-                    <div>
+                    </motion.div>
+                    <motion.div
+                        variants={fade}
+                        initial="hidden"
+                        whileInView="visible"
+                        custom={3}
+                        viewport={{ once: true }}
+                    >
                         <span>{t('country')}: </span>
                         {genresString}
-                    </div>
-                    <div>
+                    </motion.div>
+                    <motion.div
+                        variants={fade}
+                        initial="hidden"
+                        whileInView="visible"
+                        custom={4}
+                        viewport={{ once: true }}
+                    >
                         <span>{t('author')}: </span>
                         {author}
-                    </div>
-                    <div>
+                    </motion.div>
+                    <motion.div
+                        variants={fade}
+                        initial="hidden"
+                        whileInView="visible"
+                        custom={5}
+                        viewport={{ once: true }}
+                    >
                         <span>{t('actors')}: </span>
                         {actorsString}
-                    </div>
-                    <StyledBookingBlock>
-                        <NavButton path="/" variant="primary">{t('bookNow')}</NavButton>
+                    </motion.div>
+                    <StyledBookingBlock
+                        variants={fade}
+                        initial="hidden"
+                        whileInView="visible"
+                        custom={5}
+                        viewport={{ once: true }}
+                    >
+                        <Button variant="primary" onClick={bookClick}>{t('bookNow')}</Button>
                         <div>
                             <span className={poppinsFont.className}>{rating}</span>
                             <Image src={Star} alt="Star" width={39} height={38}/>

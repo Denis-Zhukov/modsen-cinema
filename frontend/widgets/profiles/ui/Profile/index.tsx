@@ -54,13 +54,13 @@ export const Profile = ({ onClose }: Props) => {
 
     const t = useTranslations('profile');
 
-    return ((mounted && ref.current)
+    return ((mounted && ref.current) || true
         ? (
             <StyledProfile
                 className={poppinsFont.className}
                 variants={slideRight}
                 initial="hidden"
-                animate="open"
+                animate="visible"
                 exit="hidden"
             >
                 <StyledProfileHeader>

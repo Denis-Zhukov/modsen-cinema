@@ -1,10 +1,10 @@
 import { AnimatePresence } from 'framer-motion';
+import { Badge } from 'monema-ui';
 import Image from 'next/image';
 import Link from 'next/link';
 
 import { fade } from '@/shared/lib/animations/fade';
 import { poppinsFont } from '@/shared/lib/fonts';
-import { Badge } from '@/shared/ui/Badge';
 
 import { StyledBadges, StyledMainSlide } from '../styled';
 

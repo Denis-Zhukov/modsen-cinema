@@ -3,6 +3,8 @@
 import styled from 'styled-components';
 
 import { Theme } from '@/shared/config/constants/Themes';
+import { motion } from "framer-motion";
+import { MVerticalSlider } from "@/shared/ui/VerticalSlider";
 
 export const StyledShowNow = styled.div`
   display: grid;
@@ -14,7 +16,7 @@ export const StyledShowNow = styled.div`
   }
 `;
 
-export const StyledTextBlock = styled.div<Theme>`
+export const StyledTextBlock = styled(motion.div)<Theme>`
   color: ${({ theme: { text: { main } } }) => main};
   font-weight: 300;
   z-index: 999;

@@ -38,6 +38,7 @@ export const StyledItem = styled(motion.div)<{ $order: number }>`
   border-radius: 10px;
   border: 1px solid #000;
   background: #BDBDBD;
+  transition: background-color .3s ease-in-out;
 
   ${({ $order }) => {
       //@ts-ignore

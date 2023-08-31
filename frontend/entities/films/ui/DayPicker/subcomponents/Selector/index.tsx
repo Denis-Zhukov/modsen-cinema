@@ -22,11 +22,11 @@ export const Selector = ({
     active,
     setActive,
 }: Props) => {
-    const moveLeft = useCallback(() => {
+    const moveRight = useCallback(() => {
         setActive((prev) => (prev + 1) % items.length);
     }, [items, setActive]);
 
-    const moveRight = useCallback(() => {
+    const moveLeft = useCallback(() => {
         setActive((prev) => ((prev - 1) < 0 ? items.length - 1 : prev - 1));
     }, [items, setActive]);
 

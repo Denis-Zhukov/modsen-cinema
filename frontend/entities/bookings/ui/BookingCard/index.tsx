@@ -1,3 +1,4 @@
+import { ButtonIcon, SplittedLongCard } from 'monema-ui';
 import Image from 'next/image';
 import { useLocale, useTranslations } from 'next-intl';
 import React, { useMemo } from 'react';
@@ -5,8 +6,6 @@ import { AiFillStar } from 'react-icons/ai';
 
 import { DateTimeUtils } from '@/shared/lib/utils/DateTimeUtils';
 import { TextUtils } from '@/shared/lib/utils/TextUtils';
-import { ButtonIcon } from '@/shared/ui/ButtonIcon';
-import { SplittedLongCard } from '@/shared/ui/SplittedLongCard';
 
 import CancelIcon from './images/cancel.svg';
 import {

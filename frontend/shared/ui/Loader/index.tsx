@@ -1,3 +1,5 @@
+'use client';
+
 import { LineWave } from 'react-loader-spinner';
 
 type Props = {

@@ -1,6 +1,7 @@
 'use client';
 
-import { ReviewCard } from '@/entities/films';
+import { MReviewCard } from '@/entities/films';
+import { fade } from '@/shared/lib/animations';
 
 import { StyledReviews } from './styled';
 
@@ -14,8 +15,12 @@ export const Reviews = ({ reviews }: Props) => (
             id,
             user,
             review,
-        }) => (
-            <ReviewCard
+        }, i) => (
+            <MReviewCard
+                custom={i + 1}
+                variants={fade}
+                initial="hidden"
+                whileInView="visible"
                 key={id}
                 author={`${user.name} ${user.surname}`}
                 body={review}

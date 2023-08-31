@@ -1,12 +1,13 @@
 'use client';
 
+import { motion } from 'framer-motion';
 import Link from 'next/link';
 import styled from 'styled-components';
 
 import { Colors } from '@/shared/config/constants/Colors';
 import { Theme } from '@/shared/config/constants/Themes';
 
-export const StyledNavItem = styled(Link)<{ $active?: boolean } & Theme>`
+export const StyledNavItem = styled(motion(Link))<{ $active?: boolean } & Theme>`
   color: ${({ theme: { text: { main } } }) => main};
   font-size: 24px;
   font-weight: 300;

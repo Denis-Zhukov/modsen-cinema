@@ -1,6 +1,10 @@
-import { Bookings } from '@/pages/Bookings';
+import { Suspense } from 'react';
 
-const BookingPage = () => <Bookings/>;
+import { Bookings } from '@/pages/bookings';
+
+import Loading from './loading';
+
+const BookingPage = () => <Suspense fallback={<Loading/>}><Bookings/></Suspense>;
 
 export default BookingPage;
 

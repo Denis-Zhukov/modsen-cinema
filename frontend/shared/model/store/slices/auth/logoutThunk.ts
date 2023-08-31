@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { AuthService } from '@/shared/api/services/AuthService';
-import { ErrorUtils } from '@/shared/lib/utils/ErrorUtils';
 import { Notice } from '@/shared/config/constants/Notice';
+import { ErrorUtils } from '@/shared/lib/utils/ErrorUtils';
 
 export const logoutThunk = createAsyncThunk(
     'auth/logout',

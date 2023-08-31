@@ -1,4 +1,6 @@
-import type { AnchorHTMLAttributes } from 'react';
+import { motion } from 'framer-motion';
+import type { AnchorHTMLAttributes, ForwardedRef } from 'react';
+import { forwardRef } from 'react';
 
 import { StyledNavButton } from './styled';
 import type { VariantButton } from './types';
@@ -9,16 +11,19 @@ type Props = {
     children: string,
 } & AnchorHTMLAttributes<HTMLAnchorElement>;
 
-export const NavButton = ({
+export const NavButton = forwardRef(({
     path,
     variant = 'primary',
     children,
     ...props
-}: Props) => (
+}: Props, ref: ForwardedRef<HTMLAnchorElement>) => (
     <StyledNavButton
+        ref={ref}
         href={path}
         $variant={variant}
         {...props}
     >{children}
     </StyledNavButton>
-);
+));
+
+export const MNavButton = motion(NavButton);

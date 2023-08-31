@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  db_monema:
+    container_name: db_monema
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=monema
+    image: postgres:latest
+    restart: always
+    volumes:
+      - ./db-data/:/var/lib/postgresql/data/

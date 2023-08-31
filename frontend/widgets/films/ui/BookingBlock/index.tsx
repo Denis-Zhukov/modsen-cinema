@@ -1,22 +1,24 @@
 'use client';
 
+import { motion } from 'framer-motion';
+import { Button, Divider } from 'monema-ui';
 import { useLocale, useTranslations } from 'next-intl';
 import {
+    ForwardedRef,
+    forwardRef,
     useCallback, useEffect, useMemo, useState,
 } from 'react';
-import { nunitoSansFont, poppinsFont } from '@/shared/lib/fonts';
 
 import { DayPicker } from '@/entities/films/ui/DayPicker';
 import { Seats, Times } from '@/features/films';
 import { Colors } from '@/shared/config/constants/Colors';
 import { Notice } from '@/shared/config/constants/Notice';
+import { nunitoSansFont, poppinsFont } from '@/shared/lib/fonts';
 import { DateTimeUtils } from '@/shared/lib/utils/DateTimeUtils';
 import { TextUtils } from '@/shared/lib/utils/TextUtils';
 import { toastError, toastSuccess } from '@/shared/lib/utils/toast';
 import { useBookMutation } from '@/shared/model/store/rtk/booking.rtk';
 import { useGetScheduleByMonthDayQuery } from '@/shared/model/store/rtk/film.rtk';
-import { Button } from '@/shared/ui/Button';
-import { Divider } from '@/shared/ui/Divider';
 import {
     StyledBooking,
     StyledPrice,
@@ -28,9 +30,12 @@ type Props = {
     filmId: number,
 };
 
-export const BookingBlock = ({
-    filmId,
-}: Props) => {
+export const BookingBlock = forwardRef((
+    {
+        filmId,
+    }: Props,
+    ref: ForwardedRef<HTMLDivElement>,
+) => {
     const [activeIndexDay, setActiveIndexDay] = useState(0);
     const [selectedScheduleId, setSelectedScheduleId] = useState<number | null>(null);
 
@@ -80,7 +85,7 @@ export const BookingBlock = ({
     }
 
     return (
-        <StyledWrapper className={poppinsFont.className}>
+        <StyledWrapper ref={ref} className={poppinsFont.className}>
             <Divider $color={Colors.ORANGE}/>
             <StyledTitle className={nunitoSansFont.className}>{t('title')}</StyledTitle>
             <DayPicker days={onlyDays} activeDay={activeIndexDay} setActiveDay={setActiveIndexDay}/>
@@ -106,4 +111,6 @@ export const BookingBlock = ({
             <Divider $color={Colors.ORANGE}/>
         </StyledWrapper>
     );
-};
+});
+
+export const MBookingBlock = motion(BookingBlock);

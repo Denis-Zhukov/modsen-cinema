@@ -1,9 +1,11 @@
 'use client';
 
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
+import { Button } from 'monema-ui';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { useCallback, useState } from 'react';
+import { Profile } from 'widgets/profiles/ui/Profile';
 
 import { NavItem } from '@/entities/header';
 import { SignInButton, SignUpButton } from '@/features/auth';
@@ -12,8 +14,6 @@ import { Routes } from '@/shared/config/constants/Routes';
 import { poppinsFont } from '@/shared/lib/fonts';
 import { useAppSelector } from '@/shared/lib/hooks/redux-hooks';
 import { useCreateQueryPath } from '@/shared/lib/hooks/useCreateQueryPath';
-import { Button } from '@/shared/ui/Button';
-import { Profile } from 'widgets/profiles/ui/Profile';
 
 import Logo from './images/logo.png';
 import {
@@ -57,7 +57,13 @@ export const Header = () => {
                     )}
                 </StyledAuthBlock>
                 {!isAuth
-                    && <Link href={createQueryPath('form', Forms.SETTINGS)}><SettingsBlock/></Link>}
+                    && (
+                        <Link href={createQueryPath('form', Forms.SETTINGS)}>
+                            <motion.div whileHover={{ transform: 'rotate(30deg)' }}>
+                                <SettingsBlock />
+                            </motion.div>
+                        </Link>
+                    )}
 
                 <AnimatePresence>
                     {isAuth && profileShow && <Profile onClose={handleToggle}/>}

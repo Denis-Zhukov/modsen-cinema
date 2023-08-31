@@ -91,8 +91,7 @@ const authSlice = createSlice({
                 setFulfilledValues(state);
             })
             .addCase(refreshAuthThunk.rejected, setRejectedValues)
-            .addCase(logoutThunk.pending, setPendingStatuses)
-            .addCase(logoutThunk.fulfilled, (state) => {
+            .addCase(logoutThunk.pending, (state) => {
                 state.id = null;
                 state.isAuth = false;
                 state.name = null;
@@ -101,7 +100,8 @@ const authSlice = createSlice({
                 state.sex = '';
                 state.avatar = null;
                 LocaleStorageUtils.removeAccessToken();
-
+            })
+            .addCase(logoutThunk.fulfilled, (state) => {
                 setFulfilledValues(state);
             })
             .addCase(logoutThunk.rejected, setRejectedValues);
