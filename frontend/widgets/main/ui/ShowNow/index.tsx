@@ -2,7 +2,7 @@ import { useTranslations } from 'next-intl';
 
 import { FilmService } from '@/shared/api';
 import { Urls } from '@/shared/config/constants/Urls';
-import { slideLeft, slideRight } from '@/shared/lib/animations';
+import { slideLeft } from '@/shared/lib/animations';
 import { inriaSansFont, nunitoSansFont } from '@/shared/lib/fonts';
 import { VerticalSlider } from '@/shared/ui/VerticalSlider';
 
@@ -11,7 +11,12 @@ import { StyledShowNow, StyledTextBlock } from './styled';
 const TextShowNow = () => {
     const t = useTranslations('showNow');
     return (
-        <StyledTextBlock variants={slideLeft} initial="hidden" whileInView="visible">
+        <StyledTextBlock
+            variants={slideLeft}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+        >
             <h2 className={nunitoSansFont.className}>{t('title')}</h2>
             <p className={inriaSansFont.className}>{t('text')}</p>
         </StyledTextBlock>

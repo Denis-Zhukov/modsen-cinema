@@ -4,6 +4,11 @@ import styled, { css } from 'styled-components';
 
 import type { Theme } from '@/shared/config/constants/Themes';
 
+export const StyledText = styled.h2<Theme>`
+  color: ${({ theme: { text: { main } } }) => main};
+  font-size: 48px;
+`;
+
 export const StyledVerticalSlider = styled(motion.div)`
   display: flex;
   flex-direction: row;

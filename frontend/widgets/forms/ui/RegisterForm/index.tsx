@@ -63,13 +63,14 @@ export const RegisterForm = () => {
     }, [currentRequest, register]);
 
     useEffect(() => {
+        if (!active) return;
         if (isSuccess) {
             toastSuccess(Notice.REGISTRATION_SUCCESSFUL);
             switchForm(Forms.LOGIN);
         } else if (isError && ErrorUtils.isTypedError(error)) {
             toastError(error.data.message);
         } else if (isError) toastError(Notice.UNEXPECTED_ERROR);
-    }, [error, isError, isSuccess, switchForm]);
+    }, [active, error, isError, isSuccess, switchForm]);
 
     useEffect(() => () => {
         if (currentRequest) currentRequest.abort();

@@ -2,13 +2,14 @@
 
 import {
     ForwardedRef,
-    forwardRef, useCallback, useMemo, useState,
+    useCallback, useMemo, useState,
 } from 'react';
 
 import { slideRight } from '@/shared/lib/animations';
+import { nunitoSansFont } from '@/shared/lib/fonts';
 import { SideSlides } from '@/shared/ui/VerticalSlider/subcomponents/SideSlides';
 
-import { StyledVerticalSlider } from './styled';
+import { StyledText, StyledVerticalSlider } from './styled';
 import { Controls } from './subcomponents/Controls';
 import { MainSlide } from './subcomponents/MainSlide';
 
@@ -22,7 +23,7 @@ type Props = {
     }[]
 };
 
-export const VerticalSlider = ({ slides }: Props, ref: ForwardedRef<HTMLDivElement>) => {
+export const VerticalSlider = ({ slides }: Props) => {
     const [activeSlide, setActiveSlide] = useState(0);
 
     const handlePrev = useCallback(() => {
@@ -58,7 +59,7 @@ export const VerticalSlider = ({ slides }: Props, ref: ForwardedRef<HTMLDivEleme
         setActiveSlide(index);
     }, [slides]);
 
-    if (slides.length === 0) return <h2>No slides to display</h2>;
+    if (slides.length === 0) return <StyledText className={nunitoSansFont.className}>No slides to display</StyledText>;
 
     return (
         <StyledVerticalSlider

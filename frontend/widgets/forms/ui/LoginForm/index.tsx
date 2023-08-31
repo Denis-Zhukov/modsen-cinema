@@ -10,11 +10,14 @@ import React, { useCallback, useEffect, useMemo } from 'react';
 import { FacebookLoginButton, GithubLoginButton, GoogleLoginButton } from '@/features/auth';
 import { Colors } from '@/shared/config/constants/Colors';
 import { Forms } from '@/shared/config/constants/Forms';
+import { Notice } from '@/shared/config/constants/Notice';
 import { inriaSansFont, poppinsFont } from '@/shared/lib/fonts';
 import { useAppSelector } from '@/shared/lib/hooks/redux-hooks';
 import { useActions } from '@/shared/lib/hooks/useActions';
 import { useCreateQueryPath } from '@/shared/lib/hooks/useCreateQueryPath';
 import { useInitForm } from '@/shared/lib/hooks/useInitForm';
+import { useSwitchForm } from '@/shared/lib/hooks/useSwitchForm';
+import { toastError, toastSuccess } from '@/shared/lib/utils/toast';
 import { LoginRequest } from '@/shared/model/store/rtk/typing/requests/LoginRequest';
 import { selectAuth } from '@/shared/model/store/selectors/auth.selectors';
 import { Loader } from '@/shared/ui/Loader';
@@ -32,12 +35,25 @@ import {
     StyledLoader, StyledSocials,
     StyledTitle,
 } from './styled';
+import { ErrorUtils } from "@/shared/lib/utils/ErrorUtils";
 
 export const LoginForm = () => {
-    const { active, handleCloseForm } = useInitForm(Forms.LOGIN);
+    const {
+        active,
+        handleCloseForm,
+    } = useInitForm(Forms.LOGIN);
 
-    const { isLoading } = useAppSelector(selectAuth);
-    const { login, resetStatuses } = useActions();
+    const {
+        isLoading,
+        isAuth,
+        error,
+    } = useAppSelector(selectAuth);
+    const {
+        login,
+        resetStatuses,
+    } = useActions();
+
+    const switchForm = useSwitchForm();
 
     const createQueryPath = useCreateQueryPath();
 
@@ -45,6 +61,14 @@ export const LoginForm = () => {
     const onSubmit = useCallback((values: LoginRequest) => {
         login({ controller, ...values });
     }, [controller, login]);
+
+    useEffect(() => {
+        if (!active) return;
+        if (isAuth) {
+            switchForm(Forms.NONE);
+            toastSuccess(Notice.AUTH_SUCCESSFUL);
+        } else if (error) toastError(error);
+    }, [active, error, isAuth, switchForm]);
 
     useEffect(() => {
         resetStatuses();
