@@ -9,6 +9,6 @@ jobs:
       - name: Install deps
         run: | 
          cd ./backend
-         npm ci
+         yarn
          cd ./../frontend
-         npm ci
+         yarn
