@@ -6,6 +6,7 @@ import { Theme } from '@/shared/config/constants/Themes';
 
 export const OutWrapper = styled.div<Theme>`
   background: ${({ theme: { background } }) => background};
+  transition: background-color .5s ease-in-out, color .5s ease-in-out;
 `;
 
 export const InnerWrapper = styled.div`

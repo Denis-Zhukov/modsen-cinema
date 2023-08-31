@@ -32,7 +32,6 @@ export const ShowNow = async () => {
         badges: film.genres.map(({ name }: { name: string }) => name),
         url: `film/${film.slug}`,
     }));
-
     return (
         <StyledShowNow>
             <TextShowNow/>

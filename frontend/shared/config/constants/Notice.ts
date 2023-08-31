@@ -6,5 +6,5 @@ export enum Notice {
     SUBSCRIBED = 'You have been subscribed',
     UNEXPECTED_ERROR = 'Unexpected error',
     UNAUTH = "You're not authorized",
-    UPDATE_SUCCESSFUL = 'Profile are data updated',
+    UPDATE_SUCCESSFUL = 'Profile data are updated',
 }

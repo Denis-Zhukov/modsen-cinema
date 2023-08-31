@@ -24,6 +24,7 @@ export const StyledWrapperModal = styled(motion.div)`
 export const StyledModal = styled.div<Theme>`
   padding: 40px 50px;
   width: 840px;
+  transition: background-color .5s ease-in-out, color .5s ease-in-out;
   background: ${({ theme: { background } }) => background};;
   position: relative;
   box-shadow: 0 0 50px 5px rgba(155, 155, 155, 0.05);

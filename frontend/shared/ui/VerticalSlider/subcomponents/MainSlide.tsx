@@ -1,7 +1,9 @@
 import { AnimatePresence } from 'framer-motion';
 import { Badge } from 'monema-ui';
+import type { Theme } from 'monema-ui/dist/typing/Themes';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useTheme } from 'styled-components';
 
 import { fade } from '@/shared/lib/animations/fade';
 import { poppinsFont } from '@/shared/lib/fonts';
@@ -9,7 +11,7 @@ import { poppinsFont } from '@/shared/lib/fonts';
 import { StyledBadges, StyledMainSlide } from '../styled';
 
 type Props = {
-    id:number,
+    id: number,
     title: string,
     badges: string[],
     link: string,
@@ -22,30 +24,40 @@ export const MainSlide = ({
     badges,
     link,
     image,
-}: Props) => (
+}: Props) => {
+    const theme = useTheme() as Theme['theme'];
 
-    <AnimatePresence mode="popLayout">
-        <StyledMainSlide
-            key={id}
-            className={poppinsFont.className}
-            variants={fade}
-            initial="hidden"
-            animate="visible"
-            exit="hidden"
-        >
-            <Link href={link}>
-                <Image
-                    src={image}
-                    alt={title}
-                    width={260}
-                    height={350}
-                />
-            </Link>
-            <h3>{title}</h3>
-            <StyledBadges>
-                {badges.map((text) => <Badge key={text}>{text}</Badge>)}
-            </StyledBadges>
-        </StyledMainSlide>
+    return (
 
-    </AnimatePresence>
-);
+        <AnimatePresence mode="popLayout">
+            <StyledMainSlide
+                key={id}
+                className={poppinsFont.className}
+                variants={fade}
+                initial="hidden"
+                animate="visible"
+                exit="hidden"
+            >
+                <Link href={link}>
+                    <Image
+                        src={image}
+                        alt={title}
+                        width={260}
+                        height={350}
+                    />
+                </Link>
+                <h3>{title}</h3>
+                <StyledBadges>
+                    {badges.map((text) => (
+                        <Badge
+                            key={text}
+                            theme={theme}
+                        >{text}
+                        </Badge>
+                    ))}
+                </StyledBadges>
+            </StyledMainSlide>
+
+        </AnimatePresence>
+    );
+};

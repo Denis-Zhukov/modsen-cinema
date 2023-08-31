@@ -7,6 +7,7 @@ import { nunitoSansFont } from '@/shared/lib/fonts';
 import { VideoPlayer } from '@/shared/ui/VideoPlayer';
 
 import {
+    StyledText,
     StyledTextBlock,
     StyledTrailer,
     StyledVideoPlayerWrapper,
@@ -15,7 +16,17 @@ import {
 export const Trailer = async () => {
     const { data } = await FilmService.getMainFilm();
 
-    if (!data) return <h2>No such main film</h2>;
+    if (!data) {
+        return (
+            <StyledText
+                variants={constFade}
+                initial="hidden"
+                whileInView="visible"
+                className={nunitoSansFont.className}
+            >Main film not set
+            </StyledText>
+        );
+    }
 
     const trailerUrl = `${Urls.BASE_URL}/${data.trailer}`;
     const previewUrl = `${Urls.BASE_URL}/${data.preview}`;

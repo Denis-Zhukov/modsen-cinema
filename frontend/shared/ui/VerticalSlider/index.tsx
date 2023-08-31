@@ -5,7 +5,7 @@ import {
     useCallback, useMemo, useState,
 } from 'react';
 
-import { slideRight } from '@/shared/lib/animations';
+import { constFade, slideRight } from '@/shared/lib/animations';
 import { nunitoSansFont } from '@/shared/lib/fonts';
 import { SideSlides } from '@/shared/ui/VerticalSlider/subcomponents/SideSlides';
 
@@ -59,7 +59,17 @@ export const VerticalSlider = ({ slides }: Props) => {
         setActiveSlide(index);
     }, [slides]);
 
-    if (slides.length === 0) return <StyledText className={nunitoSansFont.className}>No slides to display</StyledText>;
+    if (slides.length === 0) {
+        return (
+            <StyledText
+                variants={constFade}
+                initial="hidden"
+                whileInView="visible"
+                className={nunitoSansFont.className}
+            >No slides to display
+            </StyledText>
+        );
+    }
 
     return (
         <StyledVerticalSlider

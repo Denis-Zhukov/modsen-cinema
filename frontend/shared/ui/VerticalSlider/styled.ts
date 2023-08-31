@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components';
 
 import type { Theme } from '@/shared/config/constants/Themes';
 
-export const StyledText = styled.h2<Theme>`
+export const StyledText = styled(motion.h2)<Theme>`
   color: ${({ theme: { text: { main } } }) => main};
   font-size: 48px;
 `;

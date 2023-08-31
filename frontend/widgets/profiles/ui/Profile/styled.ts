@@ -25,7 +25,7 @@ export const StyledProfile = styled(motion.div)<Theme>`
 
   color: ${({ theme: { text: { main } } }) => main};
   background: ${({ theme: { background } }) => background};
-  transition: background-color 1s ease-in-out, color 1s ease-in-out;
+  transition: background-color .5s ease-in-out, color .5s ease-in-out;
 `;
 
 export const StyledProfileHeader = styled.div`

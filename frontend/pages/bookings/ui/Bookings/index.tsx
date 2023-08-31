@@ -2,13 +2,16 @@
 
 import { redirect } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 
 import { BookingCard } from '@/entities/bookings';
 import { StyledBookings } from '@/pages/bookings/ui/Bookings/styled';
 import { Forms } from '@/shared/config/constants/Forms';
+import { Notice } from '@/shared/config/constants/Notice';
 import { Urls } from '@/shared/config/constants/Urls';
 import { useAppSelector } from '@/shared/lib/hooks/redux-hooks';
+import { ErrorUtils } from '@/shared/lib/utils/ErrorUtils';
+import { toastError, toastSuccess } from '@/shared/lib/utils/toast';
 import {
     useCancelBookingsMutation,
     useGetMyMissingBookingQuery,
@@ -24,11 +27,21 @@ export const Bookings = () => {
     const {
         isAuth,
         isSuccess,
-        error,
+        error: authError,
     } = useAppSelector(selectAuth);
-    const [cancel] = useCancelBookingsMutation({});
+    const [cancel, { error, isSuccess: cancelSuccess }] = useCancelBookingsMutation({});
     const handleCancel = useCallback((id: number) => () => cancel({ scheduleId: id }), [cancel]);
-    if (!isAuth && (isSuccess || error)) return redirect(`/?form=${Forms.LOGIN}`);
+
+    useEffect(() => {
+        if (error && ErrorUtils.isTypedError(error)) {
+            toastError(error.data.message);
+        } else if (error) toastError(Notice.UNEXPECTED_ERROR);
+        if (cancelSuccess) toastSuccess(Notice.CANCEL_BOOKINGS);
+    }, [error, cancelSuccess]);
+
+    useEffect(() => {
+        if (!isAuth && (isSuccess || authError)) redirect(`/?form=${Forms.LOGIN}`);
+    }, [authError, isAuth, isSuccess]);
 
     return (
         <StyledBookings>

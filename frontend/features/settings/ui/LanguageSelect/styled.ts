@@ -12,6 +12,7 @@ export const StyledLanguageSelect = styled.div`
 
 export const StyledLanguage = styled(Link)<Theme>`
   color: ${({ theme: { text: { main } } }) => main};
+  transition: background-color .5s ease-in-out, color .5s ease-in-out;
   background: ${({ theme: { background } }) => background};
   border: 1px solid ${({ theme: { line } }) => line};
   text-decoration: none;

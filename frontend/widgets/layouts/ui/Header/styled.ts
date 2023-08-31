@@ -5,9 +5,9 @@ import { CiSettings } from 'react-icons/ci';
 import styled from 'styled-components';
 
 import { Theme } from '@/shared/config/constants/Themes';
-import { motion } from "framer-motion";
 
 export const StyledHeaderWrapper = styled.div<Theme>`
+  transition: background-color .5s ease-in-out;
   background: ${({ theme: { background } }) => background};
 `;
 

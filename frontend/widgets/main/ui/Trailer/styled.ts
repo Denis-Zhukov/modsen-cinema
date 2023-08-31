@@ -1,10 +1,9 @@
 'use client';
 
+import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
 import { Theme } from '@/shared/config/constants/Themes';
-import { VideoPlayer } from '@/shared/ui/VideoPlayer';
-import { motion } from "framer-motion";
 
 export const StyledTrailer = styled.div<Theme>`
   display: grid;
@@ -12,6 +11,7 @@ export const StyledTrailer = styled.div<Theme>`
   grid-template-columns: repeat(auto-fill, minmax(50%, 1fr));
   color: ${({ theme: { text: { main } } }) => main};
   background: ${({ theme: { background } }) => background};
+  transition: background-color .5s ease-in-out, color .5s ease-in-out;
   margin: 0 auto;
 
   @media screen and (max-width: 1160px) {
@@ -41,4 +41,10 @@ export const StyledTextBlock = styled(motion.div)<Theme>`
 
 export const StyledVideoPlayerWrapper = styled(motion.div)`
   overflow: hidden;
+`;
+
+export const StyledText = styled(motion.h2)<Theme>`
+  color: ${({ theme: { text: { main } } }) => main};
+  font-size: 48px;
+  text-align: center;
 `;

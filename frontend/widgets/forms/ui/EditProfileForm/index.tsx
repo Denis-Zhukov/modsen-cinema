@@ -66,7 +66,7 @@ export const EditProfileForm = () => {
                 initialValues={{
                     name: name ?? '',
                     surname: surname ?? '',
-                    sex: sex ?? '',
+                    sex: sex ?? 'male',
                     password: '',
                 }}
                 onSubmit={handleSubmit}
@@ -92,7 +92,6 @@ export const EditProfileForm = () => {
                     <StyledRow>
                         <StyledTitle>{t('sex')}</StyledTitle>
                         <Field as="select" name="sex">
-                            <option value="">{t('unknown')}</option>
                             <option value="male">{t('male')}</option>
                             <option value="female">{t('female')}</option>
                         </Field>

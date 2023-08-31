@@ -1,10 +1,13 @@
 import type { UseQuery } from '@reduxjs/toolkit/dist/query/react/buildHooks';
 import type { QueryDefinition } from '@reduxjs/toolkit/query';
 import type { BaseQueryFn } from '@reduxjs/toolkit/query/react';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { Colors } from '@/shared/config/constants/Colors';
+import { Notice } from '@/shared/config/constants/Notice';
 import { poppinsFont } from '@/shared/lib/fonts';
+import { ErrorUtils } from '@/shared/lib/utils/ErrorUtils';
+import { toastError } from '@/shared/lib/utils/toast';
 import type {
     GetMyBookingsResponse,
 } from '@/shared/model/store/rtk/typing/responses/GetMyBookingsResponse';
@@ -27,7 +30,13 @@ export const BookingsSection = ({
         data,
         isLoading,
         isSuccess,
+        error,
     } = useData({});
+
+    useEffect(() => {
+        if (error && ErrorUtils.isTypedError(error)) toastError(error.data.message);
+        else if (error) toastError(Notice.UNEXPECTED_ERROR);
+    }, [error]);
 
     return (
         <div className={poppinsFont.className}>

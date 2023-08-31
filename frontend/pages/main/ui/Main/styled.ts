@@ -8,6 +8,7 @@ export const StyledMain = styled.div`
   display: flex;
   flex-direction: column;
   gap: 100px;
+  transition: background-color .5s ease-in-out;
   background: ${({ theme: { background } }) => background};
 `;
 
