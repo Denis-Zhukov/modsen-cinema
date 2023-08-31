@@ -9,6 +9,7 @@ jobs:
       - name: Install deps
         run: | 
          cd ./backend
+         npm install bcrypt
          yarn
          cd ./../frontend
          yarn
