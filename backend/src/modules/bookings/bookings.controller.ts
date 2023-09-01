@@ -1,6 +1,7 @@
 import {
     Body,
     Controller,
+    Delete,
     Get,
     Param,
     ParseIntPipe,
@@ -13,7 +14,12 @@ import { BookDto } from './dto/book.dto';
 import { JwtAuthGuard } from '../../guards/jwt.guard';
 import { Request } from 'express';
 import { TokenService } from '../token/token.service';
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { BookingsEntity } from './bookings.entity';
+import { MyBookings } from './swagger/my-bookings';
+import { CancelFailed } from './swagger/cancel-failed';
 
+@ApiTags('Bookings')
 @Controller('bookings')
 export class BookingsController {
     constructor(
@@ -21,11 +27,14 @@ export class BookingsController {
         private readonly tokenService: TokenService,
     ) {}
 
+    @ApiResponse({ status: 200, type: [BookingsEntity] })
     @Get('schedule/:id')
     getBookingsBySchedule(@Param('id', ParseIntPipe) id: number) {
         return this.bookingsService.getByScheduleId(id);
     }
 
+    @ApiResponse({ status: 201 })
+    @ApiBearerAuth('auth')
     @Post()
     @UseGuards(JwtAuthGuard)
     async book(@Body() dto: BookDto, @Req() req: Request) {
@@ -38,6 +47,8 @@ export class BookingsController {
         );
     }
 
+    @ApiResponse({ status: 200, type: MyBookings })
+    @ApiBearerAuth('auth')
     @Get('/my-upcoming-bookings')
     @UseGuards(JwtAuthGuard)
     async getUserUpcomingBooking(@Req() req: Request) {
@@ -46,6 +57,8 @@ export class BookingsController {
         return this.bookingsService.getUpcomingBookings(user.payload.id);
     }
 
+    @ApiResponse({ status: 200, type: MyBookings })
+    @ApiBearerAuth('auth')
     @Get('/my-visited-bookings')
     @UseGuards(JwtAuthGuard)
     async getUserVisitedBooking(@Req() req: Request) {
@@ -54,6 +67,8 @@ export class BookingsController {
         return this.bookingsService.getVisitedBookings(user.payload.id);
     }
 
+    @ApiResponse({ status: 200, type: MyBookings })
+    @ApiBearerAuth('auth')
     @Get('/my-missing-bookings')
     @UseGuards(JwtAuthGuard)
     async getUserMissingBooking(@Req() req: Request) {
@@ -62,7 +77,10 @@ export class BookingsController {
         return this.bookingsService.getMissingBookings(user.payload.id);
     }
 
-    @Get('/cancel/:id')
+    @ApiResponse({ status: 201, type: [BookingsEntity] })
+    @ApiResponse({ status: 400, type: CancelFailed })
+    @ApiBearerAuth('auth')
+    @Delete('/cancel/:id')
     @UseGuards(JwtAuthGuard)
     async cancelBookings(
         @Param('id', ParseIntPipe) scheduleId: number,

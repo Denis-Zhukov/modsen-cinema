@@ -9,4 +9,6 @@ export enum UserErrors {
     NO_REFRESH_TOKEN = 'Token not passed',
     SCHEDULE_NOT_EXISTS = 'No such schedule',
     ALREADY_SUBSCRIBED = `You're already subscribed`,
+    WRONG_SCHEDULE = `There is no such schedule`,
+    NO_BOOKINGS = `You haven't bookings at this schedule`,
 }

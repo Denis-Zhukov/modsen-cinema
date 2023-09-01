@@ -10,8 +10,8 @@ export class ActorsService {
         private readonly actorsRepository: Repository<ActorsEntity>,
     ) {}
 
-    async getAll() {
-        return await this.actorsRepository.find();
+    async getAll(limit: number, offset: number) {
+        return await this.actorsRepository.find({ skip: offset, take: limit });
     }
 
     async getById(id: number) {

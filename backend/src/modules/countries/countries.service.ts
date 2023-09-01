@@ -11,8 +11,8 @@ export class CountriesService implements OnModuleInit {
         private readonly repository: Repository<CountriesEntity>,
     ) {}
 
-    getAll() {
-        return this.repository.find();
+    getAll(limit: number, offset: number) {
+        return this.repository.find({ take: limit, skip: offset });
     }
 
     getById(id: number) {

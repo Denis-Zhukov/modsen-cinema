@@ -10,8 +10,8 @@ export class AuthorsService {
         private readonly authorsRepository: Repository<AuthorsEntity>,
     ) {}
 
-    getAll() {
-        return this.authorsRepository.find();
+    getAll(limit: number, offset: number) {
+        return this.authorsRepository.find({ skip: offset, take: limit });
     }
 
     getById(id: number) {

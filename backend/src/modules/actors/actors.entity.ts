@@ -6,15 +6,19 @@ import {
     PrimaryGeneratedColumn,
 } from 'typeorm';
 import { FilmsEntity } from '../films/films.entity';
+import { ApiProperty } from '@nestjs/swagger';
 
 @Entity({ name: 'actors' })
 export class ActorsEntity {
+    @ApiProperty({ example: 1 })
     @PrimaryGeneratedColumn()
     id: number;
 
+    @ApiProperty({ example: 'Holand' })
     @Column()
     surname: string;
 
+    @ApiProperty({ example: 'Tom' })
     @Column()
     name: string;
 

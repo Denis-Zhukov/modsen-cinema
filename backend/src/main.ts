@@ -28,6 +28,15 @@ async function bootstrap() {
         .setDescription('The cinema API')
         .setVersion('1.0')
         .addTag('monema')
+        .addBearerAuth(
+            {
+                type: 'http',
+                scheme: 'bearer',
+                bearerFormat: 'JWT',
+                description: 'Enter access token',
+            },
+            'auth',
+        )
         .build();
 
     const document = SwaggerModule.createDocument(app, swaggerConfig);

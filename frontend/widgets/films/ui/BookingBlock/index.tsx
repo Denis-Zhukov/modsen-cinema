@@ -15,7 +15,6 @@ import { Colors } from '@/shared/config/constants/Colors';
 import { Notice } from '@/shared/config/constants/Notice';
 import { nunitoSansFont, poppinsFont } from '@/shared/lib/fonts';
 import { DateTimeUtils } from '@/shared/lib/utils/DateTimeUtils';
-import { ErrorUtils } from '@/shared/lib/utils/ErrorUtils';
 import { TextUtils } from '@/shared/lib/utils/TextUtils';
 import { toastError, toastSuccess } from '@/shared/lib/utils/toast';
 import { useBookMutation } from '@/shared/model/store/rtk/booking.rtk';

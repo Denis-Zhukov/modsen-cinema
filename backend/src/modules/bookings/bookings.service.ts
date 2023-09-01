@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BookingsEntity } from './bookings.entity';
 import { Repository } from 'typeorm';
 import { ScheduleService } from '../schedule/schedule.service';
+import { UserErrors } from '../../utils/user-errors';
 
 @Injectable()
 export class BookingsService {
@@ -78,6 +79,8 @@ export class BookingsService {
     async book(userId: number, scheduleId: number, seatsId: number[]) {
         const schedule = await this.scheduleServices.getById(scheduleId);
 
+        if (!schedule) throw new BadRequestException(UserErrors.WRONG_SCHEDULE);
+
         const now = new Date();
         now.setHours(0, 0, 0, 0);
         const scheduleDate = new Date(schedule.dateAndTime);
@@ -91,9 +94,11 @@ export class BookingsService {
             scheduleId,
             seatId: id,
             paid:
+                '' +
                 Math.round(
                     (schedule.price - diffDays * (0.05 * schedule.price)) * 100,
-                ) / 100,
+                ) /
+                    100,
         }));
 
         return this.bookingsRepository.insert(values);
@@ -146,6 +151,9 @@ export class BookingsService {
         const bookings = await this.bookingsRepository.find({
             where: { scheduleId, userId },
         });
+
+        if (bookings.length === 0)
+            throw new BadRequestException(UserErrors.NO_BOOKINGS);
 
         return this.bookingsRepository.remove(bookings);
     }

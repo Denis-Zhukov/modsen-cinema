@@ -3,6 +3,7 @@ import {
     Body,
     Controller,
     Get,
+    HttpCode,
     Post,
     Req,
     Res,
@@ -17,7 +18,15 @@ import { ConfigService } from '@nestjs/config';
 import { EnvFields } from '../../utils/env-fields';
 import { AuthGuard } from '@nestjs/passport';
 import { UserErrors } from '../../utils/user-errors';
+import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { RegisterResponseFailed } from './swagger/register-response-failed';
+import { RegisterResponseSuccess } from './swagger/register-response-success';
+import { LoginResponseSuccess } from './swagger/login-response-success';
+import { LoginResponseFailed } from './swagger/login-response-failed';
+import { RefreshResponseFailed } from './swagger/refresh-response-failed';
+import { LogoutResponseFailed } from './swagger/logout-response-failed';
 
+@ApiTags('Authorization')
 @Controller('auth')
 export class AuthController {
     constructor(
@@ -25,12 +34,19 @@ export class AuthController {
         private readonly configService: ConfigService,
     ) {}
 
+    @ApiBody({ type: CreateUserDto })
+    @ApiResponse({ status: 201, type: RegisterResponseSuccess })
+    @ApiResponse({ status: 400, type: RegisterResponseFailed })
     @Post('register')
     register(@Body() dto: CreateUserDto) {
         return this.service.register(dto);
     }
 
+    @ApiBody({ type: LoginDto })
+    @ApiResponse({ status: 200, type: LoginResponseSuccess })
+    @ApiResponse({ status: 400, type: LoginResponseFailed })
     @Post('login')
+    @HttpCode(200)
     async login(
         @Body() dto: LoginDto,
         @Res({ passthrough: true }) response: Response,
@@ -53,13 +69,19 @@ export class AuthController {
         return { accessToken, ...user };
     }
 
+    @ApiResponse({ status: 200, type: LoginResponseSuccess })
+    @ApiResponse({ status: 401, type: RefreshResponseFailed })
     @Post('refresh')
+    @HttpCode(200)
     async refresh(@Req() req: Request) {
         const refreshToken = req.cookies[CookieFields.REFRESH_TOKEN];
         return await this.service.refreshAccessToken(refreshToken);
     }
 
     @Post('logout')
+    @ApiResponse({ status: 200 })
+    @ApiResponse({ status: 401, type: LogoutResponseFailed })
+    @HttpCode(200)
     async logout(
         @Req() req: Request,
         @Res({ passthrough: true }) res: Response,

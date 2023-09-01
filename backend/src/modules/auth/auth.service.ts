@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+    BadRequestException,
+    Injectable,
+    UnauthorizedException,
+} from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { CreateUserDto } from '../users/dto/create-user.dto';
 import { UserErrors } from '../../utils/user-errors';
@@ -65,6 +69,7 @@ export class AuthService {
                 name: user.name,
                 surname: user.surname,
                 roles: user.roles,
+                avatar: user.avatar,
             },
             refreshToken,
             accessToken,
@@ -105,12 +110,12 @@ export class AuthService {
         );
 
         if (!verified)
-            throw new BadRequestException(UserErrors.WRONG_REFRESH_TOKEN);
+            throw new UnauthorizedException(UserErrors.WRONG_REFRESH_TOKEN);
 
         const userEntity = await this.usersService.getById(payload.id);
 
         if (!userEntity || userEntity.refreshToken !== refreshToken)
-            throw new BadRequestException(UserErrors.WRONG_REFRESH_TOKEN);
+            throw new UnauthorizedException(UserErrors.WRONG_REFRESH_TOKEN);
 
         const accessToken = await this.tokenService.generateJwtToken(
             {

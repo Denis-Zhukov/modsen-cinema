@@ -22,7 +22,9 @@ import { RestrictRoles } from '../../decarators/roles.decarator';
 import { Roles } from '../../utils/init-values/roles';
 import { JwtAuthGuard } from '../../guards/jwt.guard';
 import { RolesGuard } from '../../guards/roles.guard';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Films')
 @Controller('films')
 export class FilmsController {
     public constructor(
@@ -31,6 +33,7 @@ export class FilmsController {
         private readonly scheduleService: ScheduleService,
     ) {}
 
+    @ApiBearerAuth('auth')
     @RestrictRoles(Roles.Admin)
     @UseGuards(JwtAuthGuard, RolesGuard)
     @Post('add')
@@ -69,6 +72,7 @@ export class FilmsController {
         return await this.service.addFilm(dto, slug, preview, trailer);
     }
 
+    @ApiBearerAuth('auth')
     @RestrictRoles(Roles.Admin)
     @UseGuards(JwtAuthGuard, RolesGuard)
     @Post('set-main')
