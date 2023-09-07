@@ -13,11 +13,18 @@ import { RolesGuard } from '../../guards/roles.guard';
 import { RestrictRoles } from '../../decarators/roles.decarator';
 import { Roles } from '../../utils/init-values/roles';
 import { UserErrors } from '../../utils/user-errors';
+import { ApiBearerAuth, ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { SubscribersEntity } from './subscribers.entity';
+import { SubscribeError } from './swagger/subscribe-error';
 
+@ApiTags('Subscribers')
 @Controller('subscribe')
 export class SubscribersController {
     constructor(private readonly subscribersService: SubscribersService) {}
 
+    @ApiResponse({ type: SubscribersEntity, status: 201 })
+    @ApiResponse({ type: SubscribeError, status: 400 })
+    @ApiBody({ type: SubscribeDto })
     @Post()
     async subscribe(@Body() { email }: SubscribeDto) {
         try {
@@ -27,6 +34,12 @@ export class SubscribersController {
         }
     }
 
+    @ApiBody({ type: NotifyAllDto })
+    @ApiResponse({
+        status: 201,
+        description: 'Body depends on the mail service',
+    })
+    @ApiBearerAuth('auth')
     @RestrictRoles(Roles.Admin)
     @UseGuards(JwtAuthGuard, RolesGuard)
     @Post('notify')

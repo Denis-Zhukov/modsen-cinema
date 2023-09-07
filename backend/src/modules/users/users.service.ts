@@ -27,7 +27,7 @@ export class UsersService {
     }
 
     getAll() {
-        return this.usersRepository.find();
+        return this.usersRepository.find({ relations: ['roles', 'sex'] });
     }
 
     getById(id: number): Promise<UsersEntity | null> {

@@ -101,5 +101,15 @@ export class FilmsEntity {
             referencedColumnName: 'id',
         },
     })
+    @ApiProperty({
+        example: [
+            {
+                id: 2,
+                name: 'action',
+            },
+        ],
+        required: false,
+        nullable: true,
+    })
     genres: GenresEntity[];
 }

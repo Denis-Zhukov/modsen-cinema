@@ -6,16 +6,21 @@ import { RestrictRoles } from '../../decarators/roles.decarator';
 import { Roles } from '../../utils/init-values/roles';
 import { JwtAuthGuard } from '../../guards/jwt.guard';
 import { RolesGuard } from '../../guards/roles.guard';
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ScheduleEntity } from './schedule.entity';
 
+@ApiTags('Schedule')
 @Controller('schedule')
 export class ScheduleController {
     public constructor(private readonly service: ScheduleService) {}
 
+    @ApiResponse({ type: [ScheduleEntity], status: 200 })
     @Get()
     async getSchedule() {
         return this.service.getCurrentSchedule();
     }
 
+    @ApiResponse({ type: [ScheduleEntity], status: 201 })
     @Post(':id')
     async getTimesByDayMonth(
         @Param('id') filmId: number,
@@ -24,6 +29,8 @@ export class ScheduleController {
         return this.service.getFilmTimesByDay(filmId, dto);
     }
 
+    @ApiBearerAuth('auth')
+    @ApiResponse({ type: ScheduleEntity })
     @RestrictRoles(Roles.Admin)
     @UseGuards(JwtAuthGuard, RolesGuard)
     @Post('add')

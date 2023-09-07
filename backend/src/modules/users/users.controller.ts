@@ -21,7 +21,12 @@ import { fileFilter } from './utils/file-filter';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 import { TokenService } from '../token/token.service';
 import type { Request } from 'express';
+import { ApiBearerAuth, ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { UsersEntity } from './users.entity';
+import { NotFound } from '../../utils/responses/not-found';
+import { UpdateProfile } from './swagger/update-profile';
 
+@ApiTags('Users')
 @Controller('users')
 export class UsersController {
     public constructor(
@@ -29,6 +34,8 @@ export class UsersController {
         private readonly tokenService: TokenService,
     ) {}
 
+    @ApiBearerAuth('auth')
+    @ApiResponse({ type: [UsersEntity], status: 200 })
     @RestrictRoles(Roles.Admin)
     @UseGuards(JwtAuthGuard, RolesGuard)
     @Get()
@@ -36,6 +43,9 @@ export class UsersController {
         return this.service.getAll();
     }
 
+    @ApiResponse({ type: UsersEntity, status: 200 })
+    @ApiResponse({ type: NotFound, status: 404 })
+    @ApiBearerAuth('auth')
     @RestrictRoles(Roles.Admin)
     @UseGuards(JwtAuthGuard, RolesGuard)
     @Get(':id')
@@ -45,6 +55,9 @@ export class UsersController {
         return user;
     }
 
+    @ApiBody({ type: UpdateProfile })
+    @ApiResponse({ type: UsersEntity, status: 201 })
+    @ApiBearerAuth('auth')
     @UseGuards(JwtAuthGuard)
     @Post('update-profile')
     @UseInterceptors(FileInterceptor('avatar', { fileFilter }))

@@ -69,6 +69,7 @@ export class ScheduleService {
                 ),
                 filmId,
             },
+            relations: ['film'],
         });
     }
 }

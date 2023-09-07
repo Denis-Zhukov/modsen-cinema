@@ -3,9 +3,11 @@ import {
     Body,
     Controller,
     Get,
+    ImATeapotException,
     NotFoundException,
     Param,
     Post,
+    Put,
     UploadedFiles,
     UseGuards,
     UseInterceptors,
@@ -22,7 +24,12 @@ import { RestrictRoles } from '../../decarators/roles.decarator';
 import { Roles } from '../../utils/init-values/roles';
 import { JwtAuthGuard } from '../../guards/jwt.guard';
 import { RolesGuard } from '../../guards/roles.guard';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { AddFilm } from './swagger/add-film';
+import { FilmsEntity } from './films.entity';
+import { AddFilmError } from './swagger/add-film-error';
+import { NotFound } from '../../utils/responses/not-found';
+import { GetMainError } from './swagger/get-main-error';
 
 @ApiTags('Films')
 @Controller('films')
@@ -33,6 +40,12 @@ export class FilmsController {
         private readonly scheduleService: ScheduleService,
     ) {}
 
+    @ApiBody({
+        type: AddFilm,
+        description: 'This is FormData. It is important',
+    })
+    @ApiResponse({ type: FilmsEntity, status: 201 })
+    @ApiResponse({ type: AddFilmError, status: 400 })
     @ApiBearerAuth('auth')
     @RestrictRoles(Roles.Admin)
     @UseGuards(JwtAuthGuard, RolesGuard)
@@ -72,28 +85,43 @@ export class FilmsController {
         return await this.service.addFilm(dto, slug, preview, trailer);
     }
 
+    @ApiResponse({ status: 200, description: 'Body is missing' })
+    @ApiResponse({ type: NotFound, status: 400 })
     @ApiBearerAuth('auth')
     @RestrictRoles(Roles.Admin)
     @UseGuards(JwtAuthGuard, RolesGuard)
-    @Post('set-main')
+    @Put('set-main')
     async setMainFilm(@Body() { id }: SetMainFilmDto) {
         const film = await this.service.getById(id);
         if (!film) throw new BadRequestException('No such id');
         await this.filesService.setAsMain(id);
     }
 
+    @ApiResponse({ type: FilmsEntity, status: 200 })
+    @ApiResponse({ type: NotFound, status: 404 })
+    @ApiResponse({ type: GetMainError, status: 418 })
     @Get('get-main')
     async getMainFilm() {
-        const id = await this.filesService.getMainFilmId();
-        return this.service.getById(id);
+        let id: number;
+        try {
+            id = await this.filesService.getMainFilmId();
+        } catch (e) {
+            throw new ImATeapotException(`Main movie not set`);
+        }
+        const film = this.service.getById(id);
+        if (!film) throw new NotFoundException(`No such main film`);
+        return film;
     }
 
+    @ApiResponse({ type: [FilmsEntity] })
     @Get('relevant')
     async getRelevantFilms() {
         const schedule = await this.scheduleService.getCurrentSchedule();
         return this.service.getUnique(schedule.map(({ film }) => film));
     }
 
+    @ApiResponse({ type: FilmsEntity, status: 200 })
+    @ApiResponse({ type: NotFound, status: 404 })
     @Get(':slug')
     async getFilmBySlug(@Param('slug') slug: string) {
         const film = await this.service.getBySlug(slug);

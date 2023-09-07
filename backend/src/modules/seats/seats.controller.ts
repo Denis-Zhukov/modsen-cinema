@@ -8,33 +8,47 @@ import {
     UseGuards,
 } from '@nestjs/common';
 import { SeatsService } from './seats.service';
-import { SetLayoutDto } from './dto/set-layout.dto';
+import { Seat, SetLayoutDto } from './dto/set-layout.dto';
 import { UserErrors } from '../../utils/user-errors';
 import { ScheduleService } from '../schedule/schedule.service';
 import { RestrictRoles } from '../../decarators/roles.decarator';
 import { Roles } from '../../utils/init-values/roles';
 import { JwtAuthGuard } from '../../guards/jwt.guard';
 import { RolesGuard } from '../../guards/roles.guard';
+import { ApiBearerAuth, ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { SeatsEntity } from './seats.entity';
+import { NotFound } from '../../utils/responses/not-found';
+import { BookingsService } from '../bookings/bookings.service';
+import { GetSeatsByScheduleId } from './swagger/get-seats-by-schedule-id';
 
+@ApiTags('Seats')
 @Controller('seats')
 export class SeatsController {
     public constructor(
         private readonly service: SeatsService,
         private readonly scheduleService: ScheduleService,
+        private readonly bookingsService: BookingsService,
     ) {}
 
+    @ApiResponse({ type: [SeatsEntity], status: 200 })
     @Get()
     getSeats() {
         return this.service.getAll();
     }
 
+    @ApiBody({ type: SetLayoutDto })
+    @ApiResponse({ type: [Seat], status: 201 })
+    @ApiBearerAuth('auth')
     @RestrictRoles(Roles.Admin)
     @UseGuards(JwtAuthGuard, RolesGuard)
     @Post('set-layout')
-    async addLayout(@Body() data: SetLayoutDto) {
-        return await this.service.setLayout(data);
+    async addLayout(@Body() dto: SetLayoutDto) {
+        await this.service.setLayout(dto);
+        return dto.seats;
     }
 
+    @ApiResponse({ type: NotFound, status: 404 })
+    @ApiResponse({ type: GetSeatsByScheduleId, status: 200 })
     @Get(':id')
     async getSeatsByScheduleId(@Param('id') scheduleId: number) {
         const schedule = await this.scheduleService.getById(scheduleId);
@@ -42,17 +56,12 @@ export class SeatsController {
             throw new BadRequestException(UserErrors.SCHEDULE_NOT_EXISTS);
         const seats = await this.service.getSeatsBySchedule(scheduleId);
 
-        const now = new Date();
-        now.setHours(0, 0, 0, 0);
-        const scheduleDate = new Date(schedule.dateAndTime);
-
-        const timeDiff = Math.abs(scheduleDate.getTime() - now.getTime());
-        const oneDay = 1000 * 60 * 60 * 24;
-        const diffDays = Math.floor(timeDiff / oneDay);
-
         return {
             seats,
-            price: schedule.price - diffDays * (0.05 * schedule.price),
+            price: this.bookingsService.calculatePriceWithSale(
+                schedule.price,
+                new Date(schedule.dateAndTime),
+            ),
         };
     }
 }

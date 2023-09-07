@@ -70,6 +70,17 @@ export class BookingsService {
         return result;
     }
 
+    public calculatePriceWithSale(price: number, scheduleDate: Date): number {
+        const now = new Date();
+        now.setHours(0, 0, 0, 0);
+
+        const timeDiff = Math.abs(scheduleDate.getTime() - now.getTime());
+        const oneDay = 1000 * 60 * 60 * 24;
+        const diffDays = Math.floor(timeDiff / oneDay);
+
+        return Math.round((price - diffDays * (0.05 * price)) * 100) / 100;
+    }
+
     getByScheduleId(scheduleId: number) {
         return this.bookingsRepository.find({
             where: { scheduleId },
@@ -81,24 +92,16 @@ export class BookingsService {
 
         if (!schedule) throw new BadRequestException(UserErrors.WRONG_SCHEDULE);
 
-        const now = new Date();
-        now.setHours(0, 0, 0, 0);
-        const scheduleDate = new Date(schedule.dateAndTime);
-
-        const timeDiff = Math.abs(scheduleDate.getTime() - now.getTime());
-        const oneDay = 1000 * 60 * 60 * 24;
-        const diffDays = Math.floor(timeDiff / oneDay);
-
         const values = seatsId.map((id) => ({
             userId,
             scheduleId,
             seatId: id,
             paid:
                 '' +
-                Math.round(
-                    (schedule.price - diffDays * (0.05 * schedule.price)) * 100,
-                ) /
-                    100,
+                this.calculatePriceWithSale(
+                    schedule.price,
+                    new Date(schedule.dateAndTime),
+                ),
         }));
 
         return this.bookingsRepository.insert(values);
