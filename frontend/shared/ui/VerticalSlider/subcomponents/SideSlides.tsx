@@ -1,4 +1,5 @@
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
+import { useId } from 'react';
 
 import { fade } from '@/shared/lib/animations/fade';
 
@@ -13,7 +14,10 @@ type Props = {
     setActiveSlide: (id: number) => () => void
 };
 
-export const SideSlides = ({ slides, setActiveSlide }: Props) => (
+export const SideSlides = ({
+    slides,
+    setActiveSlide,
+}: Props) => (
     <StyledSideSlides>
         {slides.map((slide) => (
             <motion.img

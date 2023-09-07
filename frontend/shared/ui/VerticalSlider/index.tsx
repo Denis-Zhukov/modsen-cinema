@@ -1,9 +1,6 @@
 'use client';
 
-import {
-    ForwardedRef,
-    useCallback, useMemo, useState,
-} from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
 import { constFade, slideRight } from '@/shared/lib/animations';
 import { nunitoSansFont } from '@/shared/lib/fonts';
@@ -12,6 +9,7 @@ import { SideSlides } from '@/shared/ui/VerticalSlider/subcomponents/SideSlides'
 import { StyledText, StyledVerticalSlider } from './styled';
 import { Controls } from './subcomponents/Controls';
 import { MainSlide } from './subcomponents/MainSlide';
+import { getThreeElements } from "@/shared/ui/VerticalSlider/model";
 
 type Props = {
     slides: {
@@ -41,10 +39,8 @@ export const VerticalSlider = ({ slides }: Props) => {
     }, [slides]);
 
     const visibleSideSlides = useMemo(() => {
-        if (slides.length < 1) return [];
-        const prevSlideIndex = activeSlide === 0 ? slides.length - 1 : activeSlide - 1;
-        const nextSlideIndex = activeSlide === slides.length - 1 ? 0 : activeSlide + 1;
-        return [slides[prevSlideIndex], slides[activeSlide], slides[nextSlideIndex]].map(({
+        const visibleSlides = getThreeElements(slides, activeSlide);
+        return visibleSlides.map(({
             id,
             preview,
         }) => ({
