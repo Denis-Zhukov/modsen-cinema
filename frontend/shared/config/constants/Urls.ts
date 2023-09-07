@@ -1,7 +1,7 @@
 import { BackendEndpoints } from '@/shared/config/constants/BackendEndpoints';
 
-const BASE_URL = process.env.NEXT_PUBLIC_BACKEND;
-const BASE_API_URL = process.env.NEXT_PUBLIC_BACKEND_API;
+const BASE_URL = process.env.NEXT_PUBLIC_BACKEND || 'http://localhost:8000';
+const BASE_API_URL = process.env.NEXT_PUBLIC_BACKEND_API || 'http://localhost:8000/api';
 
 export const Urls = {
     BASE_URL,

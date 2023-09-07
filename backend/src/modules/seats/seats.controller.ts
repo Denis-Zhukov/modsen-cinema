@@ -10,7 +10,6 @@ import {
 import { SeatsService } from './seats.service';
 import { Seat, SetLayoutDto } from './dto/set-layout.dto';
 import { UserErrors } from '../../utils/user-errors';
-import { ScheduleService } from '../schedule/schedule.service';
 import { RestrictRoles } from '../../decarators/roles.decarator';
 import { Roles } from '../../utils/init-values/roles';
 import { JwtAuthGuard } from '../../guards/jwt.guard';
@@ -20,14 +19,15 @@ import { SeatsEntity } from './seats.entity';
 import { NotFound } from '../../utils/responses/not-found';
 import { BookingsService } from '../bookings/bookings.service';
 import { GetSeatsByScheduleId } from './swagger/get-seats-by-schedule-id';
+import { ScheduleService } from '../schedule/schedule.service';
 
 @ApiTags('Seats')
 @Controller('seats')
 export class SeatsController {
     public constructor(
         private readonly service: SeatsService,
-        private readonly scheduleService: ScheduleService,
         private readonly bookingsService: BookingsService,
+        private readonly scheduleService: ScheduleService,
     ) {}
 
     @ApiResponse({ type: [SeatsEntity], status: 200 })

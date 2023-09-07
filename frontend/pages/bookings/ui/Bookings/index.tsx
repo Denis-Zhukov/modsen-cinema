@@ -4,11 +4,12 @@ import { redirect } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useCallback, useEffect } from 'react';
 
-import { BookingCard } from '@/entities/bookings';
+import { MBookingCard } from '@/entities/bookings/ui/BookingCard';
 import { StyledBookings } from '@/pages/bookings/ui/Bookings/styled';
 import { Forms } from '@/shared/config/constants/Forms';
 import { Notice } from '@/shared/config/constants/Notice';
 import { Urls } from '@/shared/config/constants/Urls';
+import { fade } from '@/shared/lib/animations';
 import { useAppSelector } from '@/shared/lib/hooks/redux-hooks';
 import { ErrorUtils } from '@/shared/lib/utils/ErrorUtils';
 import { toastError, toastSuccess } from '@/shared/lib/utils/toast';
@@ -29,7 +30,10 @@ export const Bookings = () => {
         isSuccess,
         error: authError,
     } = useAppSelector(selectAuth);
-    const [cancel, { error, isSuccess: cancelSuccess }] = useCancelBookingsMutation({});
+    const [cancel, {
+        error,
+        isSuccess: cancelSuccess,
+    }] = useCancelBookingsMutation({});
     const handleCancel = useCallback((id: number) => () => cancel({ scheduleId: id }), [cancel]);
 
     useEffect(() => {
@@ -54,8 +58,12 @@ export const Bookings = () => {
                     paid,
                     ticket,
                     rating,
-                }) => (
-                    <BookingCard
+                }, i) => (
+                    <MBookingCard
+                        variants={fade}
+                        initial="hidden"
+                        animate="visible"
+                        custom={(i + 1)}
                         ticket={ticket}
                         onCancel={handleCancel(scheduleId)}
                         key={scheduleId}
@@ -77,8 +85,12 @@ export const Bookings = () => {
                     paid,
                     ticket,
                     rating,
-                }) => (
-                    <BookingCard
+                }, i) => (
+                    <MBookingCard
+                        variants={fade}
+                        initial="hidden"
+                        animate="visible"
+                        custom={(i + 1)}
                         ticket={ticket}
                         key={scheduleId}
                         title={film.name}
@@ -99,8 +111,12 @@ export const Bookings = () => {
                     paid,
                     ticket,
                     rating,
-                }) => (
-                    <BookingCard
+                }, i) => (
+                    <MBookingCard
+                        variants={fade}
+                        initial="hidden"
+                        animate="visible"
+                        custom={(i + 1)}
                         ticket={ticket}
                         key={scheduleId}
                         title={film.name}

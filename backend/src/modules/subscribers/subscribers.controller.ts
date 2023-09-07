@@ -34,6 +34,13 @@ export class SubscribersController {
         }
     }
 
+    @ApiResponse({ status: 201, description: 'Body is missing' })
+    @ApiBody({ type: SubscribeDto })
+    @Post()
+    async unsubscribe(@Body() { email }: SubscribeDto) {
+        return await this.subscribersService.subscribe(email);
+    }
+
     @ApiBody({ type: NotifyAllDto })
     @ApiResponse({
         status: 201,

@@ -10,6 +10,7 @@ import {
     StyledArrow, StyledItemsBlock,
     StyledSlider,
 } from './styled';
+import { scale } from "@/shared/lib/animations/scale";
 
 type Props = {
     items: number[],

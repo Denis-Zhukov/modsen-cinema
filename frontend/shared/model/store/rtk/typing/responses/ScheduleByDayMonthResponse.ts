@@ -3,4 +3,5 @@ export type ScheduleByDayMonthResponse = {
     dateAndTime: string;
     price: number;
     filmId: number;
+    available: number;
 }[];

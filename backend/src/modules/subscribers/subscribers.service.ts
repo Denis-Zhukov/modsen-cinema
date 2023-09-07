@@ -19,6 +19,13 @@ export class SubscribersService {
         return this.subscribersRepository.save(newSubscriber);
     }
 
+    async unsubscribe(email: string) {
+        const subscriber = await this.subscribersRepository.findOne({
+            where: { email },
+        });
+        if (subscriber) await this.subscribersRepository.remove(subscriber);
+    }
+
     async notifyAll(subject: string, text: string) {
         const subscribers = await this.subscribersRepository.find();
         return this.mailService.notifyAll(

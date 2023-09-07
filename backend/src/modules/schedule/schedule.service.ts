@@ -69,7 +69,7 @@ export class ScheduleService {
                 ),
                 filmId,
             },
-            relations: ['film'],
+            relations: ['film', 'bookings'],
         });
     }
 }

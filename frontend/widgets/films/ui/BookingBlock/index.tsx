@@ -19,6 +19,7 @@ import { TextUtils } from '@/shared/lib/utils/TextUtils';
 import { toastError, toastSuccess } from '@/shared/lib/utils/toast';
 import { useBookMutation } from '@/shared/model/store/rtk/booking.rtk';
 import { useGetScheduleByMonthDayQuery } from '@/shared/model/store/rtk/film.rtk';
+import { Loader } from '@/shared/ui/Loader';
 import {
     StyledBooking,
     StyledPrice,
@@ -43,7 +44,7 @@ export const BookingBlock = forwardRef((
     const onlyDays = useMemo(() => daysAndMonths.map(({ day }) => day), [daysAndMonths]);
     const [price, setPrice] = useState(0);
 
-    const { data } = useGetScheduleByMonthDayQuery({
+    const { data, isLoading } = useGetScheduleByMonthDayQuery({
         day: daysAndMonths[activeIndexDay].day,
         month: daysAndMonths[activeIndexDay].month,
         filmId,
@@ -62,7 +63,7 @@ export const BookingBlock = forwardRef((
                 scheduleId: selectedScheduleId,
                 seatIds: seats,
             });
-        }
+        } else toastError(Notice.MUST_SELECT_DATETIME);
     }, [book, seats, selectedScheduleId]);
 
     useEffect(() => {
@@ -90,11 +91,13 @@ export const BookingBlock = forwardRef((
             <Divider $color={Colors.ORANGE}/>
             <StyledTitle className={nunitoSansFont.className}>{t('title')}</StyledTitle>
             <DayPicker days={onlyDays} activeDay={activeIndexDay} setActiveDay={setActiveIndexDay}/>
-            <Times
-                items={data ?? []}
-                onSelect={(id) => setSelectedScheduleId(id)}
-                selectedId={selectedScheduleId}
-            />
+            {isLoading ? <Loader color={Colors.ORANGE}/> : (
+                <Times
+                    items={data ?? []}
+                    onSelect={(id) => setSelectedScheduleId(id)}
+                    selectedId={selectedScheduleId}
+                />
+            )}
             <Seats
                 scheduleId={selectedScheduleId}
                 selected={seats}

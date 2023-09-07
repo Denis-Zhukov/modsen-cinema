@@ -7,13 +7,14 @@ import {
 
 import { Seat } from '@/entities/films';
 import type { SeatType } from '@/entities/films/ui/Seat/type';
+import { Colors } from '@/shared/config/constants/Colors';
 import { poppinsFont } from '@/shared/lib/fonts';
 import { useGetSeatsByScheduleQuery } from '@/shared/model/store/rtk/seats.rtk';
+import { Loader } from '@/shared/ui/Loader';
 
 import {
     StyledNotice, StyledPositions, StyledRow, StyledSeats,
 } from './styled';
-import { log } from "next/dist/server/typescript/utils";
 
 type Props = {
     scheduleId: number | null,
@@ -28,7 +29,10 @@ export const Seats = ({
     setSelected,
     setPrice,
 }: Props) => {
-    const { data } = useGetSeatsByScheduleQuery({ scheduleId: scheduleId ?? 0 });
+    const {
+        data,
+        isLoading,
+    } = useGetSeatsByScheduleQuery({ scheduleId: scheduleId ?? 0 });
 
     const handleSelectSeat = useCallback((id: number) => () => {
         setSelected((prev) => {
@@ -52,24 +56,25 @@ export const Seats = ({
             <h2>{t('screen')}</h2>
             <StyledPositions>
                 {
-                    Object.keys(data?.seats ?? {})
-                        .map((row: string) => (
-                            <StyledRow key={row}>
-                                {data?.seats[row].map(({
-                                    id,
-                                    available,
-                                }) => {
-                                    const type: SeatType = selected.includes(id) ? 'selected' : 'available';
-                                    return (
-                                        <Seat
-                                            onClick={available ? handleSelectSeat(id) : undefined}
-                                            key={id}
-                                            type={available ? type : 'reserved'}
-                                        />
-                                    );
-                                })}
-                            </StyledRow>
-                        ))
+                    isLoading ? <Loader color={Colors.ORANGE}/>
+                        : Object.keys(data?.seats ?? {})
+                            .map((row: string) => (
+                                <StyledRow key={row}>
+                                    {data?.seats[row].map(({
+                                        id,
+                                        available,
+                                    }) => {
+                                        const type: SeatType = selected.includes(id) ? 'selected' : 'available';
+                                        return (
+                                            <Seat
+                                                onClick={available ? handleSelectSeat(id) : undefined}
+                                                key={id}
+                                                type={available ? type : 'reserved'}
+                                            />
+                                        );
+                                    })}
+                                </StyledRow>
+                            ))
                 }
             </StyledPositions>
             <StyledNotice>

@@ -38,7 +38,7 @@ const bookingRtk = api.injectEndpoints({
         cancelBookings: build.mutation<CancelBookingsResponse, CancelBookingsRequest>({
             query: ({ scheduleId }) => ({
                 url: `${BackendEndpoints.CANCEL_BOOKINGS}/${scheduleId}`,
-                method: 'GET',
+                method: 'DELETE',
             }),
             invalidatesTags: ['seats', 'bookings'],
         }),

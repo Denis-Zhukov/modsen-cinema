@@ -1,0 +1,62 @@
+import { FilmService } from '@/shared/api';
+
+describe('film', () => {
+    it('load', () => {
+        cy.stub(FilmService, 'getFilm')
+            .returns({
+                id: 7,
+                name: 'Batman',
+                release: 2009,
+                description: 'Batman is called to intervene when the mayor of Gotham City is murdered. Soon, his investigation leads him to uncover a web of corruption, linked to his own dark past.',
+                trailer: 'static/films/Batman/trailer.mp4',
+                preview: 'static/films/Batman/preview.jpg',
+                trailerPath: 'G:\\modsen-cinema\\backend\\public\\films\\moj-ne-klassnyj-betmen\\trailer.mp4',
+                previewPath: 'G:\\modsen-cinema\\backend\\public\\films\\moj-ne-klassnyj-betmen\\preview.jpg',
+                slug: 'batman',
+                author: {
+                    id: 1,
+                    name: 'denis',
+                    surname: 'zhukov',
+                },
+                country: {
+                    id: 2,
+                    name: 'Russian',
+                },
+                reviews: [
+                    {
+                        id: 1,
+                        userId: 12,
+                        filmId: 7,
+                        review: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Leo a diam sollicitudin tempor id. Neque convallis a cras semper auctor neque vitae tempus.',
+                        user: [
+                            {
+                                id: 1,
+                                name: 'Denis',
+                                surname: 'Zhukov',
+                            },
+                        ],
+                    },
+                ],
+                genres: [
+                    {
+                        id: 1,
+                        name: 'new',
+                    },
+                    {
+                        id: 2,
+                        name: 'action',
+                    },
+                    {
+                        id: 3,
+                        name: 'adventure',
+                    },
+                ],
+                actors: [],
+                rating: 9,
+            });
+
+        cy.visit('/film/batman');
+
+        cy.wait('@getFilm');
+    });
+});

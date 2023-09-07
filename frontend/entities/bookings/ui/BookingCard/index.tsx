@@ -1,7 +1,8 @@
+import { motion } from 'framer-motion';
 import { ButtonIcon, SplittedLongCard } from 'monema-ui';
 import Image from 'next/image';
 import { useLocale, useTranslations } from 'next-intl';
-import React, { useMemo } from 'react';
+import React, { ForwardedRef, forwardRef, useMemo } from 'react';
 import { AiFillStar } from 'react-icons/ai';
 
 import { DateTimeUtils } from '@/shared/lib/utils/DateTimeUtils';
@@ -26,7 +27,7 @@ type Props = {
     onCancel?: () => void
 };
 
-export const BookingCard = ({
+export const BookingCard = forwardRef(({
     onCancel,
     title,
     preview,
@@ -35,7 +36,7 @@ export const BookingCard = ({
     date,
     ticket,
     rating,
-}: Props) => {
+}: Props, ref: ForwardedRef<HTMLDivElement>) => {
     const locale = useLocale();
     const dateAndTime = useMemo(() => DateTimeUtils.formatDate(date, locale), [date, locale]);
 
@@ -51,36 +52,40 @@ export const BookingCard = ({
     }
 
     return (
-        <SplittedLongCard
-            image={preview}
-            edgeElement={<StyledRating>{rating} <AiFillStar/></StyledRating>}
-            upperElement={(
-                <>
-                    <StyledTitle>{title}</StyledTitle>
-                    <StyledSubtitle>{dateAndTime}</StyledSubtitle>
-                    <StyledSubtitle>{ticket}</StyledSubtitle>
-                </>
-            )}
-            downElement={(
-                <StyledDownWrapper>
-                    <StyledSubtext>{seats} {seatText}</StyledSubtext>
-                    <StyledText>{paid} $</StyledText>
-                    {onCancel && (
-                        <ButtonIcon
-                            onClick={onCancel}
-                            end={(
-                                <Image
-                                    src={CancelIcon}
-                                    alt="cancel-icon"
-                                    width={16}
-                                    height={18}
-                                />
-                            )}
-                        >{t('cancel')}
-                        </ButtonIcon>
-                    )}
-                </StyledDownWrapper>
-            )}
-        />
+        <div ref={ref}>
+            <SplittedLongCard
+                image={preview}
+                edgeElement={<StyledRating>{rating} <AiFillStar/></StyledRating>}
+                upperElement={(
+                    <>
+                        <StyledTitle>{title}</StyledTitle>
+                        <StyledSubtitle>{dateAndTime}</StyledSubtitle>
+                        <StyledSubtitle>{ticket}</StyledSubtitle>
+                    </>
+                )}
+                downElement={(
+                    <StyledDownWrapper>
+                        <StyledSubtext>{seats} {seatText}</StyledSubtext>
+                        <StyledText>{paid} $</StyledText>
+                        {onCancel && (
+                            <ButtonIcon
+                                onClick={onCancel}
+                                end={(
+                                    <Image
+                                        src={CancelIcon}
+                                        alt="cancel-icon"
+                                        width={16}
+                                        height={18}
+                                    />
+                                )}
+                            >{t('cancel')}
+                            </ButtonIcon>
+                        )}
+                    </StyledDownWrapper>
+                )}
+            />
+        </div>
     );
-};
+});
+
+export const MBookingCard = motion(BookingCard);

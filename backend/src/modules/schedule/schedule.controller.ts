@@ -8,11 +8,15 @@ import { JwtAuthGuard } from '../../guards/jwt.guard';
 import { RolesGuard } from '../../guards/roles.guard';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ScheduleEntity } from './schedule.entity';
+import { SeatsService } from '../seats/seats.service';
 
 @ApiTags('Schedule')
 @Controller('schedule')
 export class ScheduleController {
-    public constructor(private readonly service: ScheduleService) {}
+    public constructor(
+        private readonly service: ScheduleService,
+        private readonly seatsService: SeatsService,
+    ) {}
 
     @ApiResponse({ type: [ScheduleEntity], status: 200 })
     @Get()
@@ -26,7 +30,12 @@ export class ScheduleController {
         @Param('id') filmId: number,
         @Body() dto: GetTimesByDayMonthDto,
     ) {
-        return this.service.getFilmTimesByDay(filmId, dto);
+        const schedules = await this.service.getFilmTimesByDay(filmId, dto);
+        const seats = await this.seatsService.getAll();
+        return schedules.map(({ bookings, ...schedule }) => ({
+            ...schedule,
+            available: seats.length - bookings.length,
+        }));
     }
 
     @ApiBearerAuth('auth')

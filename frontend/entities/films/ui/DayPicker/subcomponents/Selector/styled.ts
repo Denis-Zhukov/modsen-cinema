@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import Image from 'next/image';
 import styled, { css } from 'styled-components';
 
 import { Theme } from '@/shared/config/constants/Themes';
@@ -24,6 +24,11 @@ export const StyledArrow = styled.img<{ $degree?: number, $left?: boolean } & Th
   ${({ theme: { type } }) => (type === 'light' ? 'filter: invert(100%);' : '')}
   ${({ $degree }) => css`transform: rotate(${$degree}deg) !important;`}
   ${({ $left }) => ($left ? 'left: 0' : 'right: 0')}
+  
+  &:hover{
+    transform: scale(1.05);
+    background: red !important;
+  }
 `;
 
 StyledArrow.defaultProps = {

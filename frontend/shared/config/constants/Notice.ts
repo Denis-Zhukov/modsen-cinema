@@ -8,4 +8,5 @@ export enum Notice {
     UNAUTH = "You're not authorized",
     UPDATE_SUCCESSFUL = 'Profile data are updated',
     BOOK_FAILED = 'Failed to book',
+    MUST_SELECT_DATETIME = 'You must select a date and time',
 }

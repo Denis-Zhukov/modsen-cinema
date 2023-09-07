@@ -34,5 +34,5 @@ export class ScheduleEntity {
     film: FilmsEntity;
 
     @OneToMany(() => BookingsEntity, (bookings) => bookings.schedule)
-    bookings: BookingsEntity;
+    bookings: BookingsEntity[];
 }

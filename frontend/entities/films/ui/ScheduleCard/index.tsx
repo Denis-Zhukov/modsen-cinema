@@ -10,12 +10,14 @@ import ReclinerIcon from './images/recliner.png';
 import { StyledScheduleCard, StyledSeats } from './styled';
 
 type Props = {
-    active?: boolean,
+    available: number
+    active?: boolean
     dateAndTime: string
     onClick?: () => void
 };
 
 export const ScheduleCard = ({
+    available,
     dateAndTime,
     active = false,
     onClick,
@@ -37,7 +39,7 @@ export const ScheduleCard = ({
             <h4>Cinema: 1D</h4>
             <StyledSeats>
                 <Image src={ReclinerIcon} alt="recliner-icon" width={26} height={30}/>
-                000 seats available
+                {available} seats available
             </StyledSeats>
         </StyledScheduleCard>
     );
