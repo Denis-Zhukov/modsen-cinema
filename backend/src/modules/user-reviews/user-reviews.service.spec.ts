@@ -55,6 +55,7 @@ describe('UserReviewsService', () => {
             expect(reviewsRepository.find).toHaveBeenCalledWith({
                 where: { filmId },
                 take: limit,
+                order: { id: { direction: 'DESC' } },
                 relations: ['user'],
             });
             expect(result).toEqual(reviews);
