@@ -1,16 +1,16 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { useCallback, useMemo, useState } from 'react';
 
 import { constFade, slideRight } from '@/shared/lib/animations';
 import { nunitoSansFont } from '@/shared/lib/fonts';
+import { getThreeElements } from '@/shared/ui/VerticalSlider/model';
 import { SideSlides } from '@/shared/ui/VerticalSlider/subcomponents/SideSlides';
 
 import { StyledText, StyledVerticalSlider } from './styled';
 import { Controls } from './subcomponents/Controls';
 import { MainSlide } from './subcomponents/MainSlide';
-import { getThreeElements } from "@/shared/ui/VerticalSlider/model";
-import { useTranslations } from "next-intl";
 
 type Props = {
     slides: {
@@ -42,9 +42,9 @@ export const VerticalSlider = ({ slides }: Props) => {
     const visibleSideSlides = useMemo(() => {
         const visibleSlides = getThreeElements(slides, activeSlide);
         return visibleSlides.map(({
-                                      id,
-                                      preview,
-                                  }) => ({
+            id,
+            preview,
+        }) => ({
             id,
             preview,
             active: id === slides[activeSlide].id,

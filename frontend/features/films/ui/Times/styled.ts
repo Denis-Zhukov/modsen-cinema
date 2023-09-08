@@ -20,6 +20,7 @@ export const StyledTimes = styled.div`
 
 export const StyledText = styled(motion.div)<Theme>`
   display: flex;
+  flex: 1 1 auto;
   justify-content: center;
   color: ${({ theme: { text: { main } } }) => main};
   font-size: 32px;

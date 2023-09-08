@@ -1,15 +1,15 @@
 'use client';
 
+import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
 import { Theme } from '@/shared/config/constants/Themes';
-import { motion } from "framer-motion";
-import { MVerticalSlider } from "@/shared/ui/VerticalSlider";
 
 export const StyledShowNow = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   margin: 0 auto;
+  overflow-y: hidden;
   
   @media screen and (max-width: 1120px){
     grid-template-columns: 1fr;
