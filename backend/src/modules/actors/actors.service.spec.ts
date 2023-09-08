@@ -3,9 +3,11 @@ import { ActorsService } from './actors.service';
 import { ActorsEntity } from './actors.entity';
 import { Repository } from 'typeorm';
 import { getRepositoryToken } from '@nestjs/typeorm';
+import { ActorsController } from './actors.controller';
 
-describe('ActorsService', () => {
+describe('ActorController', () => {
     let actorsService: ActorsService;
+    let actorsController: ActorsController;
     let actorsRepository: Repository<ActorsEntity>;
 
     beforeEach(async () => {
@@ -23,6 +25,7 @@ describe('ActorsService', () => {
         actorsRepository = module.get<Repository<ActorsEntity>>(
             getRepositoryToken(ActorsEntity),
         );
+        actorsController = new ActorsController(actorsService);
     });
 
     it('should be defined', () => {
@@ -31,13 +34,15 @@ describe('ActorsService', () => {
 
     describe('getAll', () => {
         it('should return an array of actors', async () => {
-            const actors: ActorsEntity[] = []; // Mocked array of actors
+            const actors: ActorsEntity[] = [
+                { id: 1, name: 'Name 1', surname: 'Surname 1', films: [] },
+                { id: 2, name: 'Name 2', surname: 'Surname 2', films: [] },
+            ];
+
             jest.spyOn(actorsRepository, 'find').mockImplementation(
                 async () => actors,
             );
-
-            const result = await actorsService.getAll(1, 1);
-
+            const result = await actorsService.getAll(0, 10);
             expect(result).toBe(actors);
         });
     });
@@ -51,11 +56,44 @@ describe('ActorsService', () => {
                 name: 'Zhukov',
                 films: [],
             };
+
+            jest.spyOn(actorsRepository, 'findOne').mockImplementation(
+                async () => actor,
+            );
+            const result = await actorsService.getById(actorId);
+            expect(result).toBe(actor);
+        });
+    });
+
+    describe('Test endpoints', () => {
+        it('[actors/] getAll', async () => {
+            const actors: ActorsEntity[] = [
+                { id: 1, name: 'Name 1', surname: 'Surname 1', films: [] },
+                { id: 2, name: 'Name 2', surname: 'Surname 2', films: [] },
+            ];
+
+            jest.spyOn(actorsRepository, 'find').mockImplementation(
+                async () => actors,
+            );
+
+            const result = await actorsController.getActors(0, 10);
+
+            expect(result).toBe(actors);
+        });
+
+        it('[actors/:id] getById', async () => {
+            const actor: ActorsEntity = {
+                id: 1,
+                name: 'Name 1',
+                surname: 'Surname 1',
+                films: [],
+            };
+
             jest.spyOn(actorsRepository, 'findOne').mockImplementation(
                 async () => actor,
             );
 
-            const result = await actorsService.getById(actorId);
+            const result = await actorsController.getActorById(1);
 
             expect(result).toBe(actor);
         });

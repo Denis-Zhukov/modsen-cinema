@@ -16,7 +16,7 @@ describe('BookingsService', () => {
         userId: 1,
         scheduleId: 1,
         seatId: 1,
-        paid: 10,
+        paid: '10',
         visits: [],
         seat: null,
         user: null,
@@ -27,7 +27,7 @@ describe('BookingsService', () => {
         id: 1,
         dateAndTime: new Date(),
         price: 15,
-        bookings: mockBooking,
+        bookings: [mockBooking],
         filmId: 1,
         film: {
             id: 1,

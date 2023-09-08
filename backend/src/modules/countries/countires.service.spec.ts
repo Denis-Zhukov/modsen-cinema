@@ -32,12 +32,12 @@ describe('CountriesService', () => {
 
     describe('getAll', () => {
         it('should return an array of countries', async () => {
-            const countries: CountriesEntity[] = []; // Mocked array of countries
+            const countries: CountriesEntity[] = [];
             jest.spyOn(countriesRepository, 'find').mockImplementation(
                 async () => countries,
             );
 
-            const result = await countriesService.getAll();
+            const result = await countriesService.getAll(10, 0);
 
             expect(result).toBe(countries);
         });

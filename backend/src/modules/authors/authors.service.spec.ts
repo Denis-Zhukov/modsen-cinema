@@ -36,7 +36,7 @@ describe('AuthorsService', () => {
                 async () => authors,
             );
 
-            const result = await authorsService.getAll();
+            const result = await authorsService.getAll(10, 0);
 
             expect(result).toBe(authors);
         });
