@@ -2,14 +2,16 @@
   "extends": [
     "next/core-web-vitals",
     "airbnb",
-    "airbnb-typescript"
+    "airbnb-typescript",
+    "next/core-web-vitals"
   ],
   "parserOptions": {
     "project": "./tsconfig.json"
   },
   "plugins": [
     "@typescript-eslint",
-    "simple-import-sort"
+    "simple-import-sort",
+    "testing-library"
   ],
   "rules": {
     "@typescript-eslint/indent": [
@@ -45,5 +47,14 @@
     "no-restricted-exports": "off",
     "react/jsx-one-expression-per-line": "off",
     "prefer-destructuring": "off"
-  }
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/__tests__/**/*.[jt]s?(x)",
+        "**/?(*.)+(spec|test).[jt]s?(x)"
+      ],
+      "extends": ["plugin:testing-library/react"]
+    }
+  ]
 }

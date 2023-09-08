@@ -35,16 +35,18 @@ export const Modal = ({
 
     return (mounted && ref.current) ? (
         <StyledWrapperModal
+            data-testid="modal-wrapper"
             onMouseDown={onClose}
             variants={fade}
             initial="hidden"
             animate="visible"
             exit="hidden"
         >
-            <StyledModal onMouseDown={handleStopPropagation}>
+            <StyledModal onMouseDown={handleStopPropagation} data-testid="modal-block">
                 <StyledTopBlock>
                     <div>{topElement}</div>
                     <StyledCloseButton
+                        data-testid="modal-close"
                         src={CloseIcon}
                         alt="close"
                         width={50}
