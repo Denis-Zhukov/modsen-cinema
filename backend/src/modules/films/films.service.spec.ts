@@ -1,22 +1,28 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { Repository } from 'typeorm';
-import { getRepositoryToken } from '@nestjs/typeorm';
 import { FilmsService } from './films.service';
 import { FilmsEntity } from './films.entity';
+import { getRepositoryToken } from '@nestjs/typeorm';
 import { UserReviewsService } from '../user-reviews/user-reviews.service';
-import { UserReviewsEntity } from '../user-reviews/user-reviews.entity';
+import { ScheduleService } from '../schedule/schedule.service';
+import { AddFilmDto } from './dto/add-film.dto';
 
 describe('FilmsService', () => {
     let filmsService: FilmsService;
-    let filmsRepository: Repository<FilmsEntity>;
-    let reviewsService: UserReviewsService;
 
-    const mockFilm: FilmsEntity = {
-        id: 1,
-        name: 'Test Film',
-    } as FilmsEntity;
+    const mockFilmsRepository = {
+        findOne: jest.fn(),
+        create: jest.fn(),
+        save: jest.fn(),
+        find: jest.fn(),
+    };
 
-    const mockReviews = [{}, {}, {}] as UserReviewsEntity[];
+    const mockUserReviewsService = {
+        getByFilmId: jest.fn(),
+    };
+
+    const mockScheduleService = {
+        getCurrentSchedule: jest.fn(),
+    };
 
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
@@ -24,73 +30,138 @@ describe('FilmsService', () => {
                 FilmsService,
                 {
                     provide: getRepositoryToken(FilmsEntity),
-                    useClass: Repository,
+                    useValue: mockFilmsRepository,
                 },
                 {
                     provide: UserReviewsService,
-                    useValue: {
-                        getByFilmId: jest.fn(() => mockReviews),
-                    },
+                    useValue: mockUserReviewsService,
+                },
+                {
+                    provide: ScheduleService,
+                    useValue: mockScheduleService,
                 },
             ],
         }).compile();
 
         filmsService = module.get<FilmsService>(FilmsService);
-        filmsRepository = module.get<Repository<FilmsEntity>>(
-            getRepositoryToken(FilmsEntity),
+    });
+
+    it('should get film by id', async () => {
+        const filmId = 1;
+        const mockFilm = new FilmsEntity();
+        mockFilm.id = filmId;
+        mockFilm.name = 'Test Film';
+
+        mockFilmsRepository.findOne.mockReturnValue(mockFilm);
+
+        const result = await filmsService.getById(filmId);
+
+        expect(result).toEqual(mockFilm);
+        expect(mockFilmsRepository.findOne).toHaveBeenCalledWith({
+            where: { id: filmId },
+            relations: { author: true },
+        });
+    });
+
+    it('should get film by slug', async () => {
+        const slug = 'test-film';
+        const mockFilm = new FilmsEntity();
+        mockFilm.slug = slug;
+        mockFilm.name = 'Test Film';
+
+        mockFilmsRepository.findOne.mockReturnValue(mockFilm);
+        mockUserReviewsService.getByFilmId.mockReturnValue([]);
+        mockScheduleService.getCurrentSchedule.mockReturnValue([]);
+
+        const result = await filmsService.getBySlug(slug);
+
+        expect(result).toEqual({
+            ...mockFilm,
+            rating: 0,
+            next: 'test-film',
+            available: false,
+            reviews: [],
+        });
+
+        expect(mockFilmsRepository.findOne).toHaveBeenCalledWith({
+            where: { slug },
+            relations: [
+                'author',
+                'country',
+                'ratings',
+                'reviews',
+                'genres',
+                'actors',
+                'reviews',
+            ],
+        });
+
+        expect(mockUserReviewsService.getByFilmId).toHaveBeenCalledWith(
+            mockFilm.id,
+            3,
         );
-        reviewsService = module.get<UserReviewsService>(UserReviewsService);
+
+        expect(mockScheduleService.getCurrentSchedule).toHaveBeenCalled();
     });
 
-    it('should be defined', () => {
-        expect(filmsService).toBeDefined();
-    });
+    it('should add a film', async () => {
+        const dto: AddFilmDto = {
+            name: 'New Film',
+            release: '2023-09-08',
+            description: 'A new film description',
+        };
 
-    describe('getBySlug', () => {
-        it('should return a film with calculated rating and limited reviews', async () => {
-            const slug = 'test-film';
-            const mockFilmWithReviews = {
-                ...mockFilm,
-                ratings: [{ rate: 5 }, { rate: 4 }],
-            } as FilmsEntity;
+        const slug = 'new-film';
+        const preview = {
+            endpoint: '/previews',
+            path: '/previews/new-film.jpg',
+        };
+        const trailer = {
+            endpoint: '/trailers',
+            path: '/trailers/new-film.mp4',
+        };
 
-            jest.spyOn(filmsRepository, 'findOne').mockResolvedValue(
-                mockFilmWithReviews,
-            );
-            jest.spyOn(reviewsService, 'getByFilmId').mockResolvedValue(
-                mockReviews,
-            );
+        const mockFilm = new FilmsEntity();
+        mockFilm.name = dto.name;
+        mockFilm.release = 2009;
+        mockFilm.description = dto.description;
+        mockFilm.previewPath = preview.path;
+        mockFilm.preview = preview.endpoint;
+        mockFilm.trailerPath = trailer.path;
+        mockFilm.trailer = trailer.endpoint;
+        mockFilm.slug = slug;
 
-            const result = await filmsService.getBySlug(slug);
+        mockFilmsRepository.create.mockReturnValue(mockFilm);
+        mockFilmsRepository.save.mockReturnValue(mockFilm);
 
-            expect(result.name).toBe(mockFilm.name);
-            expect(result.rating).toBe(9); // 5 + 4
-            expect(result.reviews).toBe(mockReviews);
+        const result = await filmsService.addFilm(dto, slug, preview, trailer);
+
+        expect(result).toEqual(mockFilm);
+        expect(mockFilmsRepository.create).toHaveBeenCalledWith({
+            name: dto.name,
+            release: +dto.release,
+            description: dto.description,
+            previewPath: preview.path,
+            preview: preview.endpoint,
+            trailerPath: trailer.path,
+            trailer: trailer.endpoint,
+            slug,
         });
+        expect(mockFilmsRepository.save).toHaveBeenCalledWith(mockFilm);
     });
 
-    describe('addFilm', () => {
-        it('should add a new film', async () => {
-            const addFilmDto = {
-                name: 'New Film',
-                release: '2023',
-                description: 'A new film.',
-            };
-            const slug = 'new-film';
-            const mockPreview = { endpoint: 'preview', path: 'path' };
-            const mockTrailer = { endpoint: 'trailer', path: 'path' };
+    it('should get unique films', () => {
+        const films = [
+            { id: 1, name: 'Film 1' },
+            { id: 2, name: 'Film 2' },
+            { id: 1, name: 'Film 1' },
+        ] as FilmsEntity[];
 
-            jest.spyOn(filmsRepository, 'create').mockReturnValue(mockFilm);
-            jest.spyOn(filmsRepository, 'save').mockResolvedValue(mockFilm);
+        const result = filmsService.getUnique(films);
 
-            const result = await filmsService.addFilm(
-                addFilmDto,
-                slug,
-                mockPreview,
-                mockTrailer,
-            );
-
-            expect(result).toBe(mockFilm);
-        });
+        expect(result).toEqual([
+            { id: 1, name: 'Film 1' },
+            { id: 2, name: 'Film 2' },
+        ]);
     });
 });

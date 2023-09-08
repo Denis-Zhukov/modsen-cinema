@@ -55,7 +55,7 @@ export class FilmsService {
 
         return {
             ...film,
-            rating: ratings.reduce((acc, { rate }) => acc + rate, 0),
+            rating: ratings?.reduce((acc, { rate }) => acc + rate, 0) ?? 0,
             next: nextFilm.slug,
             available,
         };
