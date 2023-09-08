@@ -14,11 +14,13 @@ import { Seats, Times } from '@/features/films';
 import { Colors } from '@/shared/config/constants/Colors';
 import { Notice } from '@/shared/config/constants/Notice';
 import { nunitoSansFont, poppinsFont } from '@/shared/lib/fonts';
+import { useAppSelector } from '@/shared/lib/hooks/redux-hooks';
 import { DateTimeUtils } from '@/shared/lib/utils/DateTimeUtils';
 import { TextUtils } from '@/shared/lib/utils/TextUtils';
 import { toastError, toastSuccess } from '@/shared/lib/utils/toast';
 import { useBookMutation } from '@/shared/model/store/rtk/booking.rtk';
 import { useGetScheduleByMonthDayQuery } from '@/shared/model/store/rtk/film.rtk';
+import { selectIsAuth } from '@/shared/model/store/selectors/auth.selectors';
 import { Loader } from '@/shared/ui/Loader';
 import {
     StyledBooking,
@@ -26,6 +28,8 @@ import {
     StyledSeatsInfo,
     StyledSelectionDetails, StyledTitle, StyledWrapper,
 } from '@/widgets/films/ui/BookingBlock/styled';
+import { useSwitchForm } from "@/shared/lib/hooks/useSwitchForm";
+import { Forms } from "@/shared/config/constants/Forms";
 
 type Props = {
     filmId: number,
@@ -39,6 +43,7 @@ export const BookingBlock = forwardRef((
 ) => {
     const [activeIndexDay, setActiveIndexDay] = useState(0);
     const [selectedScheduleId, setSelectedScheduleId] = useState<number | null>(null);
+    const isAuth = useAppSelector(selectIsAuth);
 
     const daysAndMonths = useMemo(() => DateTimeUtils.getNextDays(7), []);
     const onlyDays = useMemo(() => daysAndMonths.map(({ day }) => day), [daysAndMonths]);
@@ -57,13 +62,18 @@ export const BookingBlock = forwardRef((
         error,
     }] = useBookMutation();
 
+    const switchForm = useSwitchForm();
     const handleBook = useCallback(() => {
-        if (selectedScheduleId) {
+        if (!isAuth) {
+            switchForm(Forms.LOGIN);
+        } else if (selectedScheduleId) {
             book({
                 scheduleId: selectedScheduleId,
                 seatIds: seats,
             });
-        } else toastError(Notice.MUST_SELECT_DATETIME);
+        } else {
+            toastError(Notice.MUST_SELECT_DATETIME);
+        }
     }, [book, seats, selectedScheduleId]);
 
     useEffect(() => {
