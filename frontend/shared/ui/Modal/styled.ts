@@ -23,7 +23,7 @@ export const StyledWrapperModal = styled(motion.div)`
 
 export const StyledModal = styled.div<Theme>`
   padding: 40px 50px;
-  width: 840px;
+  width: min(840px, (100vw - 200px));
   transition: background-color .5s ease-in-out, color .5s ease-in-out;
   background: ${({ theme: { background } }) => background};;
   position: relative;
@@ -34,6 +34,7 @@ export const StyledTopBlock = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin-bottom: 20px;
 `;
 
 export const StyledCloseButton = styled(Image)<Theme>`

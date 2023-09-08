@@ -12,11 +12,15 @@ export const StyledForm = styled(Form)`
 `;
 
 export const StyledRow = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  
+  @media screen and (max-width: 625px){
+    grid-template-columns: 1fr;
+  }
 `;
 
 export const StyledTitle = styled.div<Theme>`
-  width: 200px;
   color: ${({ theme: { text: { main } } }) => main};
   font-size: 28px;
 `;

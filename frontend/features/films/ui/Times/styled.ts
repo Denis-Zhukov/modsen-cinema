@@ -6,11 +6,16 @@ import styled from 'styled-components';
 import { Theme } from '@/shared/config/constants/Themes';
 
 export const StyledTimes = styled.div`
-  max-width: 1000px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  width: min(1000px, 100% - 200px);
+  display: flex;
+  flex-wrap: wrap;
   gap: 40px;
   margin: 0 auto;
+
+  > div {
+    width: min(100%, 224px);
+    margin: 0 auto;
+  }
 `;
 
 export const StyledText = styled(motion.div)<Theme>`

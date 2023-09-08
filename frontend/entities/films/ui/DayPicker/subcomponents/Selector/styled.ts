@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import styled, { css } from 'styled-components';
 
 import { Theme } from '@/shared/config/constants/Themes';
@@ -13,8 +12,17 @@ export const StyledSlider = styled.div`
 export const StyledItemsBlock = styled.div`
   display: flex;
   gap: 42px;
-  width: 724px;
   height: 128px;
+  
+  @media screen and (max-width: 1030px){
+    gap: 10px;
+  }
+
+  @media screen and (max-width: 800px){
+    flex-direction: column;
+    height: auto;
+    align-items: center;
+  }
 `;
 
 export const StyledArrow = styled.img<{ $degree?: number, $left?: boolean } & Theme>`
@@ -24,11 +32,6 @@ export const StyledArrow = styled.img<{ $degree?: number, $left?: boolean } & Th
   ${({ theme: { type } }) => (type === 'light' ? 'filter: invert(100%);' : '')}
   ${({ $degree }) => css`transform: rotate(${$degree}deg) !important;`}
   ${({ $left }) => ($left ? 'left: 0' : 'right: 0')}
-  
-  &:hover{
-    transform: scale(1.05);
-    background: red !important;
-  }
 `;
 
 StyledArrow.defaultProps = {

@@ -7,25 +7,25 @@ import { Colors } from '@/shared/config/constants/Colors';
 
 const styleByOrder = {
     '-2': css`
-      width: 96px;
-      height: 96px;
+      width: min(8vw, 96px);
+      height: min(8vw, 96px);
     `,
     '-1': css`
-      width: 112px;
-      height: 112px;
+      width: min(9vw, 112px);
+      height: min(9vw, 112px);
     `,
     0: css`
-      width: 128px;
-      height: 128px;
+      width: min(9.75vw, 128px);
+      height: min(9.75vw, 128px);
       background: ${Colors.ORANGE};
     `,
     1: css`
-      width: 112px;
-      height: 112px;
+      width: min(8.5vw, 112px);
+      height: min(8.5vw, 112px);
     `,
     2: css`
-      width: 96px;
-      height: 96px;
+      width: min(9vw, 96px);
+      height: min(9vw, 96px);
     `,
 };
 

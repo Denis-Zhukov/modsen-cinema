@@ -6,7 +6,7 @@ import { Colors } from '@/shared/config/constants/Colors';
 
 export const StyledSeats = styled.div`
   display: flex;
-  max-width: 1000px;
+  width: min(1000px, calc(100% - 100px));
   margin: 0 auto;
   flex-direction: column;
   align-items: center;
@@ -22,6 +22,8 @@ export const StyledSeats = styled.div`
 
 export const StyledNotice = styled.div`
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 45px;
   color: ${Colors.WHITE};
 

@@ -12,9 +12,11 @@ import {
 import { DayPicker } from '@/entities/films/ui/DayPicker';
 import { Seats, Times } from '@/features/films';
 import { Colors } from '@/shared/config/constants/Colors';
+import { Forms } from '@/shared/config/constants/Forms';
 import { Notice } from '@/shared/config/constants/Notice';
 import { nunitoSansFont, poppinsFont } from '@/shared/lib/fonts';
 import { useAppSelector } from '@/shared/lib/hooks/redux-hooks';
+import { useSwitchForm } from '@/shared/lib/hooks/useSwitchForm';
 import { DateTimeUtils } from '@/shared/lib/utils/DateTimeUtils';
 import { TextUtils } from '@/shared/lib/utils/TextUtils';
 import { toastError, toastSuccess } from '@/shared/lib/utils/toast';
@@ -28,8 +30,6 @@ import {
     StyledSeatsInfo,
     StyledSelectionDetails, StyledTitle, StyledWrapper,
 } from '@/widgets/films/ui/BookingBlock/styled';
-import { useSwitchForm } from "@/shared/lib/hooks/useSwitchForm";
-import { Forms } from "@/shared/config/constants/Forms";
 
 type Props = {
     filmId: number,

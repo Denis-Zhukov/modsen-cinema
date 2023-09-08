@@ -55,6 +55,14 @@ export const StyledInfoBlock = styled.div`
   > * {
     margin: 0 auto;
   }
+
+  @media screen and (max-width: 670px) {
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+
+    > img {
+      width: 100%
+    }
+  }
 `;
 
 export const StyledInfo = styled(motion.div)`
@@ -78,6 +86,8 @@ export const StyledBookingBlock = styled(motion.div)`
   display: flex;
   flex-direction: row;
   align-items: center;
+  flex-wrap: wrap-reverse;
+  width: auto;
   gap: 48px;
   margin-top: 10px;
 
@@ -89,6 +99,10 @@ export const StyledBookingBlock = styled(motion.div)`
     font-size: 48px;
     font-weight: 900;
   }
+
+  @media screen and (max-width: 512px){
+    justify-content: center;
+  }
 `;
 
 export const StyledDescription = styled.div`
@@ -96,7 +110,8 @@ export const StyledDescription = styled.div`
   font-weight: 300;
 `;
 
-export const MImage = motion(Image);
+export const MImage = motion(styled(Image)`
+`);
 
 export const MLink = motion(styled(Link)`
   > * {
