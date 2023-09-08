@@ -10,8 +10,8 @@ type Props = {
 
 export const OuterFilm = async ({ params: { slug } }: Props) => {
     const { data } = await FilmService.getFilm(slug);
-    const trailer = `${Urls.BASE_URL}/${data.trailer}`;
-    const preview = `${Urls.BASE_URL}/${data.preview}`;
+    const trailer = data ? `${Urls.BASE_URL}/${data.trailer}` : '';
+    const preview = data ? `${Urls.BASE_URL}/${data.preview}` : '';
 
     const [firstColor, secondColor] = await ColorUtils.getMainColors(preview, 2);
 

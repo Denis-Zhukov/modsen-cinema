@@ -44,6 +44,7 @@ export const Times = ({
                         initial="hidden"
                         animate="visible"
                         exit="hidden"
+                        custom={0.1}
                     >{t('notAvailable')}
                     </StyledText>
                 )}

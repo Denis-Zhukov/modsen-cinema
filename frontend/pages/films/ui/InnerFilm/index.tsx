@@ -20,11 +20,13 @@ type InnerProps = {
         rating: number
         name: string
         release: number
-        country: { name: string }
+        country: { name: string } | null
         genres: { name: string }[]
-        author: { name: string, surname: string }
+        author: { name: string, surname: string } | null
         actors: { name: string, surname: string }[]
-        reviews: any
+        reviews: { id: number, user: { name: string, surname: string }, review: string }[]
+        next: string
+        available: boolean
     }
 };
 
@@ -42,13 +44,15 @@ export const InnerFilm = ({
     return (
         <StyledBackground $firstColor={firstColor} $secondColor={secondColor}>
             <FilmInfo
+                availableToBooking={film.available}
+                nextFilm={film.next}
                 bookClick={handleShowBook}
                 rating={film.rating}
                 name={film.name}
                 year={film.release}
-                country={film.country.name}
+                country={film.country?.name ?? null}
                 genres={film.genres.map(({ name }) => name)}
-                author={`${film.author.name} ${film.author.surname}`}
+                author={film.author ? `${film.author.name} ${film.author.surname}` : null}
                 actors={film.actors.map(({
                     name,
                     surname,
@@ -56,7 +60,7 @@ export const InnerFilm = ({
                 image={preview}
                 description={film.description}
             />
-            {showBooking
+            {film.available && showBooking
                 && (
                     <MBookingBlock
                         variants={verticalCollapse}

@@ -1,8 +1,10 @@
 'use client';
 
-import { Field, Formik } from 'formik';
+import { Formik } from 'formik';
 import { useTranslations } from 'next-intl';
-import { useCallback, useEffect, useRef } from 'react';
+import {
+    ChangeEvent, useCallback, useEffect, useRef,
+} from 'react';
 
 import { Forms } from '@/shared/config/constants/Forms';
 import { Notice } from '@/shared/config/constants/Notice';
@@ -15,7 +17,8 @@ import { selectAuth } from '@/shared/model/store/selectors/auth.selectors';
 import { Modal } from '@/shared/ui/Modal';
 
 import {
-    StyledForm,
+    StyledField,
+    StyledForm, StyledInputFile,
     StyledRow,
     StyledSubmitButton,
     StyledTitle,
@@ -28,6 +31,7 @@ export const EditProfileForm = () => {
     } = useInitForm(Forms.EDIT_PROFILE);
 
     const {
+        isAuth,
         name,
         surname,
         sex,
@@ -58,7 +62,13 @@ export const EditProfileForm = () => {
         updateProfile(data);
     }, [updateProfile]);
 
+    const handleAvatar = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+        avatarRef.current = e.currentTarget.files![0];
+    }, []);
+
     const t = useTranslations('edit');
+
+    if (!isAuth) return null;
 
     return active && (
         <Modal onClose={handleCloseForm}>
@@ -66,42 +76,48 @@ export const EditProfileForm = () => {
                 initialValues={{
                     name: name ?? '',
                     surname: surname ?? '',
-                    sex: sex ?? 'male',
+                    sex: sex ?? '',
                     password: '',
                 }}
                 onSubmit={handleSubmit}
             >
-                <StyledForm className={poppinsFont.className}>
-                    <StyledRow>
-                        <StyledTitle>{t('avatar')}</StyledTitle>
-                        <input
-                            type="file"
-                            name="avatar"
-                            accept="image/*"
-                            onChange={(e) => avatarRef.current = e.currentTarget.files![0]}
-                        />
-                    </StyledRow>
-                    <StyledRow>
-                        <StyledTitle>{t('name')}</StyledTitle>
-                        <Field type="text" name="name"/>
-                    </StyledRow>
-                    <StyledRow>
-                        <StyledTitle>{t('surname')}</StyledTitle>
-                        <Field type="text" name="surname"/>
-                    </StyledRow>
-                    <StyledRow>
-                        <StyledTitle>{t('sex')}</StyledTitle>
-                        <Field as="select" name="sex">
-                            <option value="male">{t('male')}</option>
-                            <option value="female">{t('female')}</option>
-                        </Field>
-                    </StyledRow>
-                    <StyledRow>
-                        <StyledTitle>{t('password')}</StyledTitle>
-                        <Field type="password" name="password"/>
-                    </StyledRow>
-                    <StyledSubmitButton type="submit">{t('save')}</StyledSubmitButton>
-                </StyledForm>
+                {({ setFieldValue }) => (
+                    <StyledForm className={poppinsFont.className}>
+                        <StyledRow>
+                            <StyledTitle>{t('avatar')}</StyledTitle>
+                            <StyledInputFile
+                                type="file"
+                                name="avatar"
+                                accept="image/*"
+                                onChange={handleAvatar}
+                            />
+                        </StyledRow>
+                        <StyledRow>
+                            <StyledTitle>{t('name')}</StyledTitle>
+                            <StyledField type="text" name="name"/>
+                        </StyledRow>
+                        <StyledRow>
+                            <StyledTitle>{t('surname')}</StyledTitle>
+                            <StyledField type="text" name="surname"/>
+                        </StyledRow>
+                        <StyledRow>
+                            <StyledTitle>{t('sex')}</StyledTitle>
+                            <StyledField
+                                as="select"
+                                name="sex"
+                                onChange={(e) => setFieldValue('sex', e.target.value)}
+                            >
+                                <option value="male">{t('male')}</option>
+                                <option value="female">{t('female')}</option>
+                            </StyledField>
+                        </StyledRow>
+                        <StyledRow>
+                            <StyledTitle>{t('password')}</StyledTitle>
+                            <StyledField type="password" name="password"/>
+                        </StyledRow>
+                        <StyledSubmitButton type="submit">{t('save')}</StyledSubmitButton>
+                    </StyledForm>
+                )}
             </Formik>
         </Modal>
     );

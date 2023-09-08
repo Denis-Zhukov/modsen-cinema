@@ -73,7 +73,9 @@
     "genre": "Genre",
     "author": "Author",
     "actors": "Actors",
-    "bookNow": "Book Now!"
+    "bookNow": "Book Now!",
+    "unknown": "Unknown",
+    "comingSoon": "Coming soon"
   },
   "bookingBlock": {
     "title": "Book Now!",
@@ -116,5 +118,15 @@
   "reviewCard": {
     "hide": "Hide",
     "show": "Read more"
+  },
+  "slides": {
+    "noSlides": "There are currently no films available"
+  },
+  "trailer": {
+    "noMovie": "Main film not set"
+  },
+  "scheduleCard": {
+    "cinema": "Cinema: 1D",
+    "seatsAvailable": "seats available"
   }
 }

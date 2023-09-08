@@ -73,7 +73,9 @@
     "genre": "Жанр",
     "author": "Автор",
     "actors": "Актеры",
-    "bookNow": "Заказать"
+    "bookNow": "Заказать",
+    "unknown": "Неизвестно",
+    "comingSoon": "Скоро появится"
   },
   "bookingBlock": {
     "title": "Заказать сейчас!",
@@ -115,6 +117,16 @@
   },
   "reviewCard": {
     "hide": "Скрыть",
-    "show": "Читать..."
+    "show": "Читать"
+  },
+  "slides": {
+    "noSlides": "Сейчас нет фильмов в прокате"
+  },
+  "trailer": {
+    "noMovie": "Главный фильм не установлен"
+  },
+  "scheduleCard": {
+    "cinema": "Кино: 1D",
+    "seatsAvailable": "мест доступно"
   }
 }

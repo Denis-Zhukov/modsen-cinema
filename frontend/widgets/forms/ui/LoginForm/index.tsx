@@ -35,7 +35,6 @@ import {
     StyledLoader, StyledSocials,
     StyledTitle,
 } from './styled';
-import { ErrorUtils } from "@/shared/lib/utils/ErrorUtils";
 
 export const LoginForm = () => {
     const {
@@ -65,7 +64,6 @@ export const LoginForm = () => {
     useEffect(() => {
         if (!active) return;
         if (isAuth) {
-            switchForm(Forms.NONE);
             toastSuccess(Notice.AUTH_SUCCESSFUL);
         } else if (error) toastError(error);
     }, [active, error, isAuth, switchForm]);
@@ -76,6 +74,8 @@ export const LoginForm = () => {
     }, [resetStatuses, controller]);
 
     const t = useTranslations('login');
+
+    if (isAuth) return null;
 
     return (
         <AnimatePresence>
@@ -97,9 +97,9 @@ export const LoginForm = () => {
                         validationSchema={validationSchema}
                     >
                         {({
-                            touched,
-                            errors,
-                        }) => (
+                              touched,
+                              errors,
+                          }) => (
                             <Form>
                                 <StyledBody className={poppinsFont.className}>
                                     {isLoading && (

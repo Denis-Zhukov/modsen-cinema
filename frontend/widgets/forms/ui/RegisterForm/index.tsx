@@ -22,7 +22,10 @@ import { RegisterRequest } from '@/shared/model/store/rtk/typing/requests/Regist
 import { Loader } from '@/shared/ui/Loader';
 import { Modal } from '@/shared/ui/Modal';
 import { TextBox } from '@/shared/ui/TextBox';
-import { getPasswordComplexity, validationSchema } from '@/widgets/forms/model/validations/registerValidation';
+import {
+    getPasswordComplexity,
+    validationSchema
+} from '@/widgets/forms/model/validations/registerValidation';
 
 import AccountIcon from './images/account-icon.svg';
 import EmailIcon from './images/email-icon.svg';
@@ -38,6 +41,8 @@ import {
     StyledSocials,
     StyledTitle,
 } from './styled';
+import { useAppSelector } from "@/shared/lib/hooks/redux-hooks";
+import { selectIsAuth } from "@/shared/model/store/selectors/auth.selectors";
 
 export const RegisterForm = () => {
     const {
@@ -55,7 +60,7 @@ export const RegisterForm = () => {
     const createQueryPath = useCreateQueryPath();
     const switchForm = useSwitchForm();
 
-    const [currentRequest, setCurrentRequest] = useState<{ abort:() => void } | null>(null);
+    const [currentRequest, setCurrentRequest] = useState<{ abort: () => void } | null>(null);
     const onSubmit = useCallback((values: RegisterRequest) => {
         if (currentRequest) currentRequest.abort();
         const request = register(values);
@@ -76,7 +81,10 @@ export const RegisterForm = () => {
         if (currentRequest) currentRequest.abort();
     }, [currentRequest]);
 
+    const isAuth = useAppSelector(selectIsAuth);
     const t = useTranslations('register');
+
+    if (isAuth) return null;
 
     return (
         <AnimatePresence>
@@ -102,10 +110,10 @@ export const RegisterForm = () => {
                             onSubmit={onSubmit}
                         >
                             {({
-                                errors,
-                                touched,
-                                values,
-                            }) => (
+                                  errors,
+                                  touched,
+                                  values,
+                              }) => (
                                 <StyledBody className={poppinsFont.className}>
                                     <Form>
                                         <TextBox

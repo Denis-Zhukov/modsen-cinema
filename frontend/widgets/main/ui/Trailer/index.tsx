@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl';
 import React from 'react';
 
 import { FilmService } from '@/shared/api/services/FilmService';
@@ -13,29 +14,34 @@ import {
     StyledVideoPlayerWrapper,
 } from './styled';
 
-export const Trailer = async () => {
-    const { data } = await FilmService.getMainFilm();
+type Props = {
+    name: string,
+    description: string,
+    trailer: string,
+    preview: string
+};
 
-    if (!data) {
+const InnerTrailer = ({
+    name, description, trailer, preview,
+}: Props) => {
+    const t = useTranslations('trailer');
+    if (!name && !description) {
         return (
             <StyledText
                 variants={constFade}
                 initial="hidden"
                 whileInView="visible"
                 className={nunitoSansFont.className}
-            >Main film not set
+            >{t('noMovie')}
             </StyledText>
         );
     }
 
-    const trailerUrl = `${Urls.BASE_URL}/${data.trailer}`;
-    const previewUrl = `${Urls.BASE_URL}/${data.preview}`;
-
     return (
         <StyledTrailer className={nunitoSansFont.className}>
             <StyledTextBlock variants={constFade} initial="hidden" whileInView="visible">
-                <h2>{data.name}</h2>
-                <p>{data.description}</p>
+                <h2>{name}</h2>
+                <p>{description}</p>
             </StyledTextBlock>
             <StyledVideoPlayerWrapper
                 variants={constFade}
@@ -46,8 +52,24 @@ export const Trailer = async () => {
                     amount: 0.4,
                 }}
             >
-                <VideoPlayer src={trailerUrl} preview={previewUrl} muted/>
+                <VideoPlayer src={trailer} preview={preview} muted/>
             </StyledVideoPlayerWrapper>
         </StyledTrailer>
+    );
+};
+
+export const Trailer = async () => {
+    const { data } = await FilmService.getMainFilm();
+
+    const trailerUrl = `${Urls.BASE_URL}/${data.trailer}`;
+    const previewUrl = `${Urls.BASE_URL}/${data.preview}`;
+
+    return (
+        <InnerTrailer
+            trailer={trailerUrl}
+            preview={previewUrl}
+            name={data.name}
+            description={data.description}
+        />
     );
 };

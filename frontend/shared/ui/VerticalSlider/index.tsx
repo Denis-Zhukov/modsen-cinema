@@ -10,6 +10,7 @@ import { StyledText, StyledVerticalSlider } from './styled';
 import { Controls } from './subcomponents/Controls';
 import { MainSlide } from './subcomponents/MainSlide';
 import { getThreeElements } from "@/shared/ui/VerticalSlider/model";
+import { useTranslations } from "next-intl";
 
 type Props = {
     slides: {
@@ -41,9 +42,9 @@ export const VerticalSlider = ({ slides }: Props) => {
     const visibleSideSlides = useMemo(() => {
         const visibleSlides = getThreeElements(slides, activeSlide);
         return visibleSlides.map(({
-            id,
-            preview,
-        }) => ({
+                                      id,
+                                      preview,
+                                  }) => ({
             id,
             preview,
             active: id === slides[activeSlide].id,
@@ -55,6 +56,8 @@ export const VerticalSlider = ({ slides }: Props) => {
         setActiveSlide(index);
     }, [slides]);
 
+    const t = useTranslations('slides');
+
     if (slides.length === 0) {
         return (
             <StyledText
@@ -62,7 +65,7 @@ export const VerticalSlider = ({ slides }: Props) => {
                 initial="hidden"
                 whileInView="visible"
                 className={nunitoSansFont.className}
-            >No slides to display
+            >{t('noSlides')}
             </StyledText>
         );
     }

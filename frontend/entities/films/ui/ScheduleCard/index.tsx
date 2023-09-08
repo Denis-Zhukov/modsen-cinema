@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { useMemo } from 'react';
 
 import { fade } from '@/shared/lib/animations/fade';
@@ -24,6 +24,7 @@ export const ScheduleCard = ({
 }: Props) => {
     const locale = useLocale();
     const time = useMemo(() => DateTimeUtils.dateAndTimeStringToTime(dateAndTime, locale), [dateAndTime, locale]);
+    const t = useTranslations('scheduleCard');
 
     return (
         <StyledScheduleCard
@@ -36,10 +37,10 @@ export const ScheduleCard = ({
             onClick={onClick}
         >
             <h3>{time}</h3>
-            <h4>Cinema: 1D</h4>
+            <h4>{t('cinema')}</h4>
             <StyledSeats>
                 <Image src={ReclinerIcon} alt="recliner-icon" width={26} height={30}/>
-                {available} seats available
+                {available} {t('seatsAvailable')}
             </StyledSeats>
         </StyledScheduleCard>
     );

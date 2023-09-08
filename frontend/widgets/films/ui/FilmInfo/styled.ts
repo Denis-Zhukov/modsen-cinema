@@ -97,3 +97,9 @@ export const StyledDescription = styled.div`
 `;
 
 export const MImage = motion(Image);
+
+export const MLink = motion(styled(Link)`
+  > * {
+    color: ${({ theme: { text: { main } } }) => main};
+  }
+`);

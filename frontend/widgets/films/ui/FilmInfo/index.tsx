@@ -1,5 +1,3 @@
-'use client';
-
 import { motion } from 'framer-motion';
 import { Button } from 'monema-ui';
 import Image from 'next/image';
@@ -12,7 +10,7 @@ import { nunitoSansFont, poppinsFont } from '@/shared/lib/fonts';
 import Arrow from './images/arrow.png';
 import Star from './images/star.png';
 import {
-    MImage,
+    MImage, MLink,
     StyledBookingBlock,
     StyledDescription,
     StyledFilmInfo, StyledInfo,
@@ -24,14 +22,16 @@ import {
 type Props = {
     name: string,
     year: number,
-    country: string,
+    country: string | null,
     genres: string[],
-    author: string,
+    author: string | null,
     actors: string[],
     image: string,
     description: string,
     rating: number,
     bookClick?: () => void
+    nextFilm: string
+    availableToBooking: boolean
 };
 
 export const FilmInfo = ({
@@ -45,11 +45,14 @@ export const FilmInfo = ({
     description,
     rating,
     bookClick,
+    nextFilm,
+    availableToBooking,
 }: Props) => {
-    const genresString = genres.length ? genres.join(' / ') : 'Unknown';
-    const actorsString = actors.length ? actors.join(', ') : 'Unknown';
-
     const t = useTranslations('filmInfo');
+
+    const genresString = genres.length ? genres.join(' / ') : t('unknown');
+    const actorsString = actors.length ? actors.join(', ') : t('unknown');
+
     return (
         <StyledFilmInfo className={nunitoSansFont.className}>
             <StyledTopBlock>
@@ -61,10 +64,16 @@ export const FilmInfo = ({
                 >{name}
                 </motion.h1>
                 <StyledNextFilm href="#" className={poppinsFont.className}>
-                    <motion.div variants={slideLeft} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+                    <MLink
+                        href={nextFilm}
+                        variants={slideLeft}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                    >
                         <span>{t('nextMovie')}</span>
                         <Image src={Arrow} alt="Next"/>
-                    </motion.div>
+                    </MLink>
                 </StyledNextFilm>
             </StyledTopBlock>
             <StyledInfoBlock>
@@ -97,7 +106,7 @@ export const FilmInfo = ({
                         viewport={{ once: true }}
                     >
                         <span>{t('country')}: </span>
-                        {country}
+                        {country ?? t('unknown')}
                     </motion.div>
                     <motion.div
                         variants={fade}
@@ -106,7 +115,7 @@ export const FilmInfo = ({
                         custom={3}
                         viewport={{ once: true }}
                     >
-                        <span>{t('country')}: </span>
+                        <span>{t('genre')}: </span>
                         {genresString}
                     </motion.div>
                     <motion.div
@@ -117,7 +126,7 @@ export const FilmInfo = ({
                         viewport={{ once: true }}
                     >
                         <span>{t('author')}: </span>
-                        {author}
+                        {author ?? t('unknown')}
                     </motion.div>
                     <motion.div
                         variants={fade}
@@ -136,7 +145,12 @@ export const FilmInfo = ({
                         custom={5}
                         viewport={{ once: true }}
                     >
-                        <Button variant="primary" onClick={bookClick}>{t('bookNow')}</Button>
+                        <Button
+                            style={availableToBooking ? undefined : { cursor: 'not-allowed' }}
+                            variant={availableToBooking ? 'primary' : 'secondary'}
+                            onClick={availableToBooking ? bookClick : undefined}
+                        >{availableToBooking ? t('bookNow') : t('comingSoon')}
+                        </Button>
                         <div>
                             <span className={poppinsFont.className}>{rating}</span>
                             <Image src={Star} alt="Star" width={39} height={38}/>

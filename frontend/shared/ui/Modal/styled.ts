@@ -18,7 +18,7 @@ export const StyledWrapperModal = styled(motion.div)`
   right: 0;
   bottom: 0;
   background: rgba(30, 31, 39, 0.7);
-  z-index: 999999;
+  z-index: 9999;
 `;
 
 export const StyledModal = styled.div<Theme>`

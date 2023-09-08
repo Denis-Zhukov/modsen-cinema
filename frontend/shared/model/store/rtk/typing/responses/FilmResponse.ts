@@ -28,4 +28,8 @@ export interface FilmResponse {
     actors: { name: string, surname: string }[]
 
     reviews: { user: { name: string, surname: string }, review: string, id: number }[]
+
+    next: string
+
+    available: boolean
 }

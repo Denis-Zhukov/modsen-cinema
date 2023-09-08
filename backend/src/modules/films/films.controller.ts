@@ -3,7 +3,6 @@ import {
     Body,
     Controller,
     Get,
-    ImATeapotException,
     NotFoundException,
     Param,
     Post,
@@ -98,6 +97,7 @@ export class FilmsController {
     }
 
     @ApiResponse({ type: FilmsEntity, status: 200 })
+    @ApiResponse({ type: null, status: 200, description: 'Main movie not set' })
     @ApiResponse({ type: NotFound, status: 404 })
     @ApiResponse({ type: GetMainError, status: 418 })
     @Get('get-main')
@@ -106,7 +106,7 @@ export class FilmsController {
         try {
             id = await this.filesService.getMainFilmId();
         } catch (e) {
-            throw new ImATeapotException(`Main movie not set`);
+            return null;
         }
         const film = this.service.getById(id);
         if (!film) throw new NotFoundException(`No such main film`);

@@ -14,6 +14,7 @@ export class UserReviewsService {
         return this.reviewsRepository.find({
             where: { filmId },
             take: limit,
+            order: { id: { direction: 'DESC' } },
             relations: ['user'],
         });
     }

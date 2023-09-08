@@ -39,6 +39,7 @@ export const StyledBadges = styled.div<Theme>`
   display: flex;
   flex-direction: row;
   gap: 15px;
+  height: 35px;
 `;
 
 export const StyledSideSlides = styled.div`
