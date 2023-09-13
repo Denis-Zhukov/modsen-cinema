@@ -1,7 +1,7 @@
-import * as ColorThief from 'colorthief';
+import { getPalette } from 'colorthief';
 
 export class ColorUtils {
     static getMainColors(imgURL: string, countColor: number) {
-        return ColorThief.getPalette(imgURL, countColor);
+        return getPalette(imgURL, countColor);
     }
 }

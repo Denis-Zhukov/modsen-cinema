@@ -1,4 +1,4 @@
-export const getThreeElements = (arr, index) => {
+export const getThreeElements = <T>(arr: T[], index: number) => {
     if (index < 0 || index >= arr.length) return [];
 
     const left = (index - 1 + arr.length) % arr.length;
