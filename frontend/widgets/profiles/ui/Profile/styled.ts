@@ -15,6 +15,7 @@ export const StyledProfile = styled(motion.div)<Theme>`
   padding: 65px;
   gap: 32px;
   height: 100vh;
+  overflow-x: auto;
   width: min(100vw, 350px);
   
   position: fixed;

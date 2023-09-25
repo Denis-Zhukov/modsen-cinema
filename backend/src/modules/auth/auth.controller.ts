@@ -103,12 +103,8 @@ export class AuthController {
         };
         const refreshToken = await this.service.oauth(name, surname, email);
         res.cookie(CookieFields.REFRESH_TOKEN, refreshToken);
-        res.redirect('http://localhost:3000');
+        res.redirect(req.get('referer'));
     }
-
-    @Get('google')
-    @UseGuards(AuthGuard('google'))
-    async googleAuth() {}
 
     @Get('google/callback')
     @UseGuards(AuthGuard('google'))
@@ -116,19 +112,11 @@ export class AuthController {
         await this.oauthCallback(req, res);
     }
 
-    @Get('github')
-    @UseGuards(AuthGuard('github'))
-    async githubAuth() {}
-
     @Get('github/callback')
     @UseGuards(AuthGuard('github'))
     async githubAuthRedirect(@Req() req: Request, @Res() res: Response) {
         await this.oauthCallback(req, res);
     }
-
-    @Get('facebook')
-    @UseGuards(AuthGuard('facebook'))
-    async facebookAuth() {}
 
     @Get('facebook/callback')
     @UseGuards(AuthGuard('facebook'))

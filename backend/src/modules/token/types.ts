@@ -3,5 +3,4 @@ export interface JwtPayload {
     email: string;
     roles: string[];
     sex: string;
-    avatar: string;
 }

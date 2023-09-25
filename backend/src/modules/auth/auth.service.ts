@@ -48,7 +48,6 @@ export class AuthService {
             email: user.email,
             roles: user.roles.map(({ name }) => name),
             sex: user.sex?.name,
-            avatar: user.avatar,
         };
 
         const refreshToken = await this.tokenService.generateJwtToken(
@@ -94,7 +93,6 @@ export class AuthService {
                 email: userEntity.email,
                 roles: userEntity.roles.map(({ name }) => name),
                 sex: userEntity.sex?.name,
-                avatar: userEntity.avatar,
             },
             +this.configService.get(EnvFields.EXPIRE_REFRESH_JWT),
         );
@@ -123,7 +121,6 @@ export class AuthService {
                 email: userEntity.email,
                 roles: userEntity.roles.map(({ name }) => name),
                 sex: userEntity.sex?.name,
-                avatar: userEntity.avatar,
             },
             +this.configService.get(EnvFields.EXPIRE_REFRESH_JWT),
         );

@@ -22,6 +22,18 @@ export class UsersService {
         private readonly dataSource: DataSource,
     ) {}
 
+    async onModuleInit() {
+        if (await this.rolesService.adminExists()) return;
+        const admin = this.usersRepository.create({
+            name: 'admin',
+            surname: 'admin',
+            email: 'admin@admin',
+            hashPassword: await this.hashPassword('root'),
+            roles: [await this.rolesService.findByName(Roles.Admin)],
+        });
+        await this.usersRepository.save(admin);
+    }
+
     private async hashPassword(password: string) {
         return bcrypt.hash(password, 10);
     }
