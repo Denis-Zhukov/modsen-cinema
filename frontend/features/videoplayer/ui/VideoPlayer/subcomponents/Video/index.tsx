@@ -1,8 +1,9 @@
 import React, { forwardRef } from 'react';
 
+import { useToggleFullscreen } from '@/features/videoplayer/model/hooks/useToggleFullscreen';
+import { useTogglePlaying } from '@/features/videoplayer/model/hooks/useTogglePlaying';
+
 import { SET_PLAYING, useVideoPlayerContext } from '../../context';
-import { useToggleFullscreen } from '../../hooks/useToggleFullscreen';
-import { useTogglePlaying } from '../../hooks/useTogglePlaying';
 
 type Props = {
     src: string,

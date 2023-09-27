@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import { useVideoPlayerContext } from '@/shared/ui/VideoPlayer/context';
+import { useVideoPlayerContext } from '@/features/videoplayer/ui/VideoPlayer/context';
 
 export const useInitTimeUtils = () => {
     const { state: { videoRef } } = useVideoPlayerContext();

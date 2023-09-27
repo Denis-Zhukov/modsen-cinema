@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
 
-import { useVideoPlayerContext } from '@/shared/ui/VideoPlayer/context';
-import { useToggleFullscreen } from '@/shared/ui/VideoPlayer/hooks/useToggleFullscreen';
-import { useToggleMute } from '@/shared/ui/VideoPlayer/hooks/useToggleMute';
-import { useTogglePlaying } from '@/shared/ui/VideoPlayer/hooks/useTogglePlaying';
+import { useVideoPlayerContext } from '@/features/videoplayer/ui/VideoPlayer/context';
+
+import { useToggleFullscreen } from './useToggleFullscreen';
+import { useToggleMute } from './useToggleMute';
+import { useTogglePlaying } from './useTogglePlaying';
 
 export const useBindHotKeys = () => {
     const { state: { videoRef } } = useVideoPlayerContext();

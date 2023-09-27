@@ -1,11 +1,11 @@
 import { useTranslations } from 'next-intl';
 import React from 'react';
 
+import { VideoPlayer } from '@/features/videoplayer/ui/VideoPlayer';
 import { FilmService } from '@/shared/api/services/FilmService';
 import { Urls } from '@/shared/config/constants/Urls';
 import { constFade } from '@/shared/lib/animations';
 import { nunitoSansFont } from '@/shared/lib/fonts';
-import { VideoPlayer } from '@/shared/ui/VideoPlayer';
 
 import {
     StyledText,

@@ -2,8 +2,9 @@ import type { ChangeEvent } from 'react';
 import { useEffect, useState } from 'react';
 import { BsFillVolumeMuteFill, BsFillVolumeUpFill } from 'react-icons/bs';
 
+import { useToggleMute } from '@/features/videoplayer/model/hooks/useToggleMute';
+
 import { useVideoPlayerContext } from '../../context';
-import { useToggleMute } from '../../hooks/useToggleMute';
 import { StyledVolumeBar } from './styled';
 
 export const VolumeBar = () => {

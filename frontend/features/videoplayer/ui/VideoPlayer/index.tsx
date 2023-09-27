@@ -2,11 +2,11 @@
 
 import { AnimatePresence } from 'framer-motion';
 import {
-    ForwardedRef,
-    forwardRef,
     MutableRefObject, useCallback, useEffect, useMemo, useReducer, useRef,
 } from 'react';
 
+import { useBindHotKeys } from '@/features/videoplayer/model/hooks/useBindHotKeys';
+import { useShowControls } from '@/features/videoplayer/model/hooks/useShowControls';
 import { Modal } from '@/shared/ui/Modal';
 
 import {
@@ -14,8 +14,6 @@ import {
     useVideoPlayerContext,
     VideoPlayerContext,
 } from './context';
-import { useBindHotKeys } from './hooks/useBindHotKeys';
-import { useShowControls } from './hooks/useShowControls';
 import { StyledPreview, StyledVideoWrapper } from './styled';
 import { CentralPlayButton } from './subcomponents/CentralPlayButton';
 import { ControlBar } from './subcomponents/ControlBar';

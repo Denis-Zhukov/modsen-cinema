@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-import { useVideoPlayerContext } from '@/shared/ui/VideoPlayer/context';
+import { useVideoPlayerContext } from '@/features/videoplayer/ui/VideoPlayer/context';
 
 export const useToggleMute = (setValue?: (volume: number) => void) => {
     const { state: { videoRef } } = useVideoPlayerContext();

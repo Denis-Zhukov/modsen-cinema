@@ -1,11 +1,11 @@
 import type { MouseEvent } from 'react';
 import { useCallback, useMemo } from 'react';
-import { poppinsFont } from 'shared/lib/fonts';
 
+import { useInitTimeUtils } from '@/features/videoplayer/model/hooks/useInitTimeUtils';
+import { poppinsFont } from '@/shared/lib/fonts';
 import { DateTimeUtils } from '@/shared/lib/utils/DateTimeUtils';
 
 import { useVideoPlayerContext } from '../../context';
-import { useInitTimeUtils } from '../../hooks/useInitTimeUtils';
 import {
     StyledPreloadedTimeBar,
     StyledProgressTimeBar,

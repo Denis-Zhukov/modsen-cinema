@@ -1,9 +1,9 @@
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 
+import { VideoPlayer } from '@/features/videoplayer/ui/VideoPlayer';
 import { fade } from '@/shared/lib/animations';
 import { poppinsFont } from '@/shared/lib/fonts';
-import { VideoPlayer } from '@/shared/ui/VideoPlayer';
 
 import { StyledTrailerBlock } from './styled';
 

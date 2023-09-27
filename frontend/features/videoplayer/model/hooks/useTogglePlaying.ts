@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-import { TOGGLE_PLAYING, useVideoPlayerContext } from '@/shared/ui/VideoPlayer/context';
+import { TOGGLE_PLAYING, useVideoPlayerContext } from '@/features/videoplayer/ui/VideoPlayer/context';
 
 export const useTogglePlaying = () => {
     const { state: { videoRef }, dispatch } = useVideoPlayerContext();
