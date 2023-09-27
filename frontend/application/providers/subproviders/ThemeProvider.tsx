@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { ThemeProvider as StyledComponentsThemeProvider } from 'styled-components';
 
-import { darkTheme, lightTheme } from '@/shared/config/constants/Themes';
+import { darkTheme, lightTheme } from '@/application/Themes';
 import { useAppSelector } from '@/shared/lib/hooks/redux-hooks';
 import { selectTheme } from '@/shared/model/store/selectors/theme.selectors';
 

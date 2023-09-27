@@ -12,6 +12,9 @@ export const NavItem = ({
     path: string,
     children: string,
 }) => {
+    // An active menu item needs to be identified. Due to localization, there may be a part of
+    // the path, such as "/ru/.." or "/en/..," which could prevent this from happening.
+    // Therefore, it is necessary to remove the part that determines the localization in the URL.
     const pathname = usePathname()!.replace(/^\/(en|ru)\/?/i, '/');
 
     return (

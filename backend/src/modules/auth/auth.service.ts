@@ -21,11 +21,6 @@ export class AuthService {
         private readonly tokenService: TokenService,
     ) {}
 
-    async verify(token: string) {
-        const { verified } = await this.tokenService.verifyToken(token);
-        return verified;
-    }
-
     async register(dto: CreateUserDto) {
         const existedUser = await this.usersService.getByEmail(dto.email);
         if (existedUser) throw new BadRequestException(UserErrors.USER_EXIST);

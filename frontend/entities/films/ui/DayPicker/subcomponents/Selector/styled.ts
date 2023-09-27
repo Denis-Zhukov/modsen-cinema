@@ -2,7 +2,7 @@
 
 import styled, { css } from 'styled-components';
 
-import { Theme } from '@/shared/config/constants/Themes';
+import { Theme } from '@/application/Themes';
 
 export const StyledSlider = styled.div`
   display: flex;

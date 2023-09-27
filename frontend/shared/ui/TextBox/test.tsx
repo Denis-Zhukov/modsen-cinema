@@ -3,7 +3,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { Formik } from 'formik';
 import { ThemeProvider } from 'styled-components';
 
-import { darkTheme } from '@/shared/config/constants/Themes';
+import { darkTheme } from '@/application/Themes';
 
 import { TextBox } from './index';
 

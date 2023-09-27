@@ -6,6 +6,7 @@ import {
     ManyToOne,
     OneToMany,
     PrimaryGeneratedColumn,
+    Repository,
 } from 'typeorm';
 import { UsersEntity } from '../users/users.entity';
 import { ScheduleEntity } from '../schedule/schedule.entity';
@@ -50,4 +51,50 @@ export class BookingsEntity {
 
     @OneToMany(() => VisitsEntity, (visit) => visit.booking)
     visits: VisitsEntity[];
+
+    static async getUpcomingBookings(
+        userId: number,
+        bookingsRepository: Repository<BookingsEntity>,
+    ) {
+        return bookingsRepository
+            .createQueryBuilder('bookings')
+            .where('bookings.user_id = :userId', { userId })
+            .leftJoinAndSelect('bookings.schedule', 'schedule')
+            .andWhere('schedule.dateAndTime >= :now', { now: new Date() })
+            .leftJoinAndSelect('bookings.seat', 'seats')
+            .leftJoinAndSelect('schedule.film', 'films')
+            .leftJoinAndSelect('films.ratings', 'ratings')
+            .getMany();
+    }
+
+    static async getVisitedBookings(
+        userId: number,
+        bookingsRepository: Repository<BookingsEntity>,
+    ) {
+        return bookingsRepository
+            .createQueryBuilder('bookings')
+            .where('bookings.user_id = :userId', { userId })
+            .innerJoinAndSelect('bookings.visits', 'visits')
+            .leftJoinAndSelect('bookings.schedule', 'schedule')
+            .leftJoinAndSelect('bookings.seat', 'seats')
+            .leftJoinAndSelect('schedule.film', 'films')
+            .leftJoinAndSelect('films.ratings', 'ratings')
+            .getMany();
+    }
+
+    static async getMissingBookings(
+        userId: number,
+        bookingsRepository: Repository<BookingsEntity>,
+    ) {
+        return bookingsRepository
+            .createQueryBuilder('bookings')
+            .where('bookings.user_id = :userId', { userId })
+            .leftJoinAndSelect('bookings.schedule', 'schedule')
+            .andWhere('schedule.dateAndTime < :now', { now: new Date() })
+            .leftJoinAndSelect('bookings.visits', 'visits')
+            .leftJoinAndSelect('bookings.seat', 'seats')
+            .leftJoinAndSelect('schedule.film', 'films')
+            .leftJoinAndSelect('films.ratings', 'ratings')
+            .getMany();
+    }
 }

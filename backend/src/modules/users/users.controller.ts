@@ -25,6 +25,7 @@ import { ApiBearerAuth, ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UsersEntity } from './users.entity';
 import { NotFound } from '../../utils/responses/not-found';
 import { UpdateProfile } from './swagger/update-profile';
+import { JwtPayload } from '../token/types';
 
 @ApiTags('Users')
 @Controller('users')
@@ -67,8 +68,7 @@ export class UsersController {
         avatar: Express.Multer.File,
         @Req() req: Request,
     ) {
-        const token = req.headers.authorization.split(' ')[1];
-        const user = await this.tokenService.verifyToken(token);
-        return this.service.updateProfile(user.payload.id, avatar, dto);
+        const user = req.user as JwtPayload;
+        return this.service.updateProfile(user.id, avatar, dto);
     }
 }

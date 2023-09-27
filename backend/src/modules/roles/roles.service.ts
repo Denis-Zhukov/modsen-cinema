@@ -24,10 +24,10 @@ export class RolesService implements OnModuleInit {
     }
 
     async adminExists() {
-        const user = await this.repository.findOne({
+        const role = await this.repository.findOne({
             where: { name: Roles.Admin },
             relations: ['users'],
         });
-        return !!user.users.length;
+        return !!role?.users.length;
     }
 }

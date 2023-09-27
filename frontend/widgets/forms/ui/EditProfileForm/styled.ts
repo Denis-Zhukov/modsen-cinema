@@ -3,7 +3,7 @@
 import { Field, Form } from 'formik';
 import styled from 'styled-components';
 
-import type { Theme } from '@/shared/config/constants/Themes';
+import type { Theme } from '@/application/Themes';
 
 export const StyledForm = styled(Form)`
   display: flex;

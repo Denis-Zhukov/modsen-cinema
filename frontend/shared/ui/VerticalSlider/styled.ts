@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import styled, { css } from 'styled-components';
 
-import type { Theme } from '@/shared/config/constants/Themes';
+import type { Theme } from '@/application/Themes';
 
 export const StyledText = styled(motion.h2)<Theme>`
   color: ${({ theme: { text: { main } } }) => main};

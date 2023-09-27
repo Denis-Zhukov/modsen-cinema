@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { CiSettings } from 'react-icons/ci';
 import styled from 'styled-components';
 
-import { Theme } from '@/shared/config/constants/Themes';
+import { Theme } from '@/application/Themes';
 
 export const StyledHeaderWrapper = styled.div<Theme>`
   transition: background-color .5s ease-in-out;

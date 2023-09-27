@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
-import { Theme } from '@/shared/config/constants/Themes';
+import { Theme } from '@/application/Themes';
 
 export const StyledTitle = styled(motion.h2)<Theme>`
   margin: 70px 0 50px 0;

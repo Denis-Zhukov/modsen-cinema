@@ -18,6 +18,7 @@ import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { BookingsEntity } from './bookings.entity';
 import { MyBookings } from './swagger/my-bookings';
 import { CancelFailed } from './swagger/cancel-failed';
+import { JwtPayload } from '../token/types';
 
 @ApiTags('Bookings')
 @Controller('bookings')
@@ -38,13 +39,8 @@ export class BookingsController {
     @Post()
     @UseGuards(JwtAuthGuard)
     async book(@Body() dto: BookDto, @Req() req: Request) {
-        const token = req.headers.authorization.split(' ')[1];
-        const user = await this.tokenService.verifyToken(token);
-        return this.bookingsService.book(
-            user.payload.id,
-            dto.scheduleId,
-            dto.seatIds,
-        );
+        const user = req.user as JwtPayload;
+        return this.bookingsService.book(user.id, dto.scheduleId, dto.seatIds);
     }
 
     @ApiResponse({ status: 200, type: MyBookings })
@@ -52,9 +48,8 @@ export class BookingsController {
     @Get('/my-upcoming-bookings')
     @UseGuards(JwtAuthGuard)
     async getUserUpcomingBooking(@Req() req: Request) {
-        const token = req.headers.authorization.split(' ')[1];
-        const user = await this.tokenService.verifyToken(token);
-        return this.bookingsService.getUpcomingBookings(user.payload.id);
+        const user = req.user as JwtPayload;
+        return this.bookingsService.getUpcomingBookings(user.id);
     }
 
     @ApiResponse({ status: 200, type: MyBookings })
@@ -62,9 +57,8 @@ export class BookingsController {
     @Get('/my-visited-bookings')
     @UseGuards(JwtAuthGuard)
     async getUserVisitedBooking(@Req() req: Request) {
-        const token = req.headers.authorization.split(' ')[1];
-        const user = await this.tokenService.verifyToken(token);
-        return this.bookingsService.getVisitedBookings(user.payload.id);
+        const user = req.user as JwtPayload;
+        return this.bookingsService.getVisitedBookings(user.id);
     }
 
     @ApiResponse({ status: 200, type: MyBookings })
@@ -72,9 +66,8 @@ export class BookingsController {
     @Get('/my-missing-bookings')
     @UseGuards(JwtAuthGuard)
     async getUserMissingBooking(@Req() req: Request) {
-        const token = req.headers.authorization.split(' ')[1];
-        const user = await this.tokenService.verifyToken(token);
-        return this.bookingsService.getMissingBookings(user.payload.id);
+        const user = req.user as JwtPayload;
+        return this.bookingsService.getMissingBookings(user.id);
     }
 
     @ApiResponse({ status: 201, type: [BookingsEntity] })
@@ -86,8 +79,7 @@ export class BookingsController {
         @Param('id', ParseIntPipe) scheduleId: number,
         @Req() req: Request,
     ) {
-        const token = req.headers.authorization.split(' ')[1];
-        const user = await this.tokenService.verifyToken(token);
-        return this.bookingsService.cancelBookings(user.payload.id, scheduleId);
+        const user = req.user as JwtPayload;
+        return this.bookingsService.cancelBookings(user.id, scheduleId);
     }
 }

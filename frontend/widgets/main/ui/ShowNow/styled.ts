@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
-import { Theme } from '@/shared/config/constants/Themes';
+import { Theme } from '@/application/Themes';
 
 export const StyledShowNow = styled.div`
   display: grid;

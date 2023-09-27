@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import styled from 'styled-components';
 
-import { Theme } from '@/shared/config/constants/Themes';
+import { Theme } from '@/application/Themes';
 
 export const StyledFooterWrapper = styled.div<Theme>`
   transition: background-color .5s ease-in-out, color .5s ease-in-out;

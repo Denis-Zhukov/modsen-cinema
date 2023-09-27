@@ -103,7 +103,10 @@ export class AuthController {
         };
         const refreshToken = await this.service.oauth(name, surname, email);
         res.cookie(CookieFields.REFRESH_TOKEN, refreshToken);
-        res.redirect(req.get('referer'));
+
+        const returnUri = req.get('referer') || req.cookies['from'];
+        res.clearCookie('from');
+        res.redirect(returnUri);
     }
 
     @Get('google/callback')

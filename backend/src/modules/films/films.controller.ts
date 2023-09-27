@@ -29,6 +29,7 @@ import { FilmsEntity } from './films.entity';
 import { AddFilmError } from './swagger/add-film-error';
 import { NotFound } from '../../utils/responses/not-found';
 import { GetMainError } from './swagger/get-main-error';
+import { FileFields } from '../../utils/file-fields';
 
 @ApiTags('Films')
 @Controller('films')
@@ -52,8 +53,8 @@ export class FilmsController {
     @UseInterceptors(
         FileFieldsInterceptor(
             [
-                { name: 'trailer', maxCount: 1 },
-                { name: 'preview', maxCount: 1 },
+                { name: FileFields.Trailer, maxCount: 1 },
+                { name: FileFields.Preview, maxCount: 1 },
             ],
             {
                 fileFilter,

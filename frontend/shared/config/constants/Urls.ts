@@ -10,7 +10,7 @@ export const Urls = {
     MAIN_TRAILER: `${BASE_URL}/${BackendEndpoints.MAIN_TRAILER}`,
     MAIN_FILM: `${BASE_API_URL}/${BackendEndpoints.MAIN_FILM}`,
     LOGIN: `${BASE_API_URL}/${BackendEndpoints.LOGIN}`,
-    LOGIN_GOOGLE: `${BASE_API_URL}/${BackendEndpoints.LOGIN_GOOGLE}`,
+    LOGIN_GOOGLE: `${BASE_API_URL}/${BackendEndpoints.LOGIN_GOOGLE}?returnUrl=localhost123`,
     LOGIN_FACEBOOK: `${BASE_API_URL}/${BackendEndpoints.LOGIN_FACEBOOK}`,
     LOGIN_GITHUB: `${BASE_API_URL}/${BackendEndpoints.LOGIN_GITHUB}`,
     REFRESH: `${BASE_API_URL}/${BackendEndpoints.REFRESH}`,

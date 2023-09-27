@@ -2,8 +2,8 @@
 
 import styled from 'styled-components';
 
+import { Theme } from '@/application/Themes';
 import { Colors } from '@/shared/config/constants/Colors';
-import { Theme } from '@/shared/config/constants/Themes';
 
 export const StyledNotFound = styled.div<Theme>`
   display: flex;

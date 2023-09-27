@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { Theme } from '@/shared/config/constants/Themes';
+import { Theme } from '@/application/Themes';
 
 export const StyledTextBox = styled.div<Theme>`
   display: flex;

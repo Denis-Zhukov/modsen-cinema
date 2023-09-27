@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
-import { Theme } from '@/shared/config/constants/Themes';
+import { Theme } from '@/application/Themes';
 
 export const StyledTimes = styled.div`
   width: min(1000px, 100% - 200px);

@@ -16,7 +16,7 @@ import { useCreateQueryPath } from '@/shared/lib/hooks/useCreateQueryPath';
 import { useInitForm } from '@/shared/lib/hooks/useInitForm';
 import { useSwitchForm } from '@/shared/lib/hooks/useSwitchForm';
 import { ErrorUtils } from '@/shared/lib/utils/ErrorUtils';
-import { toastError, toastSuccess } from '@/shared/lib/utils/toast';
+import { toastError, toastSuccess } from '@/shared/lib/utils/ToastUtils';
 import { useRegisterMutation } from '@/shared/model/store/rtk/auth.rtk';
 import { RegisterRequest } from '@/shared/model/store/rtk/typing/requests/RegisterRequest';
 import { Loader } from '@/shared/ui/Loader';

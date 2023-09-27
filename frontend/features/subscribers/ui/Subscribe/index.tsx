@@ -7,7 +7,7 @@ import { BsFillSendFill } from 'react-icons/bs';
 
 import { Notice } from '@/shared/config/constants/Notice';
 import { ErrorUtils } from '@/shared/lib/utils/ErrorUtils';
-import { toastError, toastSuccess } from '@/shared/lib/utils/toast';
+import { toastError, toastSuccess } from '@/shared/lib/utils/ToastUtils';
 import { useSubscribeMutation } from '@/shared/model/store/rtk/subscribe.rtk';
 
 import { validationSchema } from '../../model/validations';

@@ -17,7 +17,7 @@ import { useActions } from '@/shared/lib/hooks/useActions';
 import { useCreateQueryPath } from '@/shared/lib/hooks/useCreateQueryPath';
 import { useInitForm } from '@/shared/lib/hooks/useInitForm';
 import { useSwitchForm } from '@/shared/lib/hooks/useSwitchForm';
-import { toastError, toastSuccess } from '@/shared/lib/utils/toast';
+import { toastError, toastSuccess } from '@/shared/lib/utils/ToastUtils';
 import { LoginRequest } from '@/shared/model/store/rtk/typing/requests/LoginRequest';
 import { selectAuth } from '@/shared/model/store/selectors/auth.selectors';
 import { Loader } from '@/shared/ui/Loader';

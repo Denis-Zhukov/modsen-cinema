@@ -11,7 +11,7 @@ import { Notice } from '@/shared/config/constants/Notice';
 import { poppinsFont } from '@/shared/lib/fonts';
 import { useAppSelector } from '@/shared/lib/hooks/redux-hooks';
 import { useInitForm } from '@/shared/lib/hooks/useInitForm';
-import { toastSuccess } from '@/shared/lib/utils/toast';
+import { toastSuccess } from '@/shared/lib/utils/ToastUtils';
 import { useUpdateProfileMutation } from '@/shared/model/store/rtk/user.rtk';
 import { selectAuth } from '@/shared/model/store/selectors/auth.selectors';
 import { Modal } from '@/shared/ui/Modal';

@@ -8,7 +8,7 @@ import { Notice } from '@/shared/config/constants/Notice';
 import { slideLeft } from '@/shared/lib/animations';
 import { poppinsFont } from '@/shared/lib/fonts';
 import { ErrorUtils } from '@/shared/lib/utils/ErrorUtils';
-import { toastError } from '@/shared/lib/utils/toast';
+import { toastError } from '@/shared/lib/utils/ToastUtils';
 import type {
     GetMyBookingsResponse,
 } from '@/shared/model/store/rtk/typing/responses/GetMyBookingsResponse';

@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
 import { Colors } from '@/shared/config/constants/Colors';
-import { Theme } from '@/shared/config/constants/Themes';
+import { Theme } from '@/application/Themes';
 
 export const StyledScheduleCard = styled(motion.div)<Theme & { $active?: boolean }>`
   display: flex;

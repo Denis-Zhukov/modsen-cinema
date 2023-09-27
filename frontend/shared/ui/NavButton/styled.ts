@@ -2,7 +2,7 @@ import Link from 'next/link';
 import styled, { css } from 'styled-components';
 
 import { Colors } from '@/shared/config/constants/Colors';
-import { Theme } from '@/shared/config/constants/Themes';
+import { Theme } from '@/application/Themes';
 
 import { VariantButton } from './types';
 

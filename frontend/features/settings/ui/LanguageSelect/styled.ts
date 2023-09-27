@@ -3,7 +3,7 @@
 import Link from 'next-intl/link';
 import styled from 'styled-components';
 
-import type { Theme } from '@/shared/config/constants/Themes';
+import type { Theme } from '@/application/Themes';
 
 export const StyledLanguageSelect = styled.div`
   display: flex;

@@ -36,7 +36,7 @@ export const Header = () => {
     return (
         <StyledHeaderWrapper className={poppinsFont.className}>
             <StyledHeader>
-                <Link href="/">
+                <Link href={Routes.Home}>
                     <StyledLogo
                         src={Logo}
                         alt="modsen-logo"

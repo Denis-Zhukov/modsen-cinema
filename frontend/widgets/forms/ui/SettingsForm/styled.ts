@@ -2,7 +2,7 @@
 
 import styled from 'styled-components';
 
-import type { Theme } from '@/shared/config/constants/Themes';
+import type { Theme } from '@/application/Themes';
 
 export const StyledSettingsForm = styled.div`
     display: flex;

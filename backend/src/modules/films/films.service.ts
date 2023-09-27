@@ -5,6 +5,7 @@ import { FilmsEntity } from './films.entity';
 import { AddFilmDto } from './dto/add-film.dto';
 import { UserReviewsService } from '../user-reviews/user-reviews.service';
 import { ScheduleService } from '../schedule/schedule.service';
+import { calculateFilmRating } from '../../utils/calculate/calculate-film-rating';
 
 @Injectable()
 export class FilmsService {
@@ -53,9 +54,11 @@ export class FilmsService {
                 await this.repository.find({ take: 1, select: { slug: true } })
             )?.[0];
 
+        const rating = calculateFilmRating(ratings);
+
         return {
             ...film,
-            rating: ratings?.reduce((acc, { rate }) => acc + rate, 0) ?? 0,
+            rating,
             next: nextFilm.slug,
             available,
         };

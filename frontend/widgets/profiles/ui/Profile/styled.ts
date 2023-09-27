@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { BsArrowDown } from 'react-icons/bs';
 import styled from 'styled-components';
 
-import { Theme } from '@/shared/config/constants/Themes';
+import { Theme } from '@/application/Themes';
 
 export const StyledProfile = styled(motion.div)<Theme>`
   display: flex;

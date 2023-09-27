@@ -2,7 +2,7 @@
 
 import styled from 'styled-components';
 
-import { Theme } from '@/shared/config/constants/Themes';
+import { Theme } from '@/application/Themes';
 
 export const StyledMain = styled.div`
   display: flex;

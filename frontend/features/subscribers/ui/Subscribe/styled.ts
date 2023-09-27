@@ -4,7 +4,7 @@ import { Form } from 'formik';
 import styled from 'styled-components';
 
 import { Colors } from '@/shared/config/constants/Colors';
-import type { Theme } from '@/shared/config/constants/Themes';
+import type { Theme } from '@/application/Themes';
 
 export const StyledSubscribe = styled(Form)<Theme>`
   display: flex;

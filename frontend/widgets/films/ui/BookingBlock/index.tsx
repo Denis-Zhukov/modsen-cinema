@@ -19,7 +19,7 @@ import { useAppSelector } from '@/shared/lib/hooks/redux-hooks';
 import { useSwitchForm } from '@/shared/lib/hooks/useSwitchForm';
 import { DateTimeUtils } from '@/shared/lib/utils/DateTimeUtils';
 import { TextUtils } from '@/shared/lib/utils/TextUtils';
-import { toastError, toastSuccess } from '@/shared/lib/utils/toast';
+import { toastError, toastSuccess } from '@/shared/lib/utils/ToastUtils';
 import { useBookMutation } from '@/shared/model/store/rtk/booking.rtk';
 import { useGetScheduleByMonthDayQuery } from '@/shared/model/store/rtk/film.rtk';
 import { selectIsAuth } from '@/shared/model/store/selectors/auth.selectors';

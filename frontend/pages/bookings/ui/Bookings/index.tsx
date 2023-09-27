@@ -12,7 +12,7 @@ import { Urls } from '@/shared/config/constants/Urls';
 import { fade } from '@/shared/lib/animations';
 import { useAppSelector } from '@/shared/lib/hooks/redux-hooks';
 import { ErrorUtils } from '@/shared/lib/utils/ErrorUtils';
-import { toastError, toastSuccess } from '@/shared/lib/utils/toast';
+import { toastError, toastSuccess } from '@/shared/lib/utils/ToastUtils';
 import {
     useCancelBookingsMutation,
     useGetMyMissingBookingQuery,
