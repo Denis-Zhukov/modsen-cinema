@@ -27,7 +27,6 @@
     "color-thief-node": "^1.0.4",
     "formik": "^2.4.3",
     "framer-motion": "^10.16.1",
-    "monema-ui": "^0.0.7",
     "next": "13.4.11",
     "next-intl": "3.0.0-beta.12",
     "normalize.css": "^8.0.1",

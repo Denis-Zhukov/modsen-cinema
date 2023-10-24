@@ -1,37 +1,39 @@
 import { motion } from 'framer-motion';
-import { Button } from 'monema-ui';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import React from 'react';
 
 import { fade, slideLeft, slideRight } from '@/shared/lib/animations';
 import { nunitoSansFont, poppinsFont } from '@/shared/lib/fonts';
+import { Button } from '@/shared/ui';
 
 import Arrow from './images/arrow.png';
 import Star from './images/star.png';
 import {
-    MImage, MLink,
+    MImage,
+    MLink,
     StyledBookingBlock,
     StyledDescription,
-    StyledFilmInfo, StyledInfo,
+    StyledFilmInfo,
+    StyledInfo,
     StyledInfoBlock,
     StyledNextFilm,
     StyledTopBlock,
 } from './styled';
 
 type Props = {
-    name: string,
-    year: number,
-    country: string | null,
-    genres: string[],
-    author: string | null,
-    actors: string[],
-    image: string,
-    description: string,
-    rating: number,
-    bookClick?: () => void
-    nextFilm: string
-    availableToBooking: boolean
+    name: string;
+    year: number;
+    country: string | null;
+    genres: string[];
+    author: string | null;
+    actors: string[];
+    image: string;
+    description: string;
+    rating: number;
+    bookClick?: () => void;
+    nextFilm: string;
+    availableToBooking: boolean;
 };
 
 export const FilmInfo = ({
@@ -61,7 +63,8 @@ export const FilmInfo = ({
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true }}
-                >{name}
+                >
+                    {name}
                 </motion.h1>
                 <StyledNextFilm href="#" className={poppinsFont.className}>
                     <MLink
@@ -72,7 +75,7 @@ export const FilmInfo = ({
                         viewport={{ once: true }}
                     >
                         <span>{t('nextMovie')}</span>
-                        <Image src={Arrow} alt="Next"/>
+                        <Image src={Arrow} alt="Next" />
                     </MLink>
                 </StyledNextFilm>
             </StyledTopBlock>
@@ -146,14 +149,30 @@ export const FilmInfo = ({
                         viewport={{ once: true }}
                     >
                         <Button
-                            style={availableToBooking ? undefined : { cursor: 'not-allowed' }}
-                            variant={availableToBooking ? 'primary' : 'secondary'}
+                            style={
+                                availableToBooking
+                                    ? undefined
+                                    : { cursor: 'not-allowed' }
+                            }
+                            variant={
+                                availableToBooking ? 'primary' : 'secondary'
+                            }
                             onClick={availableToBooking ? bookClick : undefined}
-                        >{availableToBooking ? t('bookNow') : t('comingSoon')}
+                        >
+                            {availableToBooking
+                                ? t('bookNow')
+                                : t('comingSoon')}
                         </Button>
                         <div>
-                            <span className={poppinsFont.className}>{rating}</span>
-                            <Image src={Star} alt="Star" width={39} height={38}/>
+                            <span className={poppinsFont.className}>
+                                {rating}
+                            </span>
+                            <Image
+                                src={Star}
+                                alt="Star"
+                                width={39}
+                                height={38}
+                            />
                         </div>
                     </StyledBookingBlock>
                 </StyledInfo>
