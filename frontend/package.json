@@ -13,7 +13,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "./setup.sh && next build",
     "test:jest": "jest --watch",
     "test:e2e": "cypress open",
     "test:cypress": "start-server-and-test dev http://localhost:3000",
