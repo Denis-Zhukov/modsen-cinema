@@ -5,7 +5,6 @@ import { useTranslations } from 'next-intl';
 import { useCallback, useEffect } from 'react';
 
 import { MBookingCard } from '@/entities/bookings/ui/BookingCard';
-import { StyledBookings } from '@/pages/bookings/ui/Bookings/styled';
 import { Forms } from '@/shared/config/constants/Forms';
 import { Notice } from '@/shared/config/constants/Notice';
 import { Urls } from '@/shared/config/constants/Urls';
@@ -21,6 +20,8 @@ import {
 } from '@/shared/model/store/rtk/booking.rtk';
 import { selectAuth } from '@/shared/model/store/selectors/auth.selectors';
 import { BookingsSection } from '@/widgets/films/ui/BookingsSection';
+
+import { StyledBookings } from './styled';
 
 export const Bookings = () => {
     const t = useTranslations('bookings');

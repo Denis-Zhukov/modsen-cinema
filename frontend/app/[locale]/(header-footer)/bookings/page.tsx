@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 
-import { Bookings } from '@/pages/bookings';
+import { Bookings } from '@/app-pages/bookings';
 
 import Loading from './loading';
 

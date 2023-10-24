@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 
-import { Film } from '@/pages/films';
+import { Film } from '@/app-pages/films';
 import { FilmService } from '@/shared/api/services/FilmService';
 
 import Loading from './loading';

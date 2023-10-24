@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 
-import { Main } from '@/pages/main';
+import { Main } from '@/app-pages/main';
 
 import Loading from './loading';
 

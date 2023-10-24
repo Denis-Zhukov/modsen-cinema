@@ -1,5 +1,6 @@
-import { StyledError } from '@/pages/error/ui/Error/styled';
 import { nunitoSansFont } from '@/shared/lib/fonts';
+
+import { StyledError } from './styled';
 
 export const Error = () => (
     <StyledError className={nunitoSansFont.className}>

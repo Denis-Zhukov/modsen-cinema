@@ -1,6 +1,7 @@
 'use client';
 
-import styled from '@/node_modules/styled-components';
+import styled from 'styled-components';
+
 import { Colors } from '@/shared/config/constants/Colors';
 
 export const StyledTitle = styled.h3`

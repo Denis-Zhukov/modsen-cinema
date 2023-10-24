@@ -1,7 +1,8 @@
 import { Studios } from '@/entities/main';
-import { StyledMain, StyledYearText } from '@/pages/main/ui/Main/styled';
 import { poppinsFont } from '@/shared/lib/fonts';
 import { ShowNow, Trailer } from '@/widgets/main';
+
+import { StyledMain, StyledYearText } from './styled';
 
 export const Main = () => (
     <StyledMain>

@@ -1,3 +1,3 @@
-import { NotFound } from 'pages/not-found';
+import { NotFound } from '@/app-pages/not-found';
 
 export default NotFound;
